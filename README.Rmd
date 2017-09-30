@@ -25,10 +25,14 @@ You can install petroOne from github with:
 devtools::install_github("f0nzie/petroOne")
 ```
 
-## Example
+## Examples
 
-This is a basic example which shows you how to solve a common problem:
+### Get the number of papers for *neural networks*.
 
 ```{r example}
-## basic example code
+
+my_url <- make_search_url(query = "neural network", how = "any")
+my_url
+get_papers_count(my_url)
+# 3284
 ```
