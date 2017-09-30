@@ -8,6 +8,25 @@ make_search_url(query = NULL, start = NULL, from_year = NULL,
   peer_reviewed = NULL, published_between = NULL, rows = NULL,
   to_year = NULL, dc_type = NULL, how = "any")
 }
+\arguments{
+\item{query}{char         any words that will be searched}
+
+\item{start}{int          optional to set the starting papaper}
+
+\item{from_year}{int      optional to indicate starting year}
+
+\item{peer_reviewed}{bool optional, TRUE or FALSE}
+
+\item{published_between}{bool automatic if from_year or to_year are on}
+
+\item{rows}{int           optional. number of papers to retrieve. max=1000}
+
+\item{to_year}{int        optional to inndicate end year}
+
+\item{dc_type}{char       optional to indicate if journal, conference paper}
+
+\item{how}{char           default="any". "all" will match exact words}
+}
 \description{
 Create a URL that works in OnePetro website
 }

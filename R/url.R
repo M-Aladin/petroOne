@@ -22,6 +22,12 @@ send_url <- function(url, how = "any") {
   read_html(url)
 }
 
+
+#' @title Read OnePetro web page given a query URL
+#' @description Read a OnePetro webpage using a query URL. Uses xml2
+#' function read_html
+#' @param url char a query URL for OnePetro
+#' @rdname read_onepetro
 #' @importFrom xml2 read_html
 #' @export
 read_onepetro <- function(url) {
@@ -30,6 +36,12 @@ read_onepetro <- function(url) {
 }
 
 
+#' @title Number of paper for a given query
+#' @description Obtains the number of papers being queried by the URL
+#' @param url char a query URL for OnePetro
+#' @rdname get_papers_count
+#' @importFrom magrittr %>%
+#' @importFrom rvest html_nodes html_text
 #' @export
 get_papers_count <- function(url) {
   # result <- send_url(url)
@@ -48,7 +60,15 @@ get_papers_count <- function(url) {
 
 
 
-
+#' @param query char         any words that will be searched
+#' @param start int          optional to set the starting papaper
+#' @param from_year int      optional to indicate starting year
+#' @param peer_reviewed     bool optional, TRUE or FALSE
+#' @param published_between bool automatic if from_year or to_year are on
+#' @param rows int           optional. number of papers to retrieve. max=1000
+#' @param to_year int        optional to inndicate end year
+#' @param dc_type char       optional to indicate if journal, conference paper
+#' @param how char           default="any". "all" will match exact words
 #' @title Make a search URL for OnePetro
 #' @description Create a URL that works in OnePetro website
 #' @export
@@ -157,7 +177,7 @@ make_search_url <- function(query = NULL, start = NULL, from_year = NULL,
 }
 
 
-
+#' @importFrom rvest html_nodes html_text
 read_titles <- function(webpage) {
 
     # title
@@ -179,6 +199,7 @@ read_titles <- function(webpage) {
     return(title_data)
 }
 
+#' @importFrom rvest html_nodes html_text
 read_sources <- function(webpage) {
     # year, paper id, institution, type, year
     # .result-item-source
@@ -204,6 +225,7 @@ read_sources <- function(webpage) {
     source_data
 }
 
+#' @importFrom rvest html_nodes html_text
 read_author <- function(webpage) {
     # author #1
     #Using CSS selectors to scrap the rankings section

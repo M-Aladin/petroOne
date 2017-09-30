@@ -1,5 +1,6 @@
 library(rvest)
 
+#' @importFrom magrittr %>%
 publication_result_right <- function(result) {
     pub_doc <- result %>%
         html_nodes(".facet-unit-right") %>%
@@ -8,6 +9,7 @@ publication_result_right <- function(result) {
     pub_doc
 }
 
+#' @importFrom magrittr %>%
 publication_result_left <- function(result) {
     pub_doc <- result %>%
         html_nodes(".facet-unit-left") %>%
