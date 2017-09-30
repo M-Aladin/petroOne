@@ -40,6 +40,16 @@ get_papers_count(my_url)
 ### Read papers from from_year to to_year
 
 ```{r}
+# neural network papers from 1990 to 2000. Exact phrase
+my_url <- make_search_url(query = "neural network", 
+                          from_year = 1990, 
+                          to_year   = 2000, 
+                          how = "all")
+get_papers_count(my_url)
+# 510
+```
+
+```{r}
 library(petroOne)
 
 my_url <- make_search_url(query = "neural network", 
@@ -47,6 +57,7 @@ my_url <- make_search_url(query = "neural network",
                           to_year   = 1999, 
                           how = "all")
 
-
+get_papers_count(my_url)
+# 415
 onepetro_page_to_dataframe(my_url)
 ```

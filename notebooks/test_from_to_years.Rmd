@@ -5,7 +5,6 @@ output: html_notebook
 
 ```{r}
 # neural network papers from 1970 to 1980. Exact phrase
-source('./R/url.R')
 
 my_url <- make_search_url(query = "neural network", 
                           from_year = 1970, 
@@ -40,7 +39,6 @@ get_papers_count(my_url)
 ```{r}
 # Onepetro page to dataframe
 # neural network papers from 1990 to 2000. Exact phrase
-source('./R/url.R')
 
 my_url <- make_search_url(query = "neural network", 
                           from_year = 1990, 
@@ -53,7 +51,6 @@ onepetro_page_to_dataframe(my_url)
 ```{r}
 # Onepetro page to dataframe
 # neural network papers. Exact phrase
-source('./R/url.R')
 
 my_url <- make_search_url(query = "neural network", 
                           how = "all")
