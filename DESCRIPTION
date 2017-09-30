@@ -1,6 +1,6 @@
 Package: petroOne
 Type: Package
-Title: Grab Basic statistics of Papers on Oil and Gas in OnePetro website
+Title: Create Basic statistics of Papers on Oil and Gas in OnePetro website
 Version: 0.1.0
 Author: Alfonso R. Reyes <alfonso.reyes@oilgainsanalytics.com>
 Maintainer: Alfonso R. Reyes <alfonso.reyes@oilgainsanalytics.com>
@@ -11,3 +11,6 @@ License: GPL-2
 Encoding: UTF-8
 LazyData: true
 RoxygenNote: 6.0.1
+Suggests: testthat
+Imports: rvest,
+    xml2
