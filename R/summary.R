@@ -1,5 +1,6 @@
 library(rvest)
 
+#' @export
 #' @importFrom magrittr %>%
 publication_result_right <- function(result) {
     pub_doc <- result %>%
@@ -9,6 +10,7 @@ publication_result_right <- function(result) {
     pub_doc
 }
 
+#' @export
 #' @importFrom magrittr %>%
 publication_result_left <- function(result) {
     pub_doc <- result %>%
@@ -18,6 +20,8 @@ publication_result_left <- function(result) {
     pub_doc
 }
 
+
+#' @export
 summary_by_publisher <- function(x) {
     pub_vector <- get_dc_publisher(x)
     value <- extract_num_papers(pub_vector)
@@ -25,6 +29,7 @@ summary_by_publisher <- function(x) {
     data.frame(name, value, stringsAsFactors = FALSE)
 }
 
+#' @export
 summary_by_doctype <- function(x) {
     doctype_vector <- get_dctype(x)
     value <- extract_num_papers(doctype_vector)
@@ -33,6 +38,7 @@ summary_by_doctype <- function(x) {
 }
 
 
+#' @export
 summary_by_dates <- function(x) {
     pub_vector <- get_dc_issued_year(x)
     value <- extract_num_papers(pub_vector)
@@ -40,6 +46,7 @@ summary_by_dates <- function(x) {
     data.frame(name, value, stringsAsFactors = FALSE)
 }
 
+#' @export
 summary_by_publications <- function(x) {
     pub_vector <- get_s2_parent_title(x)
     value <- extract_num_papers(pub_vector)

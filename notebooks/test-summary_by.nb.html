@@ -142,7 +142,7 @@ $(document).ready(function () {
 </style>
 <script>
 $(document).ready(function () {
-  window.initializeSourceEmbed("test-html_form.Rmd");
+  window.initializeSourceEmbed("test-summary_by.Rmd");
   window.initializeCodeFolding("show" === "show");
 });
 </script>
@@ -174,41 +174,81 @@ $(document).ready(function () {
 <!-- rnb-text-begin -->
 <!-- rnb-text-end -->
 <!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxubGlicmFyeShwZXRyb09uZSlcbnF1ZXJ5IDwtIFwibmV1cmFsIG5ldHdvcmtcIlxuc2Vzc2lvbiA8LSBodG1sX3Nlc3Npb24oXCJodHRwczovL3d3dy5vbmVwZXRyby5vcmcvXCIpXG5zZXNzaW9uXG5gYGAifQ== -->
-<pre class="r"><code>library(petroOne)
-query &lt;- &quot;neural network&quot;
-session &lt;- html_session(&quot;https://www.onepetro.org/&quot;)
-session</code></pre>
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuc291cmNlKCcuL1IvdXJsLlInKVxuYGBgIn0= -->
+<pre class="r"><code>source('./R/url.R')</code></pre>
 <!-- rnb-source-end -->
-<!-- rnb-output-begin eyJkYXRhIjoiPHNlc3Npb24+IGh0dHBzOi8vd3d3Lm9uZXBldHJvLm9yZy9cbiAgU3RhdHVzOiAyMDBcbiAgVHlwZTogICB0ZXh0L2h0bWw7Y2hhcnNldD1VVEYtOFxuICBTaXplOiAgIDEzMTE0M1xuIn0= -->
-<pre><code>&lt;session&gt; https://www.onepetro.org/
-  Status: 200
-  Type:   text/html;charset=UTF-8
-  Size:   131143</code></pre>
-<!-- rnb-output-end -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuZm9ybSA8LSBodG1sX2Zvcm0oc2Vzc2lvbilbWzNdXVxuZm9ybVxuYGBgIn0= -->
-<pre class="r"><code>form &lt;- html_form(session)[[3]]
-form</code></pre>
-<!-- rnb-source-end -->
-<!-- rnb-output-begin eyJkYXRhIjoiPGZvcm0+ICdzZWFyY2gtZm9ybScgKEdFVCBodHRwczovL3d3dy5vbmVwZXRyby5vcmc6NDQzL3NlYXJjaClcbiAgPGlucHV0IHNlYXJjaD4gJ3EnOiBcbiAgPGJ1dHRvbiBzdWJtaXQ+ICc8dW5uYW1lZD5cbiAgPGlucHV0IGhpZGRlbj4gJ3BlZXJfcmV2aWV3ZWQnOiBcbiAgPGlucHV0IGhpZGRlbj4gJ3B1Ymxpc2hlZF9iZXR3ZWVuJzogXG4gIDxpbnB1dCBoaWRkZW4+ICdmcm9tX3llYXInOiBcbiAgPGlucHV0IGhpZGRlbj4gJ3RvX3llYXInOiBcbiJ9 -->
-<pre><code>&lt;form&gt; 'search-form' (GET https://www.onepetro.org:443/search)
-  &lt;input search&gt; 'q': 
-  &lt;button submit&gt; '&lt;unnamed&gt;
-  &lt;input hidden&gt; 'peer_reviewed': 
-  &lt;input hidden&gt; 'published_between': 
-  &lt;input hidden&gt; 'from_year': 
-  &lt;input hidden&gt; 'to_year': </code></pre>
+<!-- rnb-output-begin eyJkYXRhIjoiY2Fubm90IG9wZW4gZmlsZSAnLi9SL3VybC5SJzogTm8gc3VjaCBmaWxlIG9yIGRpcmVjdG9yeUVycm9yIGluIGZpbGUoZmlsZW5hbWUsIFwiclwiLCBlbmNvZGluZyA9IGVuY29kaW5nKSA6IFxuICBjYW5ub3Qgb3BlbiB0aGUgY29ubmVjdGlvblxuIn0= -->
+<pre><code>cannot open file './R/url.R': No such file or directoryError in file(filename, &quot;r&quot;, encoding = encoding) : 
+  cannot open the connection</code></pre>
 <!-- rnb-output-end -->
 <!-- rnb-chunk-end -->
 <!-- rnb-text-begin -->
 <!-- rnb-text-end -->
 <!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuZm9ybSA8LSBzZXRfdmFsdWVzKGZvcm0sIHEgPSBxdWVyeSlcbmBgYCJ9 -->
-<pre class="r"><code>form &lt;- set_values(form, q = query)</code></pre>
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuc291cmNlKCcuL1IvdXJsLlInKVxuc291cmNlKCcuL1Ivc3VtbWFyeS5SJylcblxubXlfdXJsIDwtIG1ha2Vfc2VhcmNoX3VybChxdWVyeSA9IFwic2hhbGUgb2lsXCIsIFxuICAgICAgICAgICAgICAgICAgICAgICAgICBob3cgPSBcImFsbFwiKVxuXG5yZXN1bHQgPC0gcmVhZF9odG1sKG15X3VybClcbnB1YnNfcmF3IDwtIHB1YmxpY2F0aW9uX3Jlc3VsdF9yaWdodChyZXN1bHQpXG5cbnN1bW1hcnlfYnlfZG9jdHlwZShwdWJzX3JhdylcbnN1bW1hcnlfYnlfcHVibGlzaGVyKHB1YnNfcmF3KVxuXG5gYGAifQ== -->
+<pre class="r"><code>source('./R/url.R')
+source('./R/summary.R')
+
+my_url &lt;- make_search_url(query = &quot;shale oil&quot;, 
+                          how = &quot;all&quot;)
+
+result &lt;- read_html(my_url)
+pubs_raw &lt;- publication_result_right(result)
+
+summary_by_doctype(pubs_raw)
+summary_by_publisher(pubs_raw)
+</code></pre>
 <!-- rnb-source-end -->
 <!-- rnb-chunk-end -->
+<!-- rnb-text-begin -->
+<!-- rnb-text-end -->
+<!-- rnb-chunk-begin -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuXG5yYXdfbGVmdCA8LSBwdWJsaWNhdGlvbl9yZXN1bHRfbGVmdChyZXN1bHQpXG5zdW1tYXJ5X2J5X2RhdGVzKHJhd19sZWZ0KVxuc3VtbWFyeV9ieV9wdWJsaWNhdGlvbnMocmF3X2xlZnQpXG5gYGAifQ== -->
+<pre class="r"><code>
+raw_left &lt;- publication_result_left(result)
+summary_by_dates(raw_left)
+summary_by_publications(raw_left)</code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-chunk-end -->
+<!-- rnb-text-begin -->
+<!-- rnb-text-end -->
+<!-- rnb-chunk-begin -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuc291cmNlKCcuL1IvdXJsLlInKVxuc291cmNlKCcuL1Ivc3VtbWFyeS5SJylcblxubXlfdXJsIDwtIG1ha2Vfc2VhcmNoX3VybChxdWVyeSA9IFwic2hhbGUgZ2FzXCIsIFxuICAgICAgICAgICAgICAgICAgICAgICAgICBob3cgPSBcImFsbFwiKVxuXG5yZXN1bHQgPC0gc2VuZF91cmwobXlfdXJsKVxuXG5wdWJzX3JhdyA8LSBwdWJsaWNhdGlvbl9yZXN1bHQocmVzdWx0KVxuXG5zdW1tYXJ5X2J5X2RvY3R5cGUocHVic19yYXcpXG5cbmBgYCJ9 -->
+<pre class="r"><code>source('./R/url.R')
+source('./R/summary.R')
 
-<div id="rmd-source-code">LS0tDQp0aXRsZTogIlIgTm90ZWJvb2siDQpvdXRwdXQ6IGh0bWxfbm90ZWJvb2sNCi0tLQ0KDQoNCmBgYHtyfQ0KbGlicmFyeShwZXRyb09uZSkNCg0KcXVlcnkgPC0gIm5ldXJhbCBuZXR3b3JrIg0Kc2Vzc2lvbiA8LSBodG1sX3Nlc3Npb24oImh0dHBzOi8vd3d3Lm9uZXBldHJvLm9yZy8iKQ0Kc2Vzc2lvbg0KZm9ybSA8LSBodG1sX2Zvcm0oc2Vzc2lvbilbWzNdXQ0KZm9ybQ0KYGBgDQoNCmBgYHtyfQ0KZm9ybSA8LSBzZXRfdmFsdWVzKGZvcm0sIHEgPSBxdWVyeSkNCmBgYA0K</div>
+my_url &lt;- make_search_url(query = &quot;shale gas&quot;, 
+                          how = &quot;all&quot;)
+
+result &lt;- send_url(my_url)
+
+pubs_raw &lt;- publication_result(result)
+
+summary_by_doctype(pubs_raw)
+</code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-chunk-end -->
+<!-- rnb-text-begin -->
+<!-- rnb-text-end -->
+<!-- rnb-chunk-begin -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuc291cmNlKCcuL1IvdXJsLlInKVxuc291cmNlKCcuL1Ivc3VtbWFyeS5SJylcblxubXlfdXJsIDwtIG1ha2Vfc2VhcmNoX3VybChxdWVyeSA9IFwic2hhbGUgZ2FzXCIsIFxuICAgICAgICAgICAgICAgICAgICAgICAgICBob3cgPSBcImFsbFwiKVxuXG5yZXN1bHQgPC0gc2VuZF91cmwobXlfdXJsKVxuXG5wdWJzX3JhdyA8LSBwdWJsaWNhdGlvbl9yZXN1bHQocmVzdWx0KVxuXG5zdW1tYXJ5X2J5X3B1Ymxpc2hlcihwdWJzX3JhdylcbmBgYCJ9 -->
+<pre class="r"><code>source('./R/url.R')
+source('./R/summary.R')
+
+my_url &lt;- make_search_url(query = &quot;shale gas&quot;, 
+                          how = &quot;all&quot;)
+
+result &lt;- send_url(my_url)
+
+pubs_raw &lt;- publication_result(result)
+
+summary_by_publisher(pubs_raw)</code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-chunk-end -->
+<!-- rnb-text-begin -->
+<!-- rnb-text-end -->
+
+<div id="rmd-source-code">LS0tDQp0aXRsZTogIlIgTm90ZWJvb2siDQpvdXRwdXQ6IGh0bWxfbm90ZWJvb2sNCi0tLQ0KDQpgYGB7cn0NCnNvdXJjZSgnLi9SL3VybC5SJykNCnNvdXJjZSgnLi9SL3N1bW1hcnkuUicpDQoNCm15X3VybCA8LSBtYWtlX3NlYXJjaF91cmwocXVlcnkgPSAibmV1cmFsIG5ldHdvcmsiLCANCiAgICAgICAgICAgICAgICAgICAgICAgICAgaG93ID0gImFsbCIpDQoNCnJlc3VsdCA8LSByZWFkX2h0bWwobXlfdXJsKQ0KcmF3X3JpZ2h0IDwtIHB1YmxpY2F0aW9uX3Jlc3VsdF9yaWdodChyZXN1bHQpDQpyYXdfbGVmdCA8LSBwdWJsaWNhdGlvbl9yZXN1bHRfbGVmdChyZXN1bHQpDQoNCnN1bW1hcnlfYnlfZG9jdHlwZShyYXdfcmlnaHQpDQpzdW1tYXJ5X2J5X3B1Ymxpc2hlcihyYXdfcmlnaHQpDQoNCnN1bW1hcnlfYnlfZGF0ZXMocmF3X2xlZnQpDQpzdW1tYXJ5X2J5X3B1YmxpY2F0aW9ucyhyYXdfbGVmdCkNCg0KYGBgDQoNCg0KDQpgYGB7cn0NCnNvdXJjZSgnLi9SL3VybC5SJykNCnNvdXJjZSgnLi9SL3N1bW1hcnkuUicpDQoNCm15X3VybCA8LSBtYWtlX3NlYXJjaF91cmwocXVlcnkgPSAic2hhbGUgb2lsIiwgDQogICAgICAgICAgICAgICAgICAgICAgICAgIGhvdyA9ICJhbGwiKQ0KDQpyZXN1bHQgPC0gcmVhZF9odG1sKG15X3VybCkNCnB1YnNfcmF3IDwtIHB1YmxpY2F0aW9uX3Jlc3VsdF9yaWdodChyZXN1bHQpDQoNCnN1bW1hcnlfYnlfZG9jdHlwZShwdWJzX3JhdykNCnN1bW1hcnlfYnlfcHVibGlzaGVyKHB1YnNfcmF3KQ0KDQpgYGANCg0KYGBge3J9DQoNCnJhd19sZWZ0IDwtIHB1YmxpY2F0aW9uX3Jlc3VsdF9sZWZ0KHJlc3VsdCkNCnN1bW1hcnlfYnlfZGF0ZXMocmF3X2xlZnQpDQpzdW1tYXJ5X2J5X3B1YmxpY2F0aW9ucyhyYXdfbGVmdCkNCmBgYA0KDQoNCmBgYHtyfQ0Kc291cmNlKCcuL1IvdXJsLlInKQ0Kc291cmNlKCcuL1Ivc3VtbWFyeS5SJykNCg0KbXlfdXJsIDwtIG1ha2Vfc2VhcmNoX3VybChxdWVyeSA9ICJzaGFsZSBnYXMiLCANCiAgICAgICAgICAgICAgICAgICAgICAgICAgaG93ID0gImFsbCIpDQoNCnJlc3VsdCA8LSBzZW5kX3VybChteV91cmwpDQoNCnB1YnNfcmF3IDwtIHB1YmxpY2F0aW9uX3Jlc3VsdChyZXN1bHQpDQoNCnN1bW1hcnlfYnlfZG9jdHlwZShwdWJzX3JhdykNCg0KYGBgDQoNCg0KYGBge3J9DQpzb3VyY2UoJy4vUi91cmwuUicpDQpzb3VyY2UoJy4vUi9zdW1tYXJ5LlInKQ0KDQpteV91cmwgPC0gbWFrZV9zZWFyY2hfdXJsKHF1ZXJ5ID0gInNoYWxlIGdhcyIsIA0KICAgICAgICAgICAgICAgICAgICAgICAgICBob3cgPSAiYWxsIikNCg0KcmVzdWx0IDwtIHNlbmRfdXJsKG15X3VybCkNCg0KcHVic19yYXcgPC0gcHVibGljYXRpb25fcmVzdWx0KHJlc3VsdCkNCg0Kc3VtbWFyeV9ieV9wdWJsaXNoZXIocHVic19yYXcpDQpgYGANCg0K</div>
 
 
 
