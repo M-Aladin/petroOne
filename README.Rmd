@@ -101,6 +101,7 @@ my_url <- make_search_url(query = "neural network",
                           how = "all")
 
 result <- read_onepetro(my_url)
+
 raw_right <- publication_result_right(result)
 raw_left  <- publication_result_left(result)
 
@@ -109,5 +110,14 @@ summary_by_publisher(raw_right)
 
 summary_by_dates(raw_left)
 summary_by_publications(raw_left)
+```
+
+```{r}
+publication_result_right(result)
+
+```
+
+```{r}
+publication_result_left(result)
 ```
 
