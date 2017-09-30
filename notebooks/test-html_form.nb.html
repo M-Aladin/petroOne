@@ -142,7 +142,7 @@ $(document).ready(function () {
 </style>
 <script>
 $(document).ready(function () {
-  window.initializeSourceEmbed("test_query_simple.Rmd");
+  window.initializeSourceEmbed("test-html_form.Rmd");
   window.initializeCodeFolding("show" === "show");
 });
 </script>
@@ -174,129 +174,41 @@ $(document).ready(function () {
 <!-- rnb-text-begin -->
 <!-- rnb-text-end -->
 <!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxubGlicmFyeShwZXRyb09uZSlcbmxpYnJhcnkocnZlc3QpXG5gYGAifQ== -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxubGlicmFyeShwZXRyb09uZSlcbnF1ZXJ5IDwtIFwibmV1cmFsIG5ldHdvcmtcIlxuc2Vzc2lvbiA8LSBodG1sX3Nlc3Npb24oXCJodHRwczovL3d3dy5vbmVwZXRyby5vcmcvXCIpXG5zZXNzaW9uXG5gYGAifQ== -->
 <pre class="r"><code>library(petroOne)
-library(rvest)</code></pre>
+query &lt;- &quot;neural network&quot;
+session &lt;- html_session(&quot;https://www.onepetro.org/&quot;)
+session</code></pre>
 <!-- rnb-source-end -->
-<!-- rnb-output-begin eyJkYXRhIjoiTG9hZGluZyByZXF1aXJlZCBwYWNrYWdlOiB4bWwyXG4ifQ== -->
-<pre><code>Loading required package: xml2</code></pre>
+<!-- rnb-output-begin eyJkYXRhIjoiPHNlc3Npb24+IGh0dHBzOi8vd3d3Lm9uZXBldHJvLm9yZy9cbiAgU3RhdHVzOiAyMDBcbiAgVHlwZTogICB0ZXh0L2h0bWw7Y2hhcnNldD1VVEYtOFxuICBTaXplOiAgIDEzMTE0M1xuIn0= -->
+<pre><code>&lt;session&gt; https://www.onepetro.org/
+  Status: 200
+  Type:   text/html;charset=UTF-8
+  Size:   131143</code></pre>
 <!-- rnb-output-end -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuIyB0ZXN0IGZvciBzbWFydHdlbGwgcXVlcnlcbiMgc291cmNlKCcuL1IvdXJsLlInKVxubXlfdXJsIDwtIG1ha2Vfc2VhcmNoX3VybChxdWVyeSA9IFwic21hcnR3ZWxsXCIpXG5teV91cmxcbmBgYCJ9 -->
-<pre class="r"><code># test for smartwell query
-# source('./R/url.R')
-my_url &lt;- make_search_url(query = &quot;smartwell&quot;)
-my_url</code></pre>
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuZm9ybSA8LSBodG1sX2Zvcm0oc2Vzc2lvbilbWzNdXVxuZm9ybVxuYGBgIn0= -->
+<pre class="r"><code>form &lt;- html_form(session)[[3]]
+form</code></pre>
 <!-- rnb-source-end -->
-<!-- rnb-output-begin eyJkYXRhIjoiWzFdIFwiaHR0cHM6Ly93d3cub25lcGV0cm8ub3JnL3NlYXJjaD9xPXNtYXJ0d2VsbCZwZWVyX3Jldmlld2VkPSZwdWJsaXNoZWRfYmV0d2Vlbj0mZnJvbV95ZWFyPSZ0b195ZWFyPVwiXG4ifQ== -->
-<pre><code>[1] &quot;https://www.onepetro.org/search?q=smartwell&amp;peer_reviewed=&amp;published_between=&amp;from_year=&amp;to_year=&quot;</code></pre>
-<!-- rnb-output-end -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuc21hcnR3ZWxsIDwtIHJlYWRfaHRtbChteV91cmwpXG4jIHhtbDI6OndyaXRlX2h0bWwod2VicGFnZSwgZmlsZSA9IFwic21hcnR3ZWxsLmh0bWxcIilcbnJlc3VsdHMgPC0gc21hcnR3ZWxsICU+JVxuICBodG1sX25vZGVzKFwiaDJcIikgJT4lXG4gIGh0bWxfdGV4dCgpXG5yZXN1bHRzIDwtIHJlc3VsdHNbMV1cbnJlc3VsdHNcbmBgYCJ9 -->
-<pre class="r"><code>smartwell &lt;- read_html(my_url)
-# xml2::write_html(webpage, file = &quot;smartwell.html&quot;)
-results &lt;- smartwell %&gt;%
-  html_nodes(&quot;h2&quot;) %&gt;%
-  html_text()
-results &lt;- results[1]
-results</code></pre>
-<!-- rnb-source-end -->
-<!-- rnb-output-begin eyJkYXRhIjoiWzFdIFwiU2VhcmNoIHJlc3VsdHM6IFlvdXIgc2VhcmNoIGZvciBzbWFydHdlbGwgaGFzIHJldHVybmVkIDcwIHJlc3VsdHMuXCJcbiJ9 -->
-<pre><code>[1] &quot;Search results: Your search for smartwell has returned 70 results.&quot;</code></pre>
-<!-- rnb-output-end -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuYXMubnVtZXJpYyhnc3ViKFwiW15cXFxcZF0rXCIsIFwiXCIsIHJlc3VsdHMsIHBlcmw9VFJVRSkpXG5gYGAifQ== -->
-<pre class="r"><code>as.numeric(gsub(&quot;[^\\d]+&quot;, &quot;&quot;, results, perl=TRUE))</code></pre>
-<!-- rnb-source-end -->
-<!-- rnb-output-begin eyJkYXRhIjoiWzFdIDcwXG4ifQ== -->
-<pre><code>[1] 70</code></pre>
+<!-- rnb-output-begin eyJkYXRhIjoiPGZvcm0+ICdzZWFyY2gtZm9ybScgKEdFVCBodHRwczovL3d3dy5vbmVwZXRyby5vcmc6NDQzL3NlYXJjaClcbiAgPGlucHV0IHNlYXJjaD4gJ3EnOiBcbiAgPGJ1dHRvbiBzdWJtaXQ+ICc8dW5uYW1lZD5cbiAgPGlucHV0IGhpZGRlbj4gJ3BlZXJfcmV2aWV3ZWQnOiBcbiAgPGlucHV0IGhpZGRlbj4gJ3B1Ymxpc2hlZF9iZXR3ZWVuJzogXG4gIDxpbnB1dCBoaWRkZW4+ICdmcm9tX3llYXInOiBcbiAgPGlucHV0IGhpZGRlbj4gJ3RvX3llYXInOiBcbiJ9 -->
+<pre><code>&lt;form&gt; 'search-form' (GET https://www.onepetro.org:443/search)
+  &lt;input search&gt; 'q': 
+  &lt;button submit&gt; '&lt;unnamed&gt;
+  &lt;input hidden&gt; 'peer_reviewed': 
+  &lt;input hidden&gt; 'published_between': 
+  &lt;input hidden&gt; 'from_year': 
+  &lt;input hidden&gt; 'to_year': </code></pre>
 <!-- rnb-output-end -->
 <!-- rnb-chunk-end -->
 <!-- rnb-text-begin -->
 <!-- rnb-text-end -->
 <!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuIyB0ZXN0IGNyZWF0ZV91cmwgZm9yIHNtYXJ0d2VsbCBxdWVyeVxubXlfdXJsIDwtIG1ha2Vfc2VhcmNoX3VybChxdWVyeSA9IFwic21hciB0d2VsbFwiLCBob3cgPSBcImFsbFwiKVxubXlfdXJsXG5gYGAifQ== -->
-<pre class="r"><code># test create_url for smartwell query
-my_url &lt;- make_search_url(query = &quot;smar twell&quot;, how = &quot;all&quot;)
-my_url</code></pre>
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuZm9ybSA8LSBzZXRfdmFsdWVzKGZvcm0sIHEgPSBxdWVyeSlcbmBgYCJ9 -->
+<pre class="r"><code>form &lt;- set_values(form, q = query)</code></pre>
 <!-- rnb-source-end -->
-<!-- rnb-output-begin eyJkYXRhIjoiWzFdIFwiaHR0cHM6Ly93d3cub25lcGV0cm8ub3JnL3NlYXJjaD9xPVxcXCJzbWFyK3R3ZWxsXFxcIiZwZWVyX3Jldmlld2VkPSZwdWJsaXNoZWRfYmV0d2Vlbj0mZnJvbV95ZWFyPSZ0b195ZWFyPVwiXG4ifQ== -->
-<pre><code>[1] &quot;https://www.onepetro.org/search?q=\&quot;smar+twell\&quot;&amp;peer_reviewed=&amp;published_between=&amp;from_year=&amp;to_year=&quot;</code></pre>
-<!-- rnb-output-end -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuc21hcnR3ZWxsIDwtIHJlYWRfb25lcGV0cm8obXlfdXJsKVxucmVzdWx0cyA8LSBzbWFydHdlbGwgJT4lXG4gIGh0bWxfbm9kZXMoXCJoMlwiKSAlPiVcbiAgaHRtbF90ZXh0KClcbnJlc3VsdHMgPC0gcmVzdWx0c1sxXVxucmVzdWx0c1xuYGBgIn0= -->
-<pre class="r"><code>smartwell &lt;- read_onepetro(my_url)
-results &lt;- smartwell %&gt;%
-  html_nodes(&quot;h2&quot;) %&gt;%
-  html_text()
-results &lt;- results[1]
-results</code></pre>
-<!-- rnb-source-end -->
-<!-- rnb-output-begin eyJkYXRhIjoiWzFdIFwiU2VhcmNoIHJlc3VsdHM6IFlvdXIgc2VhcmNoIGZvciBcXFwic21hciB0d2VsbFxcXCIgaGFzIHJldHVybmVkIDAgcmVzdWx0cy5cIlxuIn0= -->
-<pre><code>[1] &quot;Search results: Your search for \&quot;smar twell\&quot; has returned 0 results.&quot;</code></pre>
-<!-- rnb-output-end -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuYXMubnVtZXJpYyhnc3ViKFwiW15cXFxcZF0rXCIsIFwiXCIsIHJlc3VsdHMsIHBlcmw9VFJVRSkpXG5gYGAifQ== -->
-<pre class="r"><code>as.numeric(gsub(&quot;[^\\d]+&quot;, &quot;&quot;, results, perl=TRUE))</code></pre>
-<!-- rnb-source-end -->
-<!-- rnb-output-begin eyJkYXRhIjoiWzFdIDBcbiJ9 -->
-<pre><code>[1] 0</code></pre>
-<!-- rnb-output-end -->
 <!-- rnb-chunk-end -->
-<!-- rnb-text-begin -->
-<!-- rnb-text-end -->
-<!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuIyB3aXRoIGZpbGUgdXJsLlIgc291cmNlZCwgY3JlYXRlIFVSTCBmb3IgcXVlcnk9Y29tcGxldGlvbnNcbm15X3VybCA8LSBtYWtlX3NlYXJjaF91cmwocXVlcnkgPSBcImNvbXBsZXRpb25zXCIpXG5jb21wbGV0aW9ucyA8LSByZWFkX29uZXBldHJvKG15X3VybClcbnBhcGVycyA8LSBjb21wbGV0aW9ucyAlPiVcbiAgICBodG1sX25vZGVzKFwiaDJcIikgJT4lXG4gICAgaHRtbF90ZXh0KClcbiMgZXh0cmFjdCB0aGUgbnVtZXJpYyBwYXJ0IG9ubHlcbmFzLm51bWVyaWMoZ3N1YihcIlteXFxcXGRdK1wiLCBcIlwiLCBwYXBlcnNbMV0sIHBlcmw9VFJVRSkpXG5gYGAifQ== -->
-<pre class="r"><code># with file url.R sourced, create URL for query=completions
-my_url &lt;- make_search_url(query = &quot;completions&quot;)
-completions &lt;- read_onepetro(my_url)
-papers &lt;- completions %&gt;%
-    html_nodes(&quot;h2&quot;) %&gt;%
-    html_text()
-# extract the numeric part only
-as.numeric(gsub(&quot;[^\\d]+&quot;, &quot;&quot;, papers[1], perl=TRUE))</code></pre>
-<!-- rnb-source-end -->
-<!-- rnb-output-begin eyJkYXRhIjoiWzFdIDM3NjUzXG4ifQ== -->
-<pre><code>[1] 37653</code></pre>
-<!-- rnb-output-end -->
-<!-- rnb-chunk-end -->
-<!-- rnb-text-begin -->
-<!-- rnb-text-end -->
-<!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuIyB0ZXN0IGZ1bmN0aW9uIGdldF9wYXBlcnNfY291bnQoKSB3aXRoIGhvdyA9IFwiYWxsXCJcbiMgdGVzdCB0aGF0ICpuZXVyYWwqIGFuZCAqbmV0d29yayogYm90aCBhcHBlYXIgaW4gdGhlIHBhcGVyc1xubXlfdXJsIDwtIG1ha2Vfc2VhcmNoX3VybChxdWVyeSA9IFwibmV1cmFsIG5ldHdvcmtcIiwgaG93ID0gXCJhbGxcIilcbm15X3VybFxuYGBgIn0= -->
-<pre class="r"><code># test function get_papers_count() with how = &quot;all&quot;
-# test that *neural* and *network* both appear in the papers
-my_url &lt;- make_search_url(query = &quot;neural network&quot;, how = &quot;all&quot;)
-my_url</code></pre>
-<!-- rnb-source-end -->
-<!-- rnb-output-begin eyJkYXRhIjoiWzFdIFwiaHR0cHM6Ly93d3cub25lcGV0cm8ub3JnL3NlYXJjaD9xPVxcXCJuZXVyYWwrbmV0d29ya1xcXCImcGVlcl9yZXZpZXdlZD0mcHVibGlzaGVkX2JldHdlZW49JmZyb21feWVhcj0mdG9feWVhcj1cIlxuIn0= -->
-<pre><code>[1] &quot;https://www.onepetro.org/search?q=\&quot;neural+network\&quot;&amp;peer_reviewed=&amp;published_between=&amp;from_year=&amp;to_year=&quot;</code></pre>
-<!-- rnb-output-end -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuZ2V0X3BhcGVyc19jb3VudChteV91cmwpXG5gYGAifQ== -->
-<pre class="r"><code>get_papers_count(my_url)</code></pre>
-<!-- rnb-source-end -->
-<!-- rnb-output-begin eyJkYXRhIjoiWzFdIDI5OThcbiJ9 -->
-<pre><code>[1] 2998</code></pre>
-<!-- rnb-output-end -->
-<!-- rnb-chunk-end -->
-<!-- rnb-text-begin -->
-<!-- rnb-text-end -->
-<!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuIyB0ZXN0IGZ1bmN0aW9uIGdldF9wYXBlcnNfY291bnQoKSB3aXRoIGhvdyA9IFwiYW55XCJcbiMgdGVzdCB0aGF0IGFueSBvZiB0aGUgd29yZHMgKm5ldXJhbCogYW5kICpuZXR3b3JrKiBhcHBlYXIgaW4gdGhlIHBhcGVyc1xubXlfdXJsIDwtIG1ha2Vfc2VhcmNoX3VybChxdWVyeSA9IFwibmV1cmFsIG5ldHdvcmtcIiwgaG93ID0gXCJhbnlcIilcbm15X3VybFxuYGBgIn0= -->
-<pre class="r"><code># test function get_papers_count() with how = &quot;any&quot;
-# test that any of the words *neural* and *network* appear in the papers
-my_url &lt;- make_search_url(query = &quot;neural network&quot;, how = &quot;any&quot;)
-my_url</code></pre>
-<!-- rnb-source-end -->
-<!-- rnb-output-begin eyJkYXRhIjoiWzFdIFwiaHR0cHM6Ly93d3cub25lcGV0cm8ub3JnL3NlYXJjaD9xPW5ldXJhbCtuZXR3b3JrJnBlZXJfcmV2aWV3ZWQ9JnB1Ymxpc2hlZF9iZXR3ZWVuPSZmcm9tX3llYXI9JnRvX3llYXI9XCJcbiJ9 -->
-<pre><code>[1] &quot;https://www.onepetro.org/search?q=neural+network&amp;peer_reviewed=&amp;published_between=&amp;from_year=&amp;to_year=&quot;</code></pre>
-<!-- rnb-output-end -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuZ2V0X3BhcGVyc19jb3VudChteV91cmwpXG5gYGAifQ== -->
-<pre class="r"><code>get_papers_count(my_url)</code></pre>
-<!-- rnb-source-end -->
-<!-- rnb-output-begin eyJkYXRhIjoiWzFdIDMyODRcbiJ9 -->
-<pre><code>[1] 3284</code></pre>
-<!-- rnb-output-end -->
-<!-- rnb-chunk-end -->
-<!-- rnb-text-begin -->
-<!-- rnb-text-end -->
 
-<div id="rmd-source-code">LS0tDQp0aXRsZTogIlIgTm90ZWJvb2siDQpvdXRwdXQ6IGh0bWxfbm90ZWJvb2sNCi0tLQ0KDQpgYGB7cn0NCmxpYnJhcnkocGV0cm9PbmUpDQpsaWJyYXJ5KHJ2ZXN0KQ0KDQojIHRlc3QgZm9yIHNtYXJ0d2VsbCBxdWVyeQ0KIyBzb3VyY2UoJy4vUi91cmwuUicpDQpteV91cmwgPC0gbWFrZV9zZWFyY2hfdXJsKHF1ZXJ5ID0gInNtYXJ0d2VsbCIpDQpteV91cmwNCnNtYXJ0d2VsbCA8LSByZWFkX29uZXBldHJvKG15X3VybCkNCg0KcmVzdWx0cyA8LSBzbWFydHdlbGwgJT4lDQogIGh0bWxfbm9kZXMoImgyIikgJT4lDQogIGh0bWxfdGV4dCgpDQoNCnJlc3VsdHMgPC0gcmVzdWx0c1sxXQ0KcmVzdWx0cw0KDQphcy5udW1lcmljKGdzdWIoIlteXFxkXSsiLCAiIiwgcmVzdWx0cywgcGVybD1UUlVFKSkNCg0KYGBgDQoNCg0KDQpgYGB7cn0NCiMgdGVzdCBjcmVhdGVfdXJsIGZvciBzbWFydHdlbGwgcXVlcnkNCg0KbXlfdXJsIDwtIG1ha2Vfc2VhcmNoX3VybChxdWVyeSA9ICJzbWFyIHR3ZWxsIiwgaG93ID0gImFsbCIpDQpteV91cmwNCnNtYXJ0d2VsbCA8LSByZWFkX29uZXBldHJvKG15X3VybCkNCg0KcmVzdWx0cyA8LSBzbWFydHdlbGwgJT4lDQogIGh0bWxfbm9kZXMoImgyIikgJT4lDQogIGh0bWxfdGV4dCgpDQoNCnJlc3VsdHMgPC0gcmVzdWx0c1sxXQ0KcmVzdWx0cw0KYXMubnVtZXJpYyhnc3ViKCJbXlxcZF0rIiwgIiIsIHJlc3VsdHMsIHBlcmw9VFJVRSkpDQojIDANCmBgYA0KDQoNCmBgYHtyfQ0KIyB3aXRoIGZpbGUgdXJsLlIgc291cmNlZCwgY3JlYXRlIFVSTCBmb3IgcXVlcnk9Y29tcGxldGlvbnMNCm15X3VybCA8LSBtYWtlX3NlYXJjaF91cmwocXVlcnkgPSAiY29tcGxldGlvbnMiKQ0KY29tcGxldGlvbnMgPC0gcmVhZF9vbmVwZXRybyhteV91cmwpDQoNCnBhcGVycyA8LSBjb21wbGV0aW9ucyAlPiUNCiAgICBodG1sX25vZGVzKCJoMiIpICU+JQ0KICAgIGh0bWxfdGV4dCgpDQoNCiMgZXh0cmFjdCB0aGUgbnVtZXJpYyBwYXJ0IG9ubHkNCmFzLm51bWVyaWMoZ3N1YigiW15cXGRdKyIsICIiLCBwYXBlcnNbMV0sIHBlcmw9VFJVRSkpDQojIDM3NjUzDQpgYGANCg0KDQpgYGB7cn0NCiMgdGVzdCBmdW5jdGlvbiBnZXRfcGFwZXJzX2NvdW50KCkgd2l0aCBob3cgPSAiYWxsIg0KIyB0ZXN0IHRoYXQgKm5ldXJhbCogYW5kICpuZXR3b3JrKiBib3RoIGFwcGVhciBpbiB0aGUgcGFwZXJzDQoNCm15X3VybCA8LSBtYWtlX3NlYXJjaF91cmwocXVlcnkgPSAibmV1cmFsIG5ldHdvcmsiLCBob3cgPSAiYWxsIikNCm15X3VybA0KZ2V0X3BhcGVyc19jb3VudChteV91cmwpDQojIDI5OTgNCmBgYA0KDQpgYGB7cn0NCiMgdGVzdCBmdW5jdGlvbiBnZXRfcGFwZXJzX2NvdW50KCkgd2l0aCBob3cgPSAiYW55Ig0KIyB0ZXN0IHRoYXQgYW55IG9mIHRoZSB3b3JkcyAqbmV1cmFsKiBhbmQgKm5ldHdvcmsqIGFwcGVhciBpbiB0aGUgcGFwZXJzDQoNCm15X3VybCA8LSBtYWtlX3NlYXJjaF91cmwocXVlcnkgPSAibmV1cmFsIG5ldHdvcmsiLCBob3cgPSAiYW55IikNCm15X3VybA0KZ2V0X3BhcGVyc19jb3VudChteV91cmwpDQojIDMyODQNCmBgYA0KDQoNCg0KDQoNCg0KDQoNCg==</div>
+<div id="rmd-source-code">LS0tDQp0aXRsZTogIlIgTm90ZWJvb2siDQpvdXRwdXQ6IGh0bWxfbm90ZWJvb2sNCi0tLQ0KDQoNCmBgYHtyfQ0KbGlicmFyeShwZXRyb09uZSkNCg0KcXVlcnkgPC0gIm5ldXJhbCBuZXR3b3JrIg0Kc2Vzc2lvbiA8LSBodG1sX3Nlc3Npb24oImh0dHBzOi8vd3d3Lm9uZXBldHJvLm9yZy8iKQ0Kc2Vzc2lvbg0KZm9ybSA8LSBodG1sX2Zvcm0oc2Vzc2lvbilbWzNdXQ0KZm9ybQ0KYGBgDQoNCmBgYHtyfQ0KZm9ybSA8LSBzZXRfdmFsdWVzKGZvcm0sIHEgPSBxdWVyeSkNCmBgYA0K</div>
 
 
 
