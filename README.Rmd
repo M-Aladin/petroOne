@@ -48,5 +48,5 @@ my_url <- make_search_url(query = "neural network",
                           how = "all")
 
 
-# onepetro_page_to_dataframe(my_url)
+onepetro_page_to_dataframe(my_url)
 ```
