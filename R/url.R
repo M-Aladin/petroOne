@@ -164,7 +164,7 @@ make_search_url <- function(query = NULL, start = NULL, from_year = NULL,
             if (s_url[[i]] == form_input[[i]] & i <= 6) {
                 joined <- paste(joined, s_url[[i]], sep = "&")
             } else  if (s_url[[i]] != form_input[[i]]) {
-                cat(i, s_url[[i]], "\n")
+                # cat(i, s_url[[i]], "\n")
                 joined <- paste(joined, s_url[[i]], sep = "&")
             }
         }

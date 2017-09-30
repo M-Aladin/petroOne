@@ -1,6 +1,7 @@
 
 
 
+#' @export
 onepetro_page_to_dataframe <- function(url) {
     webpage <- read_html(url)
     df_titles  <- read_titles(webpage)

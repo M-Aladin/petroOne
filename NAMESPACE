@@ -2,6 +2,7 @@
 
 export(get_papers_count)
 export(make_search_url)
+export(onepetro_page_to_dataframe)
 export(read_onepetro)
 importFrom(magrittr,"%>%")
 importFrom(rvest,html_nodes)

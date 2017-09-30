@@ -36,3 +36,17 @@ my_url
 get_papers_count(my_url)
 # 3284
 ```
+
+### Read papers from from_year to to_year
+
+```{r}
+library(petroOne)
+
+my_url <- make_search_url(query = "neural network", 
+                          from_year = 1990, 
+                          to_year   = 1999, 
+                          how = "all")
+
+
+# onepetro_page_to_dataframe(my_url)
+```
