@@ -22,15 +22,18 @@ publication_result_left <- function(result) {
 
 
 #' @export
-summary_by_publisher <- function(x) {
+summary_by_publisher <- function(result) {
+    x <- publication_result_right(result)
     pub_vector <- get_dc_publisher(x)
     value <- extract_num_papers(pub_vector)
     name   <- extract_publishers(pub_vector)
     data.frame(name, value, stringsAsFactors = FALSE)
 }
 
+
 #' @export
-summary_by_doctype <- function(x) {
+summary_by_doctype <- function(result) {
+    x <- publication_result_right(result)
     doctype_vector <- get_dctype(x)
     value <- extract_num_papers(doctype_vector)
     name   <- extract_publishers(doctype_vector)
@@ -39,7 +42,8 @@ summary_by_doctype <- function(x) {
 
 
 #' @export
-summary_by_dates <- function(x) {
+summary_by_dates <- function(result) {
+    x <- publication_result_left(result)
     pub_vector <- get_dc_issued_year(x)
     value <- extract_num_papers(pub_vector)
     name   <- extract_publishers(pub_vector)
@@ -47,7 +51,8 @@ summary_by_dates <- function(x) {
 }
 
 #' @export
-summary_by_publications <- function(x) {
+summary_by_publications <- function(result) {
+    x <- publication_result_left(result)
     pub_vector <- get_s2_parent_title(x)
     value <- extract_num_papers(pub_vector)
     name   <- extract_publishers(pub_vector)

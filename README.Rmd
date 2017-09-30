@@ -97,27 +97,17 @@ onepetro_page_to_dataframe(my_url)
 ```{r}
 library(petroOne)
 
-my_url <- make_search_url(query = "neural network", 
+my_url <- make_search_url(query = "well test", 
                           how = "all")
 
 result <- read_onepetro(my_url)
 
-raw_right <- publication_result_right(result)
-raw_left  <- publication_result_left(result)
 
-summary_by_doctype(raw_right)
-summary_by_publisher(raw_right)
-
-summary_by_dates(raw_left)
-summary_by_publications(raw_left)
-```
-
-```{r}
-publication_result_right(result)
+summary_by_doctype(result)
+summary_by_publisher(result)
+summary_by_dates(result)
+summary_by_publications(result)
 
 ```
 
-```{r}
-publication_result_left(result)
-```
 
