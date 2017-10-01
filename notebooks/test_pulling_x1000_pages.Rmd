@@ -5,10 +5,9 @@ output: html_notebook
 
 
 ## Pulling x1000 pages
-Onepetro starts the countng of records at 0 not 1.
+Onepetro starts the counting of records at 0 not 1.
 
 ```{r}
-
 my_url <- make_search_url(query = "shale oil", 
                           how = "all", 
                           dc_type = "conference-paper",

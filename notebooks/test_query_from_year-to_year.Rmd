@@ -3,6 +3,64 @@ title: "R Notebook"
 output: html_notebook
 ---
 
+
+```{r}
+# neural network papers from 1970 to 1980. Exact phrase
+
+my_url <- make_search_url(query = "neural network", 
+                          from_year = 1970, 
+                          to_year   = 1980, 
+                          how = "all")
+my_url
+get_papers_count(my_url)
+# 0
+```
+
+```{r}
+# neural network papers from 1980 to 1990. Exact phrase
+my_url <- make_search_url(query = "neural network", 
+                          from_year = 1980, 
+                          to_year   = 1990, 
+                          how = "all")
+get_papers_count(my_url)
+# 17
+```
+
+```{r}
+# neural network papers from 1990 to 2000. Exact phrase
+my_url <- make_search_url(query = "neural network", 
+                          from_year = 1990, 
+                          to_year   = 2000, 
+                          how = "all")
+get_papers_count(my_url)
+# 510
+```
+
+
+```{r}
+# Onepetro page to dataframe
+# neural network papers from 1990 to 2000. Exact phrase
+
+my_url <- make_search_url(query = "neural network", 
+                          from_year = 1990, 
+                          to_year   = 2000, 
+                          how = "all")
+
+onepetro_page_to_dataframe(my_url)
+```
+
+```{r}
+# Onepetro page to dataframe
+# neural network papers. Exact phrase
+
+my_url <- make_search_url(query = "neural network", 
+                          how = "all")
+
+get_papers_count(my_url)
+# 2998
+onepetro_page_to_dataframe(my_url)
+```
+
 ```{r}
 # Using regex to extract the number of papers when the result string has more info
 

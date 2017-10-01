@@ -91,11 +91,13 @@ nn_papers
 
 
 ```{r rows.print = 50}
+# get only papers that the word neural in the title
 library(dplyr)
 
 nn_papers %>%
   filter(grepl("neural", tolower(title_data)))
 
+# 534
 ```
 
 ```{r rows.print=10}
