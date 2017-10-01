@@ -24,7 +24,6 @@ nn_papers %>%
 
 
 
-
 ```{r rows.print=10}
 # reads the title of the paper and assign a discipline according to user entered
 # classification labels
