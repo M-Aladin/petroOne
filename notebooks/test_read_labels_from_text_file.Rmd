@@ -45,6 +45,13 @@ for (i in seq_len(length(discipline))) {
 }
 names(cumdf) <- c("subject", "discipline")
 cumdf
+labels <- cumdf
+save(labels, file = "../data/disciplines.rda")
+```
+
+```{r}
+labels <- cumdf
+save(labels, file = "../data/disciplines.rda")
 ```
 
 
