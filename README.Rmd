@@ -109,4 +109,34 @@ summary_by_publications(result)
 
 ```
 
+## Collect papers in multiple pages of 1000 rows (or papers each)
+
+```{r}
+my_url <- make_search_url(query = "neural network", 
+                          how = "all",
+                          dc_type = "conference-paper",
+                          rows = 1000)
+
+get_papers_count(my_url)
+# 2661
+```
+
+### Collect first 1000 rows out of 2661
+
+```{r}
+xml2::write_html(webpage1, file = "./inst/html/1000_conference.html")
+onepetro_page_to_dataframe("./inst/html/1000_conference.html")
+```
+
+```{r}
+xml2::write_html(webpage1, file = "./inst/html/2000_conference.html")
+onepetro_page_to_dataframe("./inst/html/2000_conference.html")
+```
+
+```{r}
+xml2::write_html(webpage1, file = "./inst/html/3000_conference.html")
+onepetro_page_to_dataframe("./inst/html/3000_conference.html")
+```
+
+
 
