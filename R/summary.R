@@ -20,7 +20,9 @@ publication_result_left <- function(result) {
     pub_doc
 }
 
-
+#' @title Get summary dataframe by publisher
+#' @description Summary dataframe by publisher: OTC, SPE, etc.
+#' @param result a OnePetro page with results
 #' @export
 summary_by_publisher <- function(result) {
     x <- publication_result_right(result)
@@ -30,7 +32,9 @@ summary_by_publisher <- function(result) {
     data.frame(name, value, stringsAsFactors = FALSE)
 }
 
-
+#' @title Get summary dataframe by document type
+#' @description Document types are: conference-paper, journal-paper, etc.
+#' @param result a OnePetro page with results
 #' @export
 summary_by_doctype <- function(result) {
     x <- publication_result_right(result)
@@ -40,7 +44,9 @@ summary_by_doctype <- function(result) {
     data.frame(name, value, stringsAsFactors = FALSE)
 }
 
-
+#' @title Get summary dataframe by year
+#' @description Year that the paper was published
+#' @param result a OnePetro page with results
 #' @export
 summary_by_dates <- function(result) {
     x <- publication_result_left(result)
@@ -50,6 +56,10 @@ summary_by_dates <- function(result) {
     data.frame(name, value, stringsAsFactors = FALSE)
 }
 
+#' @title Get summary dataframe by publication
+#' @description Publications could be World Petroleum Congress, Annual Technical
+#' Meeting, SPE Unconventional Reservoirs Conference, etc.
+#' @param result a OnePetro page with results
 #' @export
 summary_by_publications <- function(result) {
     x <- publication_result_left(result)

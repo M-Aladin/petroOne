@@ -26,6 +26,9 @@ nn_papers %>%
 
 
 ```{r rows.print=10}
+# reads the title of the paper and assign a discipline according to user entered
+# classification labels
+# 
 nn_papers_labeled <- nn_papers %>%
   mutate(discipline = 
            ifelse(grepl("fracture|acid|surfactant|stimulation|foam|Frackability|fracture|frack|frac|Refracturing|fracturing|grouting", nn_papers$title_data, ignore.case=TRUE), "stimulation" ,
@@ -48,7 +51,7 @@ nn_papers_labeled <- nn_papers %>%
                              
             ifelse(grepl("deposition|ore|sediment|geological|mining|ground|geomaterial|horizon|Lithofacies|fault|geo-|geology|Turbidites|gis|fills|rift|limestone|atmospheric|karst|Geomodel|granite|Compressive|facies|Phanerozoic|tectonics|sedimentation|flank", nn_papers$title_data, ignore.case = TRUE), "geology" ,                              
                              
-            ifelse(grepl("artificial intelligence|digital|real-time|real time|intelligent|cognitive|surveillance|modeling|modelling|Permanent Downhole Gauge|data driven|data-driven|data|expert system|Asset Integrity|data mining|analytics|clustering|genetic|algorithm|data|computing|analytics|prediction|transducers|workflow|control system|benchmarking|optimization", nn_papers$title_data, ignore.case = TRUE), "digital|wireless|AVO|pattern|Quantization" , 
+            ifelse(grepl("artificial intelligence|digital|real-time|real time|intelligent|cognitive|surveillance|modeling|modelling|Permanent Downhole Gauge|data driven|data-driven|data|expert system|Asset Integrity|data mining|analytics|clustering|genetic|algorithm|data|computing|analytics|prediction|transducers|workflow|control system|benchmarking|optimization|wireless|AVO|pattern|Quantization", nn_papers$title_data, ignore.case = TRUE), "digital" , 
                              "other")
             ))))))))))) %>%
   select(year, source, paper_id, discipline, title_data, type, author1_data)

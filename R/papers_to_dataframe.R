@@ -1,6 +1,8 @@
 
-
-
+#' @title Reads a OnePetro URL and converts it to a dataframe
+#' @description A OnePetro URL with a query is read into a HTML page and
+#' converted to a datarame
+#' @param url char a OnePetro type URL
 #' @export
 onepetro_page_to_dataframe <- function(url) {
     webpage <- read_html(url)
