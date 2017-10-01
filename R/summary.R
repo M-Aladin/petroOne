@@ -1,6 +1,6 @@
 library(rvest)
 
-#' @export
+
 #' @importFrom magrittr %>%
 publication_result_right <- function(result) {
     pub_doc <- result %>%
@@ -10,7 +10,7 @@ publication_result_right <- function(result) {
     pub_doc
 }
 
-#' @export
+
 #' @importFrom magrittr %>%
 publication_result_left <- function(result) {
     pub_doc <- result %>%

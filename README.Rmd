@@ -102,7 +102,6 @@ my_url <- make_search_url(query = "well test",
 
 result <- read_onepetro(my_url)
 
-
 summary_by_doctype(result)
 summary_by_publisher(result)
 summary_by_dates(result)
