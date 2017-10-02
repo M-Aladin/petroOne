@@ -17,7 +17,8 @@ nn_papers
 
 ```{r}
 for (paper in nn_papers$title_data) {
-    cat(paper, "\n")
+    # cat(paper, "\n")
+    
 }
 ```
 

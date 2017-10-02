@@ -4,29 +4,315 @@ output: html_notebook
 ---
 
 ```{r}
+library(petroOne)
+
+p1 <- onepetro_page_to_dataframe("1000_conference.html")
+p2 <- onepetro_page_to_dataframe("2000_conference.html")
+p3 <- onepetro_page_to_dataframe("3000_conference.html")
+
+nn_papers <- rbind(p1, p2, p3)
+nn_papers
+```
+
+```{r}
+nn_title_data <- as.data.frame(nn_papers$title_data)
+```
+
+
+```{r}
+
+```
+
+```{r}
 library("tm")
-```
 
-```{r}
 docs <- Corpus(VectorSource(nn_papers$title_data))
+inspect(docs[1:5])
 
-```
+library(SnowballC)
 
-```{r}
-docs[[1]]
-```
-
-```{r}
-inspect(docs[1:50])
-```
-
-```{r}
 docs <- tm_map(docs, content_transformer(tolower))
+inspect(docs[1:5])
+```
+
+
+
+
+
+```{r}
+# replace in record #1
+gsub("neural networks", "neural_networks", docs[[1]])
+```
+
+```{r}
+grepl("neural networks", docs[[1]])
+grepl("neural-networks", docs[[1]])
+```
+
+
+## Words that should stay together
+
+```{r}
+stay_together <- "
+3D seismic
+Adaptive Control
+artificial intelligence
+artificial lift
+Ashtart Field
+Asset Integrity
+Asset Management
+Bati Raman
+Barnett Shale
+Big Data
+Bottom Hole
+Bubble Point
+by exception
+Capillary Pressure
+Carbon Dioxide
+Cathodic Protection
+coiled tubing
+Computer Science
+Cost Effective
+data mining
+down hole
+cased hole
+Compressive Strength
+Data Analysis
+Data Analytics
+Data Mining
+data driven
+Deep Learning
+Digital Oilfield
+Digital Oil field
+drill pipe
+Drilling Engineering
+Drilling Mud
+Eagle Ford
+Electric Centrifugal Pump
+Enhanced Oil Recovery
+expert system
+expert systems
+Fault Tolerance
+Field Development
+Field Study
+flow rate
+Fluid Dynamics
+Formation Damage
+Formation Volume Factor
+Fuzzy Logic 
+fracture network
+gas lift
+Gas Field
+Gas Storage
+Genetic Algorithms
+Gulf of Mexico
+Gas Hydrates
+Gravel Pack
+heavy oil
+Human Factor
+Hydrate Formation
+Hydraulic Fracturing
+High Resolution
+history matching
+inflow performance
+Kalman Filter
+Kuparuk River Field
+lateral log
+Log Data
+Logging Data
+Lost Circulation
+machine learning
+Marcellus Shale
+Multiphase Flow
+Multi Phase 
+natural gas
+Neural Systems
+Neural System
+Neural-Network
+Neural Network
+Neural Networks
+non linear
+North American
+Nuclear Magnetic Resonance
+Quality Assurance
+Oil and Gas
+Oil Field
+Oil Price
+Oil Sand
+oil supply
+Oil Well
+Oil And Gas Industry
+Oil Recovery
+open hole
+pattern recognition
+petroleum engineering
+petroleum industry
+pore pressure
+Predictive Model
+Pressure Transient
+principal components analysis
+Production Optimization
+proxy model
+regression analysis
+predictive model
+Predictive Analytics
+Pressure Drop
+Proxy Modeling
+Rate of Penetration
+real time
+Recovery Factor
+Relative Permeability
+reservoir performance
+reservoir simulation
+Reservoir Characterization
+Reservoir Management
+Reservoir Modelling
+Reservoir Modeling
+Risk Assessment 
+Rock Mechanics
+Rod Pump
+Sensitivity Analysis
+Seismic Data
+shale oil
+shale gas
+Shear Strength 
+Single Phase
+Smart Field
+Smart Fields
+Support Vector Machine
+tight gas
+tight oil
+tight shale
+time lapse
+Total Organic Carbon
+type curve
+Ultimate Recovery
+Utica Shale
+Vaca Muerta
+Water Injection
+wave spectra
+Well Construction
+Well Performance
+Well Positioning
+Well Test
+Well Testing
+Well Trajectory
+Wind Speed
+Workflow Automation
+zonal isolation
+"
+
+# stay_together <- unlist(strsplit(stay_together, split = "\n"))
+# #lapply(stay_together, function(x) paste(x, sep = " "))
+# stay_together <- unlist(strsplit(stay_together, split = " "))
+# stay_together
+
+# create dataframe for staytogether words
+stay_together <- read.table(text = stay_together, header = FALSE, sep = "\n")
+stay_together$V1 <- tolower(stay_together$V1) 
+stay_together$V2 <- tolower(gsub(" ", "_", stay_together$V1))
+stay_together
+```
+
+
+
+
+```{r}
+replaceBy <- function(x) {
+    x <- gsub("neural network", "neural_network", x)
+    x <- gsub("neural-network", "neural_network", x)
+    x <- gsub("petroleum engineering", "petroleum_engineering", x)
+    x <- gsub("artificial intelligence", "artificial_intelligence", x)
+    x <- gsub("principal components analysis", "principal_components_analysis", x)
+    x <- gsub("pattern recognition", "pattern_recognition", x)
+    x <- gsub("gas lift", "gas_lift", x)
+    
+    x
+}    
+```
+
+
+```{r}
+replaceBy <- function(x) {
+    for (k in seq_len(nrow(stay_together))) {
+        x <- gsub(stay_together$V1[[k]], stay_together$V2[[k]], x)  
+    }
+    x
+}    
+```
+
+
+```{r}
+DocsCopy <- docs
+DocsCopy <- tm_map(DocsCopy, content_transformer(replaceBy))
+```
+
+```{r}
+inspect(DocsCopy[300:325])
+```
+
+
+
+```{r}
+DocsCopy <- docs
+
+for (j in seq(DocsCopy)) {
+    for (k in seq(nrow(stay_together))) {
+        # print(stay_together$V2[k])
+        if (grepl(stay_together$V1[[k]], DocsCopy[[j]])) {
+            DocsCopy[[j]] <- gsub(stay_together$V1[[k]], stay_together$V2[[k]], DocsCopy[[j]])
+            cat(j, stay_together$V1[k], stay_together$V2[k], "\n")
+            writeLines(as.character(DocsCopy[[j]]))
+            # stop()
+            break
+        }
+            
+    }
+}
+```
+```{r}
+writeLines(as.character(docs[[j]]))
+```
+
+
+```{r}
+docs[[2]]
+```
+
+
+```{r}
+inspect(docs[1:5])
+```
+
+
+```{r}
+for (j in seq(docs))
+{
+  docs[[j]] <- gsub("petroleum engineering", "petroleum_engineering", docs[[j]])
+  docs[[j]] <- gsub("petroleum industry", "petroleum_industry", docs[[j]])
+  docs[[j]] <- gsub("principal components analysis", "principal_components_analysis", docs[[j]])
+  docs[[j]] <- gsub("regression analysis", "regression_analysis", docs[[j]])
+}
+
+```
+
+
+```{r}
+stopwords("english")
+```
+
+```{r}
+docs <- tm_map(docs, removeWords, stopwords("english"))
+#docs <- tm_map(docs, PlainTextDocument)
+```
+
+```{r}
 inspect(docs[1:20])
 ```
 
+
 ```{r}
-stopwords <- "
+custom_stopwords <- "
 about
 across
 after
@@ -161,15 +447,18 @@ work
 you
 young
 "
-stopwords <- unlist(strsplit(stopwords, split = "\n"))
-class(stopwords)
+
+custom_stopwords <- unlist(strsplit(custom_stopwords, split = "\n"))
 
 
-dtm <- TermDocumentMatrix(docs, control = list(stopwords = stopwords))
-# dtm <- TermDocumentMatrix(docs)
+dtm <- TermDocumentMatrix(docs, control = list(stopwords = custom_stopwords,
+                                               removeNumbers = TRUE,
+                                               tolower = TRUE))
+
+
 m <- as.matrix(dtm)
-v <- sort(rowSums(m),decreasing=TRUE)
-d <- data.frame(word = names(v),freq=v)
+v <- sort(rowSums(m), decreasing=TRUE)
+d <- data.frame(word = names(v), freq=v, stringsAsFactors = FALSE)
 d
 ```
 
