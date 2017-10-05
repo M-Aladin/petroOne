@@ -296,7 +296,6 @@ replaceBy0 <- function(x) {
 # DocsCopy <- tm_map(DocsCopy, content_transformer(replaceBy))
 docs <- tm_map(docs, content_transformer(replaceBy0))
 
-inspect(docs[1:5])
 inspect(docs[1800:1820])
 inspect(docs[119:125])
 ```
@@ -536,20 +535,22 @@ young
 custom_stopwords <- unlist(strsplit(custom_stopwords, split = "\n"))
 ```
 
-```{r}
-tdm <- TermDocumentMatrix(docs, control = list(stopwords = stopwords("english"),
-                                               removeNumbers = TRUE,
-                                               removePunctuation = FALSE))
 
-# tdm <- TermDocumentMatrix(docs) #, control = list(stopwords = custom_stopwords))
+
+```{r}
+# tdm <- TermDocumentMatrix(docs, control = list(stopwords = custom_stopwords,
+#                                                removeNumbers = TRUE,
+#                                                removePunctuation = FALSE))
+
+#tdm <- TermDocumentMatrix(docs) #, control = list(stopwords = custom_stopwords))
+tdm <- TermDocumentMatrix(docs, control = list(removePunctuation = FALSE
+))
 
 m <- as.matrix(tdm)
+# rownames(m)[sample(200)] # sample of the row names in the matrix
 v <- sort(rowSums(m), decreasing=TRUE)
 d <- data.frame(word = names(v), freq=v, stringsAsFactors = FALSE)
 d
-grep("neuralnetwork", d$word)
-grep("neural", d$word)
-d[grep("neural", d$word),]
 ```
 
 ```{r}
@@ -566,13 +567,37 @@ wordcloud(words = d$word, freq = d$freq, min.freq = 1,
           max.words=200, random.order=FALSE, rot.per=0.35, 
           colors=brewer.pal(8, "Dark2"))
 ```
+```{r}
+docsCopy <- docs
+```
 
 ```{r}
-dtm <- DocumentTermMatrix(docs)
-
-
-m <- as.matrix(dtm)
-v <- sort(rowSums(m), decreasing=TRUE)
-d <- data.frame(word = names(v), freq=v, stringsAsFactors = FALSE)
-d
+docs <- docsCopy
 ```
+
+
+```{r}
+
+inspect(docs[1:5])
+docs <- tm_map(docs, stripWhitespace)
+inspect(docs[1:5])
+docs <- tm_map(docs, PlainTextDocument)
+
+dtm <- DocumentTermMatrix(docs)
+dtm
+dim(dtm)
+
+m.dtm <- as.matrix(dtm)
+dim(m.dtm)
+```
+
+```{r}
+freq <- colSums(as.matrix(dtm))
+head(table(freq), 20)
+```
+
+```{r}
+freq <- colSums(as.matrix(dtm))  
+freq[grep("_", names(freq))]
+```
+
