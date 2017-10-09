@@ -126,3 +126,9 @@ papers
 
 ## Find which papers have the search word in the title
 
+```{r}
+pattern <- "pressure transient analysis"
+rows <- grep(pattern = pattern, papers$title_data, ignore.case = TRUE)
+papers[rows, ]
+```
+
