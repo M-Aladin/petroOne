@@ -88,17 +88,10 @@ my_url
 <div id="read-papers-from-from_year-to-to_year" class="section level3">
 <h3 class="hasAnchor">
 <a href="#read-papers-from-from_year-to-to_year" class="anchor"></a>Read papers from from_year to to_year</h3>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># neural network papers from 1990 to 2000. Exact phrase</span>
-my_url &lt;-<span class="st"> </span><span class="kw"><a href="reference/make_search_url.html">make_search_url</a></span>(<span class="dt">query =</span> <span class="st">"neural network"</span>, 
-                          <span class="dt">from_year =</span> <span class="dv">1990</span>, 
-                          <span class="dt">to_year   =</span> <span class="dv">2000</span>, 
-                          <span class="dt">how =</span> <span class="st">"all"</span>)
-<span class="kw"><a href="reference/get_papers_count.html">get_papers_count</a></span>(my_url)
-<span class="co">#&gt; [1] 510</span>
-<span class="co"># 510</span></code></pre></div>
+<p>We can send a query where we specify the starting years and the end year. Use the parameters as in the example below.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(petroOne)
-<span class="kw">library</span>(tibble)
 
+<span class="co"># neural network papers from 1990 to 2000. Exact phrase</span>
 my_url &lt;-<span class="st"> </span><span class="kw"><a href="reference/make_search_url.html">make_search_url</a></span>(<span class="dt">query =</span> <span class="st">"neural network"</span>, 
                           <span class="dt">from_year =</span> <span class="dv">1990</span>, 
                           <span class="dt">to_year   =</span> <span class="dv">1999</span>, 
@@ -107,7 +100,8 @@ my_url &lt;-<span class="st"> </span><span class="kw"><a href="reference/make_se
 <span class="kw"><a href="reference/get_papers_count.html">get_papers_count</a></span>(my_url)
 <span class="co">#&gt; [1] 415</span>
 <span class="co"># 415</span>
-<span class="kw">as.tibble</span>(<span class="kw"><a href="reference/onepetro_page_to_dataframe.html">onepetro_page_to_dataframe</a></span>(my_url))
+<span class="co"># 510</span>
+<span class="kw"><a href="reference/onepetro_page_to_dataframe.html">onepetro_page_to_dataframe</a></span>(my_url)
 <span class="co">#&gt; # A tibble: 10 x 6</span>
 <span class="co">#&gt;                                                      title_data</span>
 <span class="co">#&gt;                                                           &lt;chr&gt;</span>
@@ -124,9 +118,11 @@ my_url &lt;-<span class="st"> </span><span class="kw"><a href="reference/make_se
 <span class="co">#&gt; # ... with 5 more variables: paper_id &lt;chr&gt;, source &lt;chr&gt;, type &lt;chr&gt;,</span>
 <span class="co">#&gt; #   year &lt;chr&gt;, author1_data &lt;chr&gt;</span></code></pre></div>
 </div>
-<div id="get-papers-by-document-type-dc_type" class="section level3">
-<h3 class="hasAnchor">
-<a href="#get-papers-by-document-type-dc_type" class="anchor"></a>Get papers by document type (dc_type)</h3>
+</div>
+<div id="get-papers-by-document-type-dc_type" class="section level2">
+<h2 class="hasAnchor">
+<a href="#get-papers-by-document-type-dc_type" class="anchor"></a>Get papers by document type (dc_type)</h2>
+<p>We can also get paper by the type of document. In this example we are requesting only “conference-paper” type.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># specify document type = "conference-paper", rows = 1000</span>
 
 my_url &lt;-<span class="st"> </span><span class="kw"><a href="reference/make_search_url.html">make_search_url</a></span>(<span class="dt">query =</span> <span class="st">"neural network"</span>, 
@@ -138,7 +134,7 @@ my_url &lt;-<span class="st"> </span><span class="kw"><a href="reference/make_se
 <span class="co">#&gt; [1] 2687</span>
 <span class="co"># 2661</span>
 <span class="co"># 2687</span>
-<span class="kw">as.tibble</span>(<span class="kw"><a href="reference/onepetro_page_to_dataframe.html">onepetro_page_to_dataframe</a></span>(my_url))
+<span class="kw"><a href="reference/onepetro_page_to_dataframe.html">onepetro_page_to_dataframe</a></span>(my_url)
 <span class="co">#&gt; # A tibble: 1,000 x 6</span>
 <span class="co">#&gt;                                                      title_data</span>
 <span class="co">#&gt;                                                           &lt;chr&gt;</span>
@@ -154,6 +150,7 @@ my_url &lt;-<span class="st"> </span><span class="kw"><a href="reference/make_se
 <span class="co">#&gt; 10          Seismic Attribute Calibration Using Neural Networks</span>
 <span class="co">#&gt; # ... with 990 more rows, and 5 more variables: paper_id &lt;chr&gt;,</span>
 <span class="co">#&gt; #   source &lt;chr&gt;, type &lt;chr&gt;, year &lt;chr&gt;, author1_data &lt;chr&gt;</span></code></pre></div>
+<p>In this other example we are requesting for “journal-paper” type of papers.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># specify document type = "journal-paper", rows = 1000</span>
 
 my_url &lt;-<span class="st"> </span><span class="kw"><a href="reference/make_search_url.html">make_search_url</a></span>(<span class="dt">query =</span> <span class="st">"neural network"</span>, 
@@ -165,7 +162,7 @@ my_url &lt;-<span class="st"> </span><span class="kw"><a href="reference/make_se
 <span class="co">#&gt; [1] 304</span>
 <span class="co"># 303</span>
 <span class="co"># 304</span>
-<span class="kw">as.tibble</span>(<span class="kw"><a href="reference/onepetro_page_to_dataframe.html">onepetro_page_to_dataframe</a></span>(my_url))
+<span class="kw"><a href="reference/onepetro_page_to_dataframe.html">onepetro_page_to_dataframe</a></span>(my_url)
 <span class="co">#&gt; # A tibble: 304 x 6</span>
 <span class="co">#&gt;                                                                     title_data</span>
 <span class="co">#&gt;                                                                          &lt;chr&gt;</span>
@@ -182,10 +179,142 @@ my_url &lt;-<span class="st"> </span><span class="kw"><a href="reference/make_se
 <span class="co">#&gt; # ... with 294 more rows, and 5 more variables: paper_id &lt;chr&gt;,</span>
 <span class="co">#&gt; #   source &lt;chr&gt;, type &lt;chr&gt;, year &lt;chr&gt;, author1_data &lt;chr&gt;</span></code></pre></div>
 </div>
+<div id="what-to-do-when-we-have-more-than-a-thousand-papers" class="section level2">
+<h2 class="hasAnchor">
+<a href="#what-to-do-when-we-have-more-than-a-thousand-papers" class="anchor"></a>What to do when we have more than a thousand papers</h2>
+<div id="get-total-number-of-papers" class="section level3">
+<h3 class="hasAnchor">
+<a href="#get-total-number-of-papers" class="anchor"></a>1. Get total number of papers</h3>
+<p>First, we need to find what is the total number of papers for a particular query. In this search we want all papers that have exact words “neural network”.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">
+my_url &lt;-<span class="st"> </span><span class="kw"><a href="reference/make_search_url.html">make_search_url</a></span>(<span class="dt">query =</span> <span class="st">"neural network"</span>, 
+                          <span class="dt">how =</span> <span class="st">"all"</span>)
+
+<span class="kw"><a href="reference/get_papers_count.html">get_papers_count</a></span>(my_url)
+<span class="co">#&gt; [1] 3025</span>
+<span class="co"># 3025 @ 200171009   total number of papers</span></code></pre></div>
+</div>
+<div id="find-type-of-papers" class="section level3">
+<h3 class="hasAnchor">
+<a href="#find-type-of-papers" class="anchor"></a>2. Find type of papers</h3>
+<p>In this example we investigate the type of papers available for a given search. In this case, we want exact match of “neural network” words.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">result &lt;-<span class="st"> </span><span class="kw"><a href="reference/read_onepetro.html">read_onepetro</a></span>(my_url)
+<span class="kw"><a href="reference/summary_by_doctype.html">summary_by_doctype</a></span>(result)
+<span class="co">#&gt; # A tibble: 6 x 2</span>
+<span class="co">#&gt;               name value</span>
+<span class="co">#&gt;              &lt;chr&gt; &lt;dbl&gt;</span>
+<span class="co">#&gt; 1 Conference paper  2687</span>
+<span class="co">#&gt; 2          General     4</span>
+<span class="co">#&gt; 3    Journal paper   304</span>
+<span class="co">#&gt; 4            Media     2</span>
+<span class="co">#&gt; 5            Other     5</span>
+<span class="co">#&gt; 6     Presentation    23</span></code></pre></div>
+<p>We see that most numerous papers are from conferences. We will proceed to gran the paper titles of those.</p>
+</div>
+<div id="retrieve-the-most-numerous-paper-by-type" class="section level3">
+<h3 class="hasAnchor">
+<a href="#retrieve-the-most-numerous-paper-by-type" class="anchor"></a>3. Retrieve the most numerous paper by type</h3>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># folder where we will save the results</span>
+outdir &lt;-<span class="st"> </span><span class="kw">system.file</span>(<span class="st">"out"</span>, <span class="dt">package =</span> <span class="st">"petroOne"</span>)</code></pre></div>
+<div id="collect-first-1000-rows-out-of-2687" class="section level4">
+<h4 class="hasAnchor">
+<a href="#collect-first-1000-rows-out-of-2687" class="anchor"></a>3.1 Collect first 1000 rows out of 2687</h4>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># we use "conference-paper" only because other document types have</span>
+<span class="co"># different dataframe structure</span>
+
+my_url_1 &lt;-<span class="st"> </span><span class="kw"><a href="reference/make_search_url.html">make_search_url</a></span>(<span class="dt">query =</span> <span class="st">"neural network"</span>, 
+                          <span class="dt">how =</span> <span class="st">"all"</span>, 
+                          <span class="dt">dc_type =</span> <span class="st">"conference-paper"</span>,
+                          <span class="dt">start =</span> <span class="dv">0</span>,
+                          <span class="dt">rows  =</span> <span class="dv">1000</span>)
+
+<span class="kw"><a href="reference/get_papers_count.html">get_papers_count</a></span>(my_url_1)
+<span class="co">#&gt; [1] 2687</span>
+
+page_1 &lt;-<span class="st"> </span><span class="kw"><a href="reference/read_onepetro.html">read_onepetro</a></span>(my_url_1)
+htm_1 &lt;-<span class="st"> </span><span class="kw">paste</span>(outdir, <span class="st">"1000_conference.html"</span>, <span class="dt">sep =</span> <span class="st">"/"</span>)
+xml2::<span class="kw">write_html</span>(page_1, <span class="dt">file =</span> htm_1)
+<span class="kw"><a href="reference/onepetro_page_to_dataframe.html">onepetro_page_to_dataframe</a></span>(htm_1)
+<span class="co">#&gt; # A tibble: 1,000 x 6</span>
+<span class="co">#&gt;                                                      title_data</span>
+<span class="co">#&gt;                                                           &lt;chr&gt;</span>
+<span class="co">#&gt;  1                          Deconvolution Using Neural Networks</span>
+<span class="co">#&gt;  2                                      Neural Networks And AVO</span>
+<span class="co">#&gt;  3                     Neural Network Stacking Velocity Picking</span>
+<span class="co">#&gt;  4                    First Break Picking Using Neural Networks</span>
+<span class="co">#&gt;  5             Neural Networks And Paper Seismic Interpretation</span>
+<span class="co">#&gt;  6  Seismic Principal Components Analysis Using Neural Networks</span>
+<span class="co">#&gt;  7        Estimation of Welding Distortion Using Neural Network</span>
+<span class="co">#&gt;  8      Artificial Intelligence I Neural Networks In Geophysics</span>
+<span class="co">#&gt;  9 Reservoir Characterization Using Feedforward Neural Networks</span>
+<span class="co">#&gt; 10          Seismic Attribute Calibration Using Neural Networks</span>
+<span class="co">#&gt; # ... with 990 more rows, and 5 more variables: paper_id &lt;chr&gt;,</span>
+<span class="co">#&gt; #   source &lt;chr&gt;, type &lt;chr&gt;, year &lt;chr&gt;, author1_data &lt;chr&gt;</span></code></pre></div>
+</div>
+<div id="collect-second-set-of-1000-rows" class="section level4">
+<h4 class="hasAnchor">
+<a href="#collect-second-set-of-1000-rows" class="anchor"></a>3.2 Collect second set of 1000 rows</h4>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">my_url_2 &lt;-<span class="st"> </span><span class="kw"><a href="reference/make_search_url.html">make_search_url</a></span>(<span class="dt">query =</span> <span class="st">"neural network"</span>, 
+                          <span class="dt">how =</span> <span class="st">"all"</span>, 
+                          <span class="dt">dc_type =</span> <span class="st">"conference-paper"</span>,
+                          <span class="dt">start =</span> <span class="dv">1000</span>,
+                          <span class="dt">rows  =</span> <span class="dv">1000</span>)
+
+page_2 &lt;-<span class="st"> </span><span class="kw"><a href="reference/read_onepetro.html">read_onepetro</a></span>(my_url_2)
+htm_2 &lt;-<span class="st"> </span><span class="kw">paste</span>(outdir, <span class="st">"2000_conference.html"</span>, <span class="dt">sep =</span> <span class="st">"/"</span>)
+xml2::<span class="kw">write_html</span>(page_2, <span class="dt">file =</span> htm_2)
+<span class="kw"><a href="reference/onepetro_page_to_dataframe.html">onepetro_page_to_dataframe</a></span>(htm_2)
+<span class="co">#&gt; # A tibble: 1,000 x 6</span>
+<span class="co">#&gt;                                                                     title_data</span>
+<span class="co">#&gt;                                                                          &lt;chr&gt;</span>
+<span class="co">#&gt;  1 Pore Pressure Prediction Using High Resolution Velocity And Acoustic Impeda</span>
+<span class="co">#&gt;  2 Single Gas Flow Prediction through Chokes using Artificial Intelligence Tec</span>
+<span class="co">#&gt;  3 A Production Performance Prediction and Field Development Tool for Coalbed </span>
+<span class="co">#&gt;  4   Rock Mechanical Properties of Shallow Unconsolidated Sandstone Formations</span>
+<span class="co">#&gt;  5 Challenges in Using Operational Data for Reliable Wind Turbine Condition Mo</span>
+<span class="co">#&gt;  6             Production Optimization Strategy Using Hybrid Genetic Algorithm</span>
+<span class="co">#&gt;  7 Modelling Pipeline and Choke Optimization for Improved Gas Field Production</span>
+<span class="co">#&gt;  8 Estimating Saturation Changes from 4D Seismic: A Case Study from Malay Basi</span>
+<span class="co">#&gt;  9               Automated Reservoir Surveillance through Data Mining Software</span>
+<span class="co">#&gt; 10                            Improvements to Computer Based Fault Extractions</span>
+<span class="co">#&gt; # ... with 990 more rows, and 5 more variables: paper_id &lt;chr&gt;,</span>
+<span class="co">#&gt; #   source &lt;chr&gt;, type &lt;chr&gt;, year &lt;chr&gt;, author1_data &lt;chr&gt;</span></code></pre></div>
+</div>
+<div id="collect-remaining-set-of-1000-rows" class="section level4">
+<h4 class="hasAnchor">
+<a href="#collect-remaining-set-of-1000-rows" class="anchor"></a>3.3 Collect remaining set of 1000 rows</h4>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">my_url_3 &lt;-<span class="st"> </span><span class="kw"><a href="reference/make_search_url.html">make_search_url</a></span>(<span class="dt">query =</span> <span class="st">"neural network"</span>, 
+                          <span class="dt">how =</span> <span class="st">"all"</span>, 
+                          <span class="dt">dc_type =</span> <span class="st">"conference-paper"</span>,
+                          <span class="dt">start =</span> <span class="dv">2000</span>,
+                          <span class="dt">rows  =</span> <span class="dv">1000</span>)
+
+page_3 &lt;-<span class="st"> </span><span class="kw"><a href="reference/read_onepetro.html">read_onepetro</a></span>(my_url_3)
+htm_3 &lt;-<span class="st"> </span><span class="kw">paste</span>(outdir, <span class="st">"3000_conference.html"</span>, <span class="dt">sep =</span> <span class="st">"/"</span>)
+xml2::<span class="kw">write_html</span>(page_3, <span class="dt">file =</span> htm_3)
+<span class="kw"><a href="reference/onepetro_page_to_dataframe.html">onepetro_page_to_dataframe</a></span>(htm_3)
+<span class="co">#&gt; # A tibble: 687 x 6</span>
+<span class="co">#&gt;                                                                     title_data</span>
+<span class="co">#&gt;                                                                          &lt;chr&gt;</span>
+<span class="co">#&gt;  1 Cyclic Behavior of Laterally Loaded Piles in Soils With Variable Properties</span>
+<span class="co">#&gt;  2 A New Approach to Predict Failure Parameters of Carbonate Rocks using Artif</span>
+<span class="co">#&gt;  3 Seismic to Simulation Fracture Characterization of a Green Carbonate Reserv</span>
+<span class="co">#&gt;  4                                           Advanced Streaming Data Cleansing</span>
+<span class="co">#&gt;  5                Wave Height Forecast Using Self-Organization Algorithm Model</span>
+<span class="co">#&gt;  6          The Role Of Ocean Engineers In Japanese Ocean Measurement Research</span>
+<span class="co">#&gt;  7                  Field Evaluation Of A Hydrate Inhibition Monitoring System</span>
+<span class="co">#&gt;  8 Data-Driven Brittleness Index Prediction From Elemental Spectroscopy and Pe</span>
+<span class="co">#&gt;  9 Maximize the placement of wells and production in unconventional reservoirs</span>
+<span class="co">#&gt; 10     Integrity Monitoring of Offshore Platforms Using Artificial Neural Nets</span>
+<span class="co">#&gt; # ... with 677 more rows, and 5 more variables: paper_id &lt;chr&gt;,</span>
+<span class="co">#&gt; #   source &lt;chr&gt;, type &lt;chr&gt;, year &lt;chr&gt;, author1_data &lt;chr&gt;</span></code></pre></div>
+</div>
+</div>
 </div>
 <div id="summaries" class="section level2">
 <h2 class="hasAnchor">
 <a href="#summaries" class="anchor"></a>Summaries</h2>
+<p>Here is a nother example of summaries. In this case, we want papers that contain the exact words “well test”.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(petroOne)
 
 my_url &lt;-<span class="st"> </span><span class="kw"><a href="reference/make_search_url.html">make_search_url</a></span>(<span class="dt">query =</span> <span class="st">"well test"</span>, 
@@ -193,7 +322,7 @@ my_url &lt;-<span class="st"> </span><span class="kw"><a href="reference/make_se
 
 result &lt;-<span class="st"> </span><span class="kw"><a href="reference/read_onepetro.html">read_onepetro</a></span>(my_url)
 
-<span class="kw">as.tibble</span>(<span class="kw"><a href="reference/summary_by_doctype.html">summary_by_doctype</a></span>(result))
+<span class="kw"><a href="reference/summary_by_doctype.html">summary_by_doctype</a></span>(result)
 <span class="co">#&gt; # A tibble: 7 x 2</span>
 <span class="co">#&gt;               name value</span>
 <span class="co">#&gt;              &lt;chr&gt; &lt;dbl&gt;</span>
@@ -204,7 +333,7 @@ result &lt;-<span class="st"> </span><span class="kw"><a href="reference/read_on
 <span class="co">#&gt; 5            Media     5</span>
 <span class="co">#&gt; 6            Other     8</span>
 <span class="co">#&gt; 7     Presentation    25</span>
-<span class="kw">as.tibble</span>(<span class="kw"><a href="reference/summary_by_publisher.html">summary_by_publisher</a></span>(result))
+<span class="kw"><a href="reference/summary_by_publisher.html">summary_by_publisher</a></span>(result)
 <span class="co">#&gt; # A tibble: 20 x 2</span>
 <span class="co">#&gt;                                                     name value</span>
 <span class="co">#&gt;                                                    &lt;chr&gt; &lt;dbl&gt;</span>
@@ -228,7 +357,7 @@ result &lt;-<span class="st"> </span><span class="kw"><a href="reference/read_on
 <span class="co">#&gt; 18                      Society of Underwater Technology    12</span>
 <span class="co">#&gt; 19        Unconventional Resources Technology Conference    60</span>
 <span class="co">#&gt; 20                              World Petroleum Congress    77</span>
-<span class="kw">as.tibble</span>(<span class="kw"><a href="reference/summary_by_dates.html">summary_by_dates</a></span>(result))
+<span class="kw"><a href="reference/summary_by_dates.html">summary_by_dates</a></span>(result)
 <span class="co">#&gt; # A tibble: 76 x 2</span>
 <span class="co">#&gt;          name value</span>
 <span class="co">#&gt;         &lt;chr&gt; &lt;dbl&gt;</span>
@@ -243,7 +372,7 @@ result &lt;-<span class="st"> </span><span class="kw"><a href="reference/read_on
 <span class="co">#&gt;  9 Since 2009  4454</span>
 <span class="co">#&gt; 10 Since 2008  4865</span>
 <span class="co">#&gt; # ... with 66 more rows</span>
-<span class="kw">as.tibble</span>(<span class="kw"><a href="reference/summary_by_publications.html">summary_by_publications</a></span>(result))
+<span class="kw"><a href="reference/summary_by_publications.html">summary_by_publications</a></span>(result)
 <span class="co">#&gt; # A tibble: 575 x 2</span>
 <span class="co">#&gt;                                                                 name value</span>
 <span class="co">#&gt;                                                                &lt;chr&gt; &lt;dbl&gt;</span>
@@ -258,114 +387,71 @@ result &lt;-<span class="st"> </span><span class="kw"><a href="reference/read_on
 <span class="co">#&gt;  9 13th International Conference on Multiphase Production Technology     1</span>
 <span class="co">#&gt; 10                                     13th World Petroleum Congress     3</span>
 <span class="co">#&gt; # ... with 565 more rows</span></code></pre></div>
-</div>
-<div id="get-total-number-of-papers" class="section level2">
-<h2 class="hasAnchor">
-<a href="#get-total-number-of-papers" class="anchor"></a>Get total number of papers</h2>
-<p>in multiple pages of 1000 rows (or papers each)</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># we use "conference-paper" only because other document types have</span>
-<span class="co"># different dataframe structure</span>
+<p>In this other example, we want papers that containg the word “well” or “test”.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(petroOne)
 
-my_url &lt;-<span class="st"> </span><span class="kw"><a href="reference/make_search_url.html">make_search_url</a></span>(<span class="dt">query =</span> <span class="st">"neural network"</span>, 
-                          <span class="dt">how =</span> <span class="st">"all"</span>,
-                          <span class="dt">dc_type =</span> <span class="st">"conference-paper"</span>,
-                          <span class="dt">rows =</span> <span class="dv">1000</span>)
+my_url &lt;-<span class="st"> </span><span class="kw"><a href="reference/make_search_url.html">make_search_url</a></span>(<span class="dt">query =</span> <span class="st">"well test"</span>, 
+                          <span class="dt">how =</span> <span class="st">"any"</span>)
 
-<span class="kw"><a href="reference/get_papers_count.html">get_papers_count</a></span>(my_url)
-<span class="co">#&gt; [1] 2687</span>
-<span class="co"># 2661</span>
-<span class="co"># 2697 @ 200171009</span></code></pre></div>
-<div id="collect-first-1000-rows-out-of-2661" class="section level3">
-<h3 class="hasAnchor">
-<a href="#collect-first-1000-rows-out-of-2661" class="anchor"></a>Collect first 1000 rows out of 2661</h3>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">outdir &lt;-<span class="st"> </span><span class="kw">system.file</span>(<span class="st">"out"</span>, <span class="dt">package =</span> <span class="st">"petroOne"</span>)</code></pre></div>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">my_url_1 &lt;-<span class="st"> </span><span class="kw"><a href="reference/make_search_url.html">make_search_url</a></span>(<span class="dt">query =</span> <span class="st">"neural network"</span>, 
-                          <span class="dt">how =</span> <span class="st">"all"</span>, 
-                          <span class="dt">dc_type =</span> <span class="st">"conference-paper"</span>,
-                          <span class="dt">start =</span> <span class="dv">0</span>,
-                          <span class="dt">rows  =</span> <span class="dv">1000</span>)
+result &lt;-<span class="st"> </span><span class="kw"><a href="reference/read_onepetro.html">read_onepetro</a></span>(my_url)
 
-<span class="kw"><a href="reference/get_papers_count.html">get_papers_count</a></span>(my_url_1)
-<span class="co">#&gt; [1] 2687</span>
-
-page_1 &lt;-<span class="st"> </span><span class="kw"><a href="reference/read_onepetro.html">read_onepetro</a></span>(my_url_1)
-htm_1 &lt;-<span class="st"> </span><span class="kw">paste</span>(outdir, <span class="st">"1000_conference.html"</span>, <span class="dt">sep =</span> <span class="st">"/"</span>)
-xml2::<span class="kw">write_html</span>(page_1, <span class="dt">file =</span> htm_1)
-<span class="kw">as.tibble</span>(<span class="kw"><a href="reference/onepetro_page_to_dataframe.html">onepetro_page_to_dataframe</a></span>(htm_1))
-<span class="co">#&gt; # A tibble: 1,000 x 6</span>
-<span class="co">#&gt;                                                      title_data</span>
-<span class="co">#&gt;                                                           &lt;chr&gt;</span>
-<span class="co">#&gt;  1                          Deconvolution Using Neural Networks</span>
-<span class="co">#&gt;  2                                      Neural Networks And AVO</span>
-<span class="co">#&gt;  3                     Neural Network Stacking Velocity Picking</span>
-<span class="co">#&gt;  4                    First Break Picking Using Neural Networks</span>
-<span class="co">#&gt;  5             Neural Networks And Paper Seismic Interpretation</span>
-<span class="co">#&gt;  6  Seismic Principal Components Analysis Using Neural Networks</span>
-<span class="co">#&gt;  7        Estimation of Welding Distortion Using Neural Network</span>
-<span class="co">#&gt;  8      Artificial Intelligence I Neural Networks In Geophysics</span>
-<span class="co">#&gt;  9 Reservoir Characterization Using Feedforward Neural Networks</span>
-<span class="co">#&gt; 10          Seismic Attribute Calibration Using Neural Networks</span>
-<span class="co">#&gt; # ... with 990 more rows, and 5 more variables: paper_id &lt;chr&gt;,</span>
-<span class="co">#&gt; #   source &lt;chr&gt;, type &lt;chr&gt;, year &lt;chr&gt;, author1_data &lt;chr&gt;</span></code></pre></div>
-</div>
-<div id="collect-second-set-of-1000-rows-out-of-2661" class="section level3">
-<h3 class="hasAnchor">
-<a href="#collect-second-set-of-1000-rows-out-of-2661" class="anchor"></a>Collect second set of 1000 rows out of 2661</h3>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">my_url_2 &lt;-<span class="st"> </span><span class="kw"><a href="reference/make_search_url.html">make_search_url</a></span>(<span class="dt">query =</span> <span class="st">"neural network"</span>, 
-                          <span class="dt">how =</span> <span class="st">"all"</span>, 
-                          <span class="dt">dc_type =</span> <span class="st">"conference-paper"</span>,
-                          <span class="dt">start =</span> <span class="dv">1000</span>,
-                          <span class="dt">rows  =</span> <span class="dv">1000</span>)
-
-page_2 &lt;-<span class="st"> </span><span class="kw"><a href="reference/read_onepetro.html">read_onepetro</a></span>(my_url_2)
-htm_2 &lt;-<span class="st"> </span><span class="kw">paste</span>(outdir, <span class="st">"2000_conference.html"</span>, <span class="dt">sep =</span> <span class="st">"/"</span>)
-xml2::<span class="kw">write_html</span>(page_2, <span class="dt">file =</span> htm_2)
-<span class="kw">as.tibble</span>(<span class="kw"><a href="reference/onepetro_page_to_dataframe.html">onepetro_page_to_dataframe</a></span>(htm_2))
-<span class="co">#&gt; # A tibble: 1,000 x 6</span>
-<span class="co">#&gt;                                                                     title_data</span>
-<span class="co">#&gt;                                                                          &lt;chr&gt;</span>
-<span class="co">#&gt;  1 Pore Pressure Prediction Using High Resolution Velocity And Acoustic Impeda</span>
-<span class="co">#&gt;  2 Single Gas Flow Prediction through Chokes using Artificial Intelligence Tec</span>
-<span class="co">#&gt;  3 A Production Performance Prediction and Field Development Tool for Coalbed </span>
-<span class="co">#&gt;  4   Rock Mechanical Properties of Shallow Unconsolidated Sandstone Formations</span>
-<span class="co">#&gt;  5 Challenges in Using Operational Data for Reliable Wind Turbine Condition Mo</span>
-<span class="co">#&gt;  6             Production Optimization Strategy Using Hybrid Genetic Algorithm</span>
-<span class="co">#&gt;  7 Modelling Pipeline and Choke Optimization for Improved Gas Field Production</span>
-<span class="co">#&gt;  8 Estimating Saturation Changes from 4D Seismic: A Case Study from Malay Basi</span>
-<span class="co">#&gt;  9               Automated Reservoir Surveillance through Data Mining Software</span>
-<span class="co">#&gt; 10                            Improvements to Computer Based Fault Extractions</span>
-<span class="co">#&gt; # ... with 990 more rows, and 5 more variables: paper_id &lt;chr&gt;,</span>
-<span class="co">#&gt; #   source &lt;chr&gt;, type &lt;chr&gt;, year &lt;chr&gt;, author1_data &lt;chr&gt;</span></code></pre></div>
-</div>
-<div id="collect-remaining-set-of-1000-rows-out-of-2661" class="section level3">
-<h3 class="hasAnchor">
-<a href="#collect-remaining-set-of-1000-rows-out-of-2661" class="anchor"></a>Collect remaining set of 1000 rows out of 2661</h3>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">my_url_3 &lt;-<span class="st"> </span><span class="kw"><a href="reference/make_search_url.html">make_search_url</a></span>(<span class="dt">query =</span> <span class="st">"neural network"</span>, 
-                          <span class="dt">how =</span> <span class="st">"all"</span>, 
-                          <span class="dt">dc_type =</span> <span class="st">"conference-paper"</span>,
-                          <span class="dt">start =</span> <span class="dv">2000</span>,
-                          <span class="dt">rows  =</span> <span class="dv">1000</span>)
-
-page_3 &lt;-<span class="st"> </span><span class="kw"><a href="reference/read_onepetro.html">read_onepetro</a></span>(my_url_3)
-htm_3 &lt;-<span class="st"> </span><span class="kw">paste</span>(outdir, <span class="st">"3000_conference.html"</span>, <span class="dt">sep =</span> <span class="st">"/"</span>)
-xml2::<span class="kw">write_html</span>(page_3, <span class="dt">file =</span> htm_3)
-<span class="kw">as.tibble</span>(<span class="kw"><a href="reference/onepetro_page_to_dataframe.html">onepetro_page_to_dataframe</a></span>(htm_3))
-<span class="co">#&gt; # A tibble: 687 x 6</span>
-<span class="co">#&gt;                                                                     title_data</span>
-<span class="co">#&gt;                                                                          &lt;chr&gt;</span>
-<span class="co">#&gt;  1 Cyclic Behavior of Laterally Loaded Piles in Soils With Variable Properties</span>
-<span class="co">#&gt;  2 A New Approach to Predict Failure Parameters of Carbonate Rocks using Artif</span>
-<span class="co">#&gt;  3 Seismic to Simulation Fracture Characterization of a Green Carbonate Reserv</span>
-<span class="co">#&gt;  4                                           Advanced Streaming Data Cleansing</span>
-<span class="co">#&gt;  5                Wave Height Forecast Using Self-Organization Algorithm Model</span>
-<span class="co">#&gt;  6          The Role Of Ocean Engineers In Japanese Ocean Measurement Research</span>
-<span class="co">#&gt;  7                  Field Evaluation Of A Hydrate Inhibition Monitoring System</span>
-<span class="co">#&gt;  8 Data-Driven Brittleness Index Prediction From Elemental Spectroscopy and Pe</span>
-<span class="co">#&gt;  9 Maximize the placement of wells and production in unconventional reservoirs</span>
-<span class="co">#&gt; 10     Integrity Monitoring of Offshore Platforms Using Artificial Neural Nets</span>
-<span class="co">#&gt; # ... with 677 more rows, and 5 more variables: paper_id &lt;chr&gt;,</span>
-<span class="co">#&gt; #   source &lt;chr&gt;, type &lt;chr&gt;, year &lt;chr&gt;, author1_data &lt;chr&gt;</span></code></pre></div>
-</div>
+<span class="kw"><a href="reference/summary_by_doctype.html">summary_by_doctype</a></span>(result)
+<span class="co">#&gt; # A tibble: 8 x 2</span>
+<span class="co">#&gt;               name value</span>
+<span class="co">#&gt;              &lt;chr&gt; &lt;dbl&gt;</span>
+<span class="co">#&gt; 1          Chapter    60</span>
+<span class="co">#&gt; 2 Conference paper 86778</span>
+<span class="co">#&gt; 3          General   932</span>
+<span class="co">#&gt; 4    Journal paper 15820</span>
+<span class="co">#&gt; 5            Media     9</span>
+<span class="co">#&gt; 6            Other    21</span>
+<span class="co">#&gt; 7     Presentation   265</span>
+<span class="co">#&gt; 8         Standard    95</span>
+<span class="kw"><a href="reference/summary_by_publisher.html">summary_by_publisher</a></span>(result)
+<span class="co">#&gt; # A tibble: 22 x 2</span>
+<span class="co">#&gt;                                                     name value</span>
+<span class="co">#&gt;                                                    &lt;chr&gt; &lt;dbl&gt;</span>
+<span class="co">#&gt;  1                          American Petroleum Institute   676</span>
+<span class="co">#&gt;  2                   American Rock Mechanics Association  3851</span>
+<span class="co">#&gt;  3                  American Society of Safety Engineers  1097</span>
+<span class="co">#&gt;  4                                             BHR Group   221</span>
+<span class="co">#&gt;  5               Carbon Management Technology Conference    82</span>
+<span class="co">#&gt;  6         International Petroleum Technology Conference  1774</span>
+<span class="co">#&gt;  7              International Society for Rock Mechanics  3975</span>
+<span class="co">#&gt;  8 International Society of Offshore and Polar Engineers  7408</span>
+<span class="co">#&gt;  9                                    NACE International  7708</span>
+<span class="co">#&gt; 10                 National Energy Technology Laboratory    21</span>
+<span class="co">#&gt; # ... with 12 more rows</span>
+<span class="kw"><a href="reference/summary_by_dates.html">summary_by_dates</a></span>(result)
+<span class="co">#&gt; # A tibble: 103 x 2</span>
+<span class="co">#&gt;          name value</span>
+<span class="co">#&gt;         &lt;chr&gt; &lt;dbl&gt;</span>
+<span class="co">#&gt;  1 Since 2017  3537</span>
+<span class="co">#&gt;  2 Since 2016  8685</span>
+<span class="co">#&gt;  3 Since 2015 14259</span>
+<span class="co">#&gt;  4 Since 2014 19538</span>
+<span class="co">#&gt;  5 Since 2013 24208</span>
+<span class="co">#&gt;  6 Since 2012 28705</span>
+<span class="co">#&gt;  7 Since 2011 32773</span>
+<span class="co">#&gt;  8 Since 2010 36988</span>
+<span class="co">#&gt;  9 Since 2009 40477</span>
+<span class="co">#&gt; 10 Since 2008 43852</span>
+<span class="co">#&gt; # ... with 93 more rows</span>
+<span class="kw"><a href="reference/summary_by_publications.html">summary_by_publications</a></span>(result)
+<span class="co">#&gt; # A tibble: 823 x 2</span>
+<span class="co">#&gt;                                                                 name value</span>
+<span class="co">#&gt;                                                                &lt;chr&gt; &lt;dbl&gt;</span>
+<span class="co">#&gt;  1                                                10th ISRM Congress   109</span>
+<span class="co">#&gt;  2           10th North American Conference on Multiphase Technology    20</span>
+<span class="co">#&gt;  3                                     10th World Petroleum Congress    82</span>
+<span class="co">#&gt;  4                                                11th ISRM Congress   123</span>
+<span class="co">#&gt;  5                                     11th World Petroleum Congress    74</span>
+<span class="co">#&gt;  6                                                12th ISRM Congress   196</span>
+<span class="co">#&gt;  7 12th International Conference on Multiphase Production Technology    31</span>
+<span class="co">#&gt;  8                                     12th World Petroleum Congress    54</span>
+<span class="co">#&gt;  9                13th ISRM International Congress of Rock Mechanics   228</span>
+<span class="co">#&gt; 10 13th International Conference on Multiphase Production Technology    25</span>
+<span class="co">#&gt; # ... with 813 more rows</span></code></pre></div>
 </div>
 </div>
 </div>
