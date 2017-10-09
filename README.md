@@ -55,14 +55,14 @@ onepetro_page_to_dataframe(my_url)
 #>                                                           <chr>
 #>  1                          Deconvolution Using Neural Networks
 #>  2                     Neural Network Stacking Velocity Picking
-#>  3                    First Break Picking Using Neural Networks
-#>  4             Neural Networks And Paper Seismic Interpretation
-#>  5  Seismic Principal Components Analysis Using Neural Networks
-#>  6      Artificial Intelligence I Neural Networks In Geophysics
-#>  7 Reservoir Characterization Using Feedforward Neural Networks
-#>  8          Seismic Attribute Calibration Using Neural Networks
-#>  9        Neural Networks For Primary Reflection Identification
-#> 10                     Drill-Bit Diagnosis With Neural Networks
+#>  3                     Drill-Bit Diagnosis With Neural Networks
+#>  4      Artificial Intelligence I Neural Networks In Geophysics
+#>  5         Inversion of Seismic Waveforms Using Neural Networks
+#>  6             Neural Networks And Paper Seismic Interpretation
+#>  7                    First Break Picking Using Neural Networks
+#>  8     Conductive fracture identification using neural networks
+#>  9 Reservoir Characterization Using Feedforward Neural Networks
+#> 10          Seismic Attribute Calibration Using Neural Networks
 #> # ... with 5 more variables: paper_id <chr>, source <chr>, type <chr>,
 #> #   year <chr>, author1_data <chr>
 ```
@@ -86,18 +86,18 @@ get_papers_count(my_url)
 # 2687
 onepetro_page_to_dataframe(my_url)
 #> # A tibble: 1,000 x 6
-#>                                                      title_data
-#>                                                           <chr>
-#>  1                          Deconvolution Using Neural Networks
-#>  2                                      Neural Networks And AVO
-#>  3                     Neural Network Stacking Velocity Picking
-#>  4                    First Break Picking Using Neural Networks
-#>  5             Neural Networks And Paper Seismic Interpretation
-#>  6  Seismic Principal Components Analysis Using Neural Networks
-#>  7        Estimation of Welding Distortion Using Neural Network
-#>  8      Artificial Intelligence I Neural Networks In Geophysics
-#>  9 Reservoir Characterization Using Feedforward Neural Networks
-#> 10          Seismic Attribute Calibration Using Neural Networks
+#>                                                  title_data
+#>                                                       <chr>
+#>  1                                  Neural Networks And AVO
+#>  2                      Deconvolution Using Neural Networks
+#>  3                 Neural Network Stacking Velocity Picking
+#>  4 Predicting Wax Formation Using Artificial Neural Network
+#>  5    Estimation of Welding Distortion Using Neural Network
+#>  6  Artificial Intelligence I Neural Networks In Geophysics
+#>  7     Inversion of Seismic Waveforms Using Neural Networks
+#>  8         Neural Networks And Paper Seismic Interpretation
+#>  9 Dynamic Neural Network Calibration of Quartz Transducers
+#> 10                First Break Picking Using Neural Networks
 #> # ... with 990 more rows, and 5 more variables: paper_id <chr>,
 #> #   source <chr>, type <chr>, year <chr>, author1_data <chr>
 ```
@@ -120,16 +120,16 @@ onepetro_page_to_dataframe(my_url)
 #> # A tibble: 304 x 6
 #>                                                                     title_data
 #>                                                                          <chr>
-#>  1                   Implicit Approximation of Neural Network and Applications
-#>  2                Artificial Neural Networks Identify Restimulation Candidates
-#>  3                                    Drill-Bit Diagnosis With Neural Networks
+#>  1                Artificial Neural Networks Identify Restimulation Candidates
+#>  2                                    Drill-Bit Diagnosis With Neural Networks
+#>  3                   Implicit Approximation of Neural Network and Applications
 #>  4                 Neural Networks for Predictive Control of Drilling Dynamics
-#>  5          An Artificial Neural Network Based Relative Permeability Predictor
-#>  6 Characterize Submarine Channel Reservoirs: A Neural- Network-Based Approach
-#>  7             Application of Artificial Neural Network to Pump Card Diagnosis
-#>  8        Application of Artificial Neural Networks to Downhole Fluid Analysis
-#>  9                Neural Network Approach Predicts U.S. Natural Gas Production
-#> 10           Pseudodensity Log Generation by Use of Artificial Neural Networks
+#>  5             Application of Artificial Neural Network to Pump Card Diagnosis
+#>  6        Application of Artificial Neural Networks to Downhole Fluid Analysis
+#>  7                Neural Network Approach Predicts U.S. Natural Gas Production
+#>  8                      Neural Network: What It Can Do for Petroleum Engineers
+#>  9 Treating Uncertainties in Reservoir-Performance Prediction With Neural Netw
+#> 10 Characterize Submarine Channel Reservoirs: A Neural- Network-Based Approach
 #> # ... with 294 more rows, and 5 more variables: paper_id <chr>,
 #> #   source <chr>, type <chr>, year <chr>, author1_data <chr>
 ```
@@ -198,18 +198,18 @@ htm_1 <- paste(outdir, "1000_conference.html", sep = "/")
 xml2::write_html(page_1, file = htm_1)
 onepetro_page_to_dataframe(htm_1)
 #> # A tibble: 1,000 x 6
-#>                                                      title_data
-#>                                                           <chr>
-#>  1                          Deconvolution Using Neural Networks
-#>  2                                      Neural Networks And AVO
-#>  3                     Neural Network Stacking Velocity Picking
-#>  4                    First Break Picking Using Neural Networks
-#>  5             Neural Networks And Paper Seismic Interpretation
-#>  6  Seismic Principal Components Analysis Using Neural Networks
-#>  7        Estimation of Welding Distortion Using Neural Network
-#>  8      Artificial Intelligence I Neural Networks In Geophysics
-#>  9 Reservoir Characterization Using Feedforward Neural Networks
-#> 10          Seismic Attribute Calibration Using Neural Networks
+#>                                                  title_data
+#>                                                       <chr>
+#>  1                                  Neural Networks And AVO
+#>  2                      Deconvolution Using Neural Networks
+#>  3                 Neural Network Stacking Velocity Picking
+#>  4 Predicting Wax Formation Using Artificial Neural Network
+#>  5    Estimation of Welding Distortion Using Neural Network
+#>  6  Artificial Intelligence I Neural Networks In Geophysics
+#>  7     Inversion of Seismic Waveforms Using Neural Networks
+#>  8         Neural Networks And Paper Seismic Interpretation
+#>  9 Dynamic Neural Network Calibration of Quartz Transducers
+#> 10                First Break Picking Using Neural Networks
 #> # ... with 990 more rows, and 5 more variables: paper_id <chr>,
 #> #   source <chr>, type <chr>, year <chr>, author1_data <chr>
 ```
@@ -230,16 +230,16 @@ onepetro_page_to_dataframe(htm_2)
 #> # A tibble: 1,000 x 6
 #>                                                                     title_data
 #>                                                                          <chr>
-#>  1 Pore Pressure Prediction Using High Resolution Velocity And Acoustic Impeda
-#>  2 Single Gas Flow Prediction through Chokes using Artificial Intelligence Tec
-#>  3 A Production Performance Prediction and Field Development Tool for Coalbed 
-#>  4   Rock Mechanical Properties of Shallow Unconsolidated Sandstone Formations
-#>  5 Challenges in Using Operational Data for Reliable Wind Turbine Condition Mo
-#>  6             Production Optimization Strategy Using Hybrid Genetic Algorithm
-#>  7 Modelling Pipeline and Choke Optimization for Improved Gas Field Production
-#>  8 Estimating Saturation Changes from 4D Seismic: A Case Study from Malay Basi
-#>  9               Automated Reservoir Surveillance through Data Mining Software
-#> 10                            Improvements to Computer Based Fault Extractions
+#>  1 Reducing Uncertainty in Characterization Of Vaca Mureta Shale with Post-Sta
+#>  2 Understanding the Distribution Pattern of Prospective Reservoir Facies: A S
+#>  3 Estimation of Rock Mechanical Parameters Using Artificial Intelligence Tool
+#>  4 A Neuro-Fuzzy Approach for Prediction of Poisson's Ratio and Young's Modulu
+#>  5 Practical Implementation of Knowledge-Based Approaches for SAGD Production 
+#>  6 Optimizing the Performance of ANFIS using the Genetic Algorithm to Estimate
+#>  7 Multi-Scale Characterization of Pore Structure in Carbonate Formations: App
+#>  8 "Indirect Estimation of Fluid Transport and Rock Mechanical Properties from
+#>  9 A Model For Predicting Corrosion Rates In Oil Wells Containing Carbon Dioxi
+#> 10 Integration and Data Analysis of Conventional Core Data with NMR and CT Dat
 #> # ... with 990 more rows, and 5 more variables: paper_id <chr>,
 #> #   source <chr>, type <chr>, year <chr>, author1_data <chr>
 ```
@@ -260,16 +260,16 @@ onepetro_page_to_dataframe(htm_3)
 #> # A tibble: 687 x 6
 #>                                                                     title_data
 #>                                                                          <chr>
-#>  1 Cyclic Behavior of Laterally Loaded Piles in Soils With Variable Properties
-#>  2 A New Approach to Predict Failure Parameters of Carbonate Rocks using Artif
-#>  3 Seismic to Simulation Fracture Characterization of a Green Carbonate Reserv
+#>  1          The Role Of Ocean Engineers In Japanese Ocean Measurement Research
+#>  2 Data-Driven Brittleness Index Prediction From Elemental Spectroscopy and Pe
+#>  3 A New Technique to Determine Porosity and Deep Resistivity from Old Gamma R
 #>  4                                           Advanced Streaming Data Cleansing
-#>  5                Wave Height Forecast Using Self-Organization Algorithm Model
-#>  6          The Role Of Ocean Engineers In Japanese Ocean Measurement Research
+#>  5 Cyclic Behavior of Laterally Loaded Piles in Soils With Variable Properties
+#>  6 An Improved And Optimized Positioning Method Of Microseismic Source In Mini
 #>  7                  Field Evaluation Of A Hydrate Inhibition Monitoring System
-#>  8 Data-Driven Brittleness Index Prediction From Elemental Spectroscopy and Pe
-#>  9 Maximize the placement of wells and production in unconventional reservoirs
-#> 10     Integrity Monitoring of Offshore Platforms Using Artificial Neural Nets
+#>  8            Multiphase Flow Metering: Current Status and Future Developments
+#>  9 Analysis of Influencing Factors of Water Traffic Accidents Severity Based o
+#> 10                  A Novel Model for Permeability Prediction in Uncored Wells
 #> # ... with 677 more rows, and 5 more variables: paper_id <chr>,
 #> #   source <chr>, type <chr>, year <chr>, author1_data <chr>
 ```
@@ -371,7 +371,7 @@ summary_by_doctype(result)
 #> 1          Chapter    60
 #> 2 Conference paper 86778
 #> 3          General   932
-#> 4    Journal paper 15820
+#> 4    Journal paper 15825
 #> 5            Media     9
 #> 6            Other    21
 #> 7     Presentation   265
@@ -382,7 +382,7 @@ summary_by_publisher(result)
 #>                                                    <chr> <dbl>
 #>  1                          American Petroleum Institute   676
 #>  2                   American Rock Mechanics Association  3851
-#>  3                  American Society of Safety Engineers  1097
+#>  3                  American Society of Safety Engineers  1098
 #>  4                                             BHR Group   221
 #>  5               Carbon Management Technology Conference    82
 #>  6         International Petroleum Technology Conference  1774
@@ -395,16 +395,16 @@ summary_by_dates(result)
 #> # A tibble: 103 x 2
 #>          name value
 #>         <chr> <dbl>
-#>  1 Since 2017  3537
-#>  2 Since 2016  8685
-#>  3 Since 2015 14259
-#>  4 Since 2014 19538
-#>  5 Since 2013 24208
-#>  6 Since 2012 28705
-#>  7 Since 2011 32773
-#>  8 Since 2010 36988
-#>  9 Since 2009 40477
-#> 10 Since 2008 43852
+#>  1 Since 2017  3543
+#>  2 Since 2016  8690
+#>  3 Since 2015 14264
+#>  4 Since 2014 19543
+#>  5 Since 2013 24213
+#>  6 Since 2012 28710
+#>  7 Since 2011 32778
+#>  8 Since 2010 36993
+#>  9 Since 2009 40482
+#> 10 Since 2008 43857
 #> # ... with 93 more rows
 summary_by_publications(result)
 #> # A tibble: 823 x 2
