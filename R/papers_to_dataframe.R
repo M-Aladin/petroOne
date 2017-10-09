@@ -1,7 +1,7 @@
 
 #' @title Reads a OnePetro URL and converts it to a dataframe
 #' @description A OnePetro URL with a query is read into a HTML page and
-#' converted to a datarame
+#' converted to a dataframe
 #' @param url char a OnePetro type URL
 #' @export
 onepetro_page_to_dataframe <- function(url) {
@@ -15,9 +15,11 @@ onepetro_page_to_dataframe <- function(url) {
             dim(df_sources)[1] == dim(df_author)[1],
             dim(df_author)[1]  == dim(df_titles)[1]
     ))
-        cbind(df_titles, df_sources, df_author)
+        df <- cbind(df_titles, df_sources, df_author)
     else
         stop("Dataframe sizes different")  # otherwise, stop
+
+    return(tibble::as.tibble(df))
 }
 
 
