@@ -128,7 +128,8 @@ make_search_url <- function(query = NULL, start = NULL, from_year = NULL,
 
     # document type
     if (!is.null(dc_type)) {
-        valid_options <- c("conference-paper", "journal-paper", "general")
+        valid_options <- c("conference-paper", "journal-paper", "general",
+                           "media", "general", "presentation", "chapter", "other")
         # stop if it is not in the options
         if (!dc_type %in% valid_options) {
             msg <- sprintf("Option unknown. It must be one of [ %s ]",
