@@ -4,6 +4,8 @@ output: html_notebook
 ---
 
 ```{r}
+library(petroOne)
+
 # 1 - 1000 rows
 # start: blank
 
