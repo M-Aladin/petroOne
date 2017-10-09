@@ -1,6 +1,6 @@
 ## 20171009 0.1.0.9001
 * use tibbles to prevent long printing of dataframes
-* use as.tibble in functions
+* use as.tibble in functions onepetro_page_to_dataframe and summary_by_xxx
 * reordering chunks in README
 * improve explanation of what to do when we have more than 1000 papers to retrieve
 
