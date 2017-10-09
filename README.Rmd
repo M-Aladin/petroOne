@@ -30,11 +30,13 @@ devtools::install_github("f0nzie/petroOne")
 ### Get the number of papers for *neural networks*.
 
 ```{r example}
+library(petroOne)
 
 my_url <- make_search_url(query = "neural network", how = "any")
 my_url
 get_papers_count(my_url)
 # 3284
+# 3314
 ```
 
 ### Read papers from from_year to to_year
@@ -51,6 +53,7 @@ get_papers_count(my_url)
 
 ```{r}
 library(petroOne)
+library(tibble)
 
 my_url <- make_search_url(query = "neural network", 
                           from_year = 1990, 
@@ -59,7 +62,7 @@ my_url <- make_search_url(query = "neural network",
 
 get_papers_count(my_url)
 # 415
-onepetro_page_to_dataframe(my_url)
+as.tibble(onepetro_page_to_dataframe(my_url))
 ```
 
 ### Get papers by document type (dc_type)
@@ -74,7 +77,8 @@ my_url <- make_search_url(query = "neural network",
 
 get_papers_count(my_url)
 # 2661
-onepetro_page_to_dataframe(my_url)
+# 2687
+as.tibble(onepetro_page_to_dataframe(my_url))
 ```
 
 
@@ -89,10 +93,11 @@ my_url <- make_search_url(query = "neural network",
 
 get_papers_count(my_url)
 # 303
-onepetro_page_to_dataframe(my_url)
+# 304
+as.tibble(onepetro_page_to_dataframe(my_url))
 ```
 
-
+## Summaries
 
 ```{r}
 library(petroOne)
@@ -102,16 +107,20 @@ my_url <- make_search_url(query = "well test",
 
 result <- read_onepetro(my_url)
 
-summary_by_doctype(result)
-summary_by_publisher(result)
-summary_by_dates(result)
-summary_by_publications(result)
+as.tibble(summary_by_doctype(result))
+as.tibble(summary_by_publisher(result))
+as.tibble(summary_by_dates(result))
+as.tibble(summary_by_publications(result))
 
 ```
 
-## Collect papers in multiple pages of 1000 rows (or papers each)
+## Get total number of papers 
+in multiple pages of 1000 rows (or papers each)
 
 ```{r}
+# we use "conference-paper" only because other document types have
+# different dataframe structure
+
 my_url <- make_search_url(query = "neural network", 
                           how = "all",
                           dc_type = "conference-paper",
@@ -119,24 +128,65 @@ my_url <- make_search_url(query = "neural network",
 
 get_papers_count(my_url)
 # 2661
+# 2697 @ 200171009
 ```
 
 ### Collect first 1000 rows out of 2661
 
 ```{r}
-xml2::write_html(webpage1, file = "./inst/html/1000_conference.html")
-onepetro_page_to_dataframe("./inst/html/1000_conference.html")
+outdir <- system.file("out", package = "petroOne")
+
 ```
 
-```{r}
-xml2::write_html(webpage1, file = "./inst/html/2000_conference.html")
-onepetro_page_to_dataframe("./inst/html/2000_conference.html")
-```
 
 ```{r}
-xml2::write_html(webpage1, file = "./inst/html/3000_conference.html")
-onepetro_page_to_dataframe("./inst/html/3000_conference.html")
+my_url_1 <- make_search_url(query = "neural network", 
+                          how = "all", 
+                          dc_type = "conference-paper",
+                          start = 0,
+                          rows  = 1000)
+
+get_papers_count(my_url_1)
+
+page_1 <- read_onepetro(my_url_1)
+htm_1 <- paste(outdir, "1000_conference.html", sep = "/")
+xml2::write_html(page_1, file = htm_1)
+as.tibble(onepetro_page_to_dataframe(htm_1))
 ```
+
+
+### Collect second set of 1000 rows out of 2661
+
+```{r}
+my_url_2 <- make_search_url(query = "neural network", 
+                          how = "all", 
+                          dc_type = "conference-paper",
+                          start = 1000,
+                          rows  = 1000)
+
+page_2 <- read_onepetro(my_url_2)
+htm_2 <- paste(outdir, "2000_conference.html", sep = "/")
+xml2::write_html(page_2, file = htm_2)
+as.tibble(onepetro_page_to_dataframe(htm_2))
+```
+
+### Collect remaining set of 1000 rows out of 2661
+
+```{r}
+my_url_3 <- make_search_url(query = "neural network", 
+                          how = "all", 
+                          dc_type = "conference-paper",
+                          start = 2000,
+                          rows  = 1000)
+
+page_3 <- read_onepetro(my_url_3)
+htm_3 <- paste(outdir, "3000_conference.html", sep = "/")
+xml2::write_html(page_3, file = htm_3)
+as.tibble(onepetro_page_to_dataframe(htm_3))
+```
+
+
+
 
 
 
