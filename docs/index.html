@@ -97,6 +97,7 @@ my_url &lt;-<span class="st"> </span><span class="kw"><a href="reference/make_se
 <span class="co">#&gt; [1] 510</span>
 <span class="co"># 510</span></code></pre></div>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(petroOne)
+<span class="kw">library</span>(tibble)
 
 my_url &lt;-<span class="st"> </span><span class="kw"><a href="reference/make_search_url.html">make_search_url</a></span>(<span class="dt">query =</span> <span class="st">"neural network"</span>, 
                           <span class="dt">from_year =</span> <span class="dv">1990</span>, 
@@ -106,35 +107,22 @@ my_url &lt;-<span class="st"> </span><span class="kw"><a href="reference/make_se
 <span class="kw"><a href="reference/get_papers_count.html">get_papers_count</a></span>(my_url)
 <span class="co">#&gt; [1] 415</span>
 <span class="co"># 415</span>
-<span class="kw">head</span>(<span class="kw"><a href="reference/onepetro_page_to_dataframe.html">onepetro_page_to_dataframe</a></span>(my_url))
-<span class="co">#&gt;                                                    title_data</span>
-<span class="co">#&gt; 1                         Deconvolution Using Neural Networks</span>
-<span class="co">#&gt; 2                    Neural Network Stacking Velocity Picking</span>
-<span class="co">#&gt; 3                   First Break Picking Using Neural Networks</span>
-<span class="co">#&gt; 4            Neural Networks And Paper Seismic Interpretation</span>
-<span class="co">#&gt; 5 Seismic Principal Components Analysis Using Neural Networks</span>
-<span class="co">#&gt; 6     Artificial Intelligence I Neural Networks In Geophysics</span>
-<span class="co">#&gt;               paper_id         source                       type</span>
-<span class="co">#&gt; 1           1996-1611            SEG            Conference Paper</span>
-<span class="co">#&gt; 2           1992-0018            SEG            Conference Paper</span>
-<span class="co">#&gt; 3           1990-0370            SEG            Conference Paper</span>
-<span class="co">#&gt; 4           1995-0142            SEG            Conference Paper</span>
-<span class="co">#&gt; 5           1996-1259            SEG            Conference Paper</span>
-<span class="co">#&gt; 6           1992-0001            SEG            Conference Paper</span>
-<span class="co">#&gt;               year</span>
-<span class="co">#&gt; 1             1996</span>
-<span class="co">#&gt; 2             1992</span>
-<span class="co">#&gt; 3             1990</span>
-<span class="co">#&gt; 4             1995</span>
-<span class="co">#&gt; 5             1996</span>
-<span class="co">#&gt; 6             1992</span>
-<span class="co">#&gt;                                                             author1_data</span>
-<span class="co">#&gt; 1                              Essenreiter, Robert, Karlsruhe University</span>
-<span class="co">#&gt; 2                                    Schmidt, Jumndyr, Petrobras, Brazil</span>
-<span class="co">#&gt; 3                                     Wagner, D.E., Amoco Production Co.</span>
-<span class="co">#&gt; 4                                        Leggett, Miles, British Gas plc</span>
-<span class="co">#&gt; 5       Huang, Kou-Yuan, National Chiao Tung University, Hsinchu, Taiwan</span>
-<span class="co">#&gt; 6 Guo, Yi, Center for Potential Fields Studies, Colorado School of Mines</span></code></pre></div>
+<span class="kw">as.tibble</span>(<span class="kw"><a href="reference/onepetro_page_to_dataframe.html">onepetro_page_to_dataframe</a></span>(my_url))
+<span class="co">#&gt; # A tibble: 10 x 6</span>
+<span class="co">#&gt;                                                      title_data</span>
+<span class="co">#&gt;                                                           &lt;chr&gt;</span>
+<span class="co">#&gt;  1                          Deconvolution Using Neural Networks</span>
+<span class="co">#&gt;  2                     Neural Network Stacking Velocity Picking</span>
+<span class="co">#&gt;  3                    First Break Picking Using Neural Networks</span>
+<span class="co">#&gt;  4             Neural Networks And Paper Seismic Interpretation</span>
+<span class="co">#&gt;  5  Seismic Principal Components Analysis Using Neural Networks</span>
+<span class="co">#&gt;  6      Artificial Intelligence I Neural Networks In Geophysics</span>
+<span class="co">#&gt;  7 Reservoir Characterization Using Feedforward Neural Networks</span>
+<span class="co">#&gt;  8          Seismic Attribute Calibration Using Neural Networks</span>
+<span class="co">#&gt;  9        Neural Networks For Primary Reflection Identification</span>
+<span class="co">#&gt; 10                     Drill-Bit Diagnosis With Neural Networks</span>
+<span class="co">#&gt; # ... with 5 more variables: paper_id &lt;chr&gt;, source &lt;chr&gt;, type &lt;chr&gt;,</span>
+<span class="co">#&gt; #   year &lt;chr&gt;, author1_data &lt;chr&gt;</span></code></pre></div>
 </div>
 <div id="get-papers-by-document-type-dc_type" class="section level3">
 <h3 class="hasAnchor">
@@ -150,35 +138,22 @@ my_url &lt;-<span class="st"> </span><span class="kw"><a href="reference/make_se
 <span class="co">#&gt; [1] 2687</span>
 <span class="co"># 2661</span>
 <span class="co"># 2687</span>
-<span class="kw">head</span>(<span class="kw"><a href="reference/onepetro_page_to_dataframe.html">onepetro_page_to_dataframe</a></span>(my_url))
-<span class="co">#&gt;                                                    title_data</span>
-<span class="co">#&gt; 1                         Deconvolution Using Neural Networks</span>
-<span class="co">#&gt; 2                                     Neural Networks And AVO</span>
-<span class="co">#&gt; 3                    Neural Network Stacking Velocity Picking</span>
-<span class="co">#&gt; 4                   First Break Picking Using Neural Networks</span>
-<span class="co">#&gt; 5            Neural Networks And Paper Seismic Interpretation</span>
-<span class="co">#&gt; 6 Seismic Principal Components Analysis Using Neural Networks</span>
-<span class="co">#&gt;               paper_id         source                       type</span>
-<span class="co">#&gt; 1           1996-1611            SEG            Conference Paper</span>
-<span class="co">#&gt; 2           2002-0229            SEG            Conference Paper</span>
-<span class="co">#&gt; 3           1992-0018            SEG            Conference Paper</span>
-<span class="co">#&gt; 4           1990-0370            SEG            Conference Paper</span>
-<span class="co">#&gt; 5           1995-0142            SEG            Conference Paper</span>
-<span class="co">#&gt; 6           1996-1259            SEG            Conference Paper</span>
-<span class="co">#&gt;               year</span>
-<span class="co">#&gt; 1             1996</span>
-<span class="co">#&gt; 2             2002</span>
-<span class="co">#&gt; 3             1992</span>
-<span class="co">#&gt; 4             1990</span>
-<span class="co">#&gt; 5             1995</span>
-<span class="co">#&gt; 6             1996</span>
-<span class="co">#&gt;                                                       author1_data</span>
-<span class="co">#&gt; 1                        Essenreiter, Robert, Karlsruhe University</span>
-<span class="co">#&gt; 2           Russell, Brian, Hampson-Russell Software Services Ltd.</span>
-<span class="co">#&gt; 3                              Schmidt, Jumndyr, Petrobras, Brazil</span>
-<span class="co">#&gt; 4                               Wagner, D.E., Amoco Production Co.</span>
-<span class="co">#&gt; 5                                  Leggett, Miles, British Gas plc</span>
-<span class="co">#&gt; 6 Huang, Kou-Yuan, National Chiao Tung University, Hsinchu, Taiwan</span></code></pre></div>
+<span class="kw">as.tibble</span>(<span class="kw"><a href="reference/onepetro_page_to_dataframe.html">onepetro_page_to_dataframe</a></span>(my_url))
+<span class="co">#&gt; # A tibble: 1,000 x 6</span>
+<span class="co">#&gt;                                                      title_data</span>
+<span class="co">#&gt;                                                           &lt;chr&gt;</span>
+<span class="co">#&gt;  1                          Deconvolution Using Neural Networks</span>
+<span class="co">#&gt;  2                                      Neural Networks And AVO</span>
+<span class="co">#&gt;  3                     Neural Network Stacking Velocity Picking</span>
+<span class="co">#&gt;  4                    First Break Picking Using Neural Networks</span>
+<span class="co">#&gt;  5             Neural Networks And Paper Seismic Interpretation</span>
+<span class="co">#&gt;  6  Seismic Principal Components Analysis Using Neural Networks</span>
+<span class="co">#&gt;  7        Estimation of Welding Distortion Using Neural Network</span>
+<span class="co">#&gt;  8      Artificial Intelligence I Neural Networks In Geophysics</span>
+<span class="co">#&gt;  9 Reservoir Characterization Using Feedforward Neural Networks</span>
+<span class="co">#&gt; 10          Seismic Attribute Calibration Using Neural Networks</span>
+<span class="co">#&gt; # ... with 990 more rows, and 5 more variables: paper_id &lt;chr&gt;,</span>
+<span class="co">#&gt; #   source &lt;chr&gt;, type &lt;chr&gt;, year &lt;chr&gt;, author1_data &lt;chr&gt;</span></code></pre></div>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># specify document type = "journal-paper", rows = 1000</span>
 
 my_url &lt;-<span class="st"> </span><span class="kw"><a href="reference/make_search_url.html">make_search_url</a></span>(<span class="dt">query =</span> <span class="st">"neural network"</span>, 
@@ -190,35 +165,22 @@ my_url &lt;-<span class="st"> </span><span class="kw"><a href="reference/make_se
 <span class="co">#&gt; [1] 304</span>
 <span class="co"># 303</span>
 <span class="co"># 304</span>
-<span class="kw">head</span>(<span class="kw"><a href="reference/onepetro_page_to_dataframe.html">onepetro_page_to_dataframe</a></span>(my_url))
-<span class="co">#&gt;                                                                    title_data</span>
-<span class="co">#&gt; 1                   Implicit Approximation of Neural Network and Applications</span>
-<span class="co">#&gt; 2                Artificial Neural Networks Identify Restimulation Candidates</span>
-<span class="co">#&gt; 3                                    Drill-Bit Diagnosis With Neural Networks</span>
-<span class="co">#&gt; 4                 Neural Networks for Predictive Control of Drilling Dynamics</span>
-<span class="co">#&gt; 5          An Artificial Neural Network Based Relative Permeability Predictor</span>
-<span class="co">#&gt; 6 Characterize Submarine Channel Reservoirs: A Neural- Network-Based Approach</span>
-<span class="co">#&gt;                   paper_id            source                    type</span>
-<span class="co">#&gt; 1               114306-PA               SPE            Journal Paper</span>
-<span class="co">#&gt; 2           0200-0044-JPT               SPE            Journal Paper</span>
-<span class="co">#&gt; 3                19558-PA               SPE            Journal Paper</span>
-<span class="co">#&gt; 4           1099-0036-JPT               SPE            Journal Paper</span>
-<span class="co">#&gt; 5                03-04-02            PETSOC            Journal Paper</span>
-<span class="co">#&gt; 6           0802-0046-JPT               SPE            Journal Paper</span>
-<span class="co">#&gt;               year</span>
-<span class="co">#&gt; 1             2009</span>
-<span class="co">#&gt; 2             2000</span>
-<span class="co">#&gt; 3             1990</span>
-<span class="co">#&gt; 4             1999</span>
-<span class="co">#&gt; 5             2003</span>
-<span class="co">#&gt; 6             2002</span>
-<span class="co">#&gt;                                                 author1_data</span>
-<span class="co">#&gt; 1 Li, Dao-lun, University of Science and Technology of China</span>
-<span class="co">#&gt; 2                      Denney, Dennis, JPT Technology Editor</span>
-<span class="co">#&gt; 3               Arehart, R.A., Exxon Production Research Co.</span>
-<span class="co">#&gt; 4                      Denney, Dennis, JPT Technology Editor</span>
-<span class="co">#&gt; 5                       Guler, B., Dell Computer Corporation</span>
-<span class="co">#&gt; 6                      Denney, Dennis, JPT Technology Editor</span></code></pre></div>
+<span class="kw">as.tibble</span>(<span class="kw"><a href="reference/onepetro_page_to_dataframe.html">onepetro_page_to_dataframe</a></span>(my_url))
+<span class="co">#&gt; # A tibble: 304 x 6</span>
+<span class="co">#&gt;                                                                     title_data</span>
+<span class="co">#&gt;                                                                          &lt;chr&gt;</span>
+<span class="co">#&gt;  1                   Implicit Approximation of Neural Network and Applications</span>
+<span class="co">#&gt;  2                Artificial Neural Networks Identify Restimulation Candidates</span>
+<span class="co">#&gt;  3                                    Drill-Bit Diagnosis With Neural Networks</span>
+<span class="co">#&gt;  4                 Neural Networks for Predictive Control of Drilling Dynamics</span>
+<span class="co">#&gt;  5          An Artificial Neural Network Based Relative Permeability Predictor</span>
+<span class="co">#&gt;  6 Characterize Submarine Channel Reservoirs: A Neural- Network-Based Approach</span>
+<span class="co">#&gt;  7             Application of Artificial Neural Network to Pump Card Diagnosis</span>
+<span class="co">#&gt;  8        Application of Artificial Neural Networks to Downhole Fluid Analysis</span>
+<span class="co">#&gt;  9                Neural Network Approach Predicts U.S. Natural Gas Production</span>
+<span class="co">#&gt; 10           Pseudodensity Log Generation by Use of Artificial Neural Networks</span>
+<span class="co">#&gt; # ... with 294 more rows, and 5 more variables: paper_id &lt;chr&gt;,</span>
+<span class="co">#&gt; #   source &lt;chr&gt;, type &lt;chr&gt;, year &lt;chr&gt;, author1_data &lt;chr&gt;</span></code></pre></div>
 </div>
 </div>
 <div id="summaries" class="section level2">
@@ -231,38 +193,71 @@ my_url &lt;-<span class="st"> </span><span class="kw"><a href="reference/make_se
 
 result &lt;-<span class="st"> </span><span class="kw"><a href="reference/read_onepetro.html">read_onepetro</a></span>(my_url)
 
-<span class="kw">head</span>(<span class="kw"><a href="reference/summary_by_doctype.html">summary_by_doctype</a></span>(result))
+<span class="kw">as.tibble</span>(<span class="kw"><a href="reference/summary_by_doctype.html">summary_by_doctype</a></span>(result))
+<span class="co">#&gt; # A tibble: 7 x 2</span>
 <span class="co">#&gt;               name value</span>
+<span class="co">#&gt;              &lt;chr&gt; &lt;dbl&gt;</span>
 <span class="co">#&gt; 1          Chapter     8</span>
 <span class="co">#&gt; 2 Conference paper  9298</span>
 <span class="co">#&gt; 3          General   193</span>
 <span class="co">#&gt; 4    Journal paper  2529</span>
 <span class="co">#&gt; 5            Media     5</span>
 <span class="co">#&gt; 6            Other     8</span>
-<span class="kw">head</span>(<span class="kw"><a href="reference/summary_by_publisher.html">summary_by_publisher</a></span>(result))
-<span class="co">#&gt;                                            name value</span>
-<span class="co">#&gt; 1                  American Petroleum Institute    42</span>
-<span class="co">#&gt; 2           American Rock Mechanics Association    64</span>
-<span class="co">#&gt; 3                                     BHR Group    10</span>
-<span class="co">#&gt; 4       Carbon Management Technology Conference     1</span>
-<span class="co">#&gt; 5 International Petroleum Technology Conference   364</span>
-<span class="co">#&gt; 6      International Society for Rock Mechanics    39</span>
-<span class="kw">head</span>(<span class="kw"><a href="reference/summary_by_dates.html">summary_by_dates</a></span>(result))
-<span class="co">#&gt;         name value</span>
-<span class="co">#&gt; 1 Since 2017   347</span>
-<span class="co">#&gt; 2 Since 2016   913</span>
-<span class="co">#&gt; 3 Since 2015  1462</span>
-<span class="co">#&gt; 4 Since 2014  2019</span>
-<span class="co">#&gt; 5 Since 2013  2530</span>
-<span class="co">#&gt; 6 Since 2012  3044</span>
-<span class="kw">head</span>(<span class="kw"><a href="reference/summary_by_publications.html">summary_by_publications</a></span>(result))
-<span class="co">#&gt;                                                                name value</span>
-<span class="co">#&gt; 1           10th North American Conference on Multiphase Technology     1</span>
-<span class="co">#&gt; 2                                     10th World Petroleum Congress     1</span>
-<span class="co">#&gt; 3                                                11th ISRM Congress     1</span>
-<span class="co">#&gt; 4                                     11th World Petroleum Congress     4</span>
-<span class="co">#&gt; 5                                                12th ISRM Congress     1</span>
-<span class="co">#&gt; 6 12th International Conference on Multiphase Production Technology     2</span></code></pre></div>
+<span class="co">#&gt; 7     Presentation    25</span>
+<span class="kw">as.tibble</span>(<span class="kw"><a href="reference/summary_by_publisher.html">summary_by_publisher</a></span>(result))
+<span class="co">#&gt; # A tibble: 20 x 2</span>
+<span class="co">#&gt;                                                     name value</span>
+<span class="co">#&gt;                                                    &lt;chr&gt; &lt;dbl&gt;</span>
+<span class="co">#&gt;  1                          American Petroleum Institute    42</span>
+<span class="co">#&gt;  2                   American Rock Mechanics Association    64</span>
+<span class="co">#&gt;  3                                             BHR Group    10</span>
+<span class="co">#&gt;  4               Carbon Management Technology Conference     1</span>
+<span class="co">#&gt;  5         International Petroleum Technology Conference   364</span>
+<span class="co">#&gt;  6              International Society for Rock Mechanics    39</span>
+<span class="co">#&gt;  7 International Society of Offshore and Polar Engineers    15</span>
+<span class="co">#&gt;  8                                    NACE International    45</span>
+<span class="co">#&gt;  9                 National Energy Technology Laboratory     8</span>
+<span class="co">#&gt; 10                     Offshore Mediterranean Conference    44</span>
+<span class="co">#&gt; 11                        Offshore Technology Conference   506</span>
+<span class="co">#&gt; 12                                  Oil Industry Journal    14</span>
+<span class="co">#&gt; 13                           Petroleum Society of Canada   396</span>
+<span class="co">#&gt; 14                    Pipeline Simulation Interest Group     2</span>
+<span class="co">#&gt; 15                  Society of Exploration Geophysicists    75</span>
+<span class="co">#&gt; 16                        Society of Petroleum Engineers 10078</span>
+<span class="co">#&gt; 17      Society of Petrophysicists and Well-Log Analysts   209</span>
+<span class="co">#&gt; 18                      Society of Underwater Technology    12</span>
+<span class="co">#&gt; 19        Unconventional Resources Technology Conference    60</span>
+<span class="co">#&gt; 20                              World Petroleum Congress    77</span>
+<span class="kw">as.tibble</span>(<span class="kw"><a href="reference/summary_by_dates.html">summary_by_dates</a></span>(result))
+<span class="co">#&gt; # A tibble: 76 x 2</span>
+<span class="co">#&gt;          name value</span>
+<span class="co">#&gt;         &lt;chr&gt; &lt;dbl&gt;</span>
+<span class="co">#&gt;  1 Since 2017   347</span>
+<span class="co">#&gt;  2 Since 2016   913</span>
+<span class="co">#&gt;  3 Since 2015  1462</span>
+<span class="co">#&gt;  4 Since 2014  2019</span>
+<span class="co">#&gt;  5 Since 2013  2530</span>
+<span class="co">#&gt;  6 Since 2012  3044</span>
+<span class="co">#&gt;  7 Since 2011  3497</span>
+<span class="co">#&gt;  8 Since 2010  4023</span>
+<span class="co">#&gt;  9 Since 2009  4454</span>
+<span class="co">#&gt; 10 Since 2008  4865</span>
+<span class="co">#&gt; # ... with 66 more rows</span>
+<span class="kw">as.tibble</span>(<span class="kw"><a href="reference/summary_by_publications.html">summary_by_publications</a></span>(result))
+<span class="co">#&gt; # A tibble: 575 x 2</span>
+<span class="co">#&gt;                                                                 name value</span>
+<span class="co">#&gt;                                                                &lt;chr&gt; &lt;dbl&gt;</span>
+<span class="co">#&gt;  1           10th North American Conference on Multiphase Technology     1</span>
+<span class="co">#&gt;  2                                     10th World Petroleum Congress     1</span>
+<span class="co">#&gt;  3                                                11th ISRM Congress     1</span>
+<span class="co">#&gt;  4                                     11th World Petroleum Congress     4</span>
+<span class="co">#&gt;  5                                                12th ISRM Congress     1</span>
+<span class="co">#&gt;  6 12th International Conference on Multiphase Production Technology     2</span>
+<span class="co">#&gt;  7                                     12th World Petroleum Congress     3</span>
+<span class="co">#&gt;  8                13th ISRM International Congress of Rock Mechanics     1</span>
+<span class="co">#&gt;  9 13th International Conference on Multiphase Production Technology     1</span>
+<span class="co">#&gt; 10                                     13th World Petroleum Congress     3</span>
+<span class="co">#&gt; # ... with 565 more rows</span></code></pre></div>
 </div>
 <div id="get-total-number-of-papers" class="section level2">
 <h2 class="hasAnchor">
@@ -296,35 +291,22 @@ my_url &lt;-<span class="st"> </span><span class="kw"><a href="reference/make_se
 page_1 &lt;-<span class="st"> </span><span class="kw"><a href="reference/read_onepetro.html">read_onepetro</a></span>(my_url_1)
 htm_1 &lt;-<span class="st"> </span><span class="kw">paste</span>(outdir, <span class="st">"1000_conference.html"</span>, <span class="dt">sep =</span> <span class="st">"/"</span>)
 xml2::<span class="kw">write_html</span>(page_1, <span class="dt">file =</span> htm_1)
-<span class="kw">head</span>(<span class="kw"><a href="reference/onepetro_page_to_dataframe.html">onepetro_page_to_dataframe</a></span>(htm_1))
-<span class="co">#&gt;                                                    title_data</span>
-<span class="co">#&gt; 1                         Deconvolution Using Neural Networks</span>
-<span class="co">#&gt; 2                                     Neural Networks And AVO</span>
-<span class="co">#&gt; 3                    Neural Network Stacking Velocity Picking</span>
-<span class="co">#&gt; 4                   First Break Picking Using Neural Networks</span>
-<span class="co">#&gt; 5            Neural Networks And Paper Seismic Interpretation</span>
-<span class="co">#&gt; 6 Seismic Principal Components Analysis Using Neural Networks</span>
-<span class="co">#&gt;               paper_id         source                       type</span>
-<span class="co">#&gt; 1           1996-1611            SEG            Conference Paper</span>
-<span class="co">#&gt; 2           2002-0229            SEG            Conference Paper</span>
-<span class="co">#&gt; 3           1992-0018            SEG            Conference Paper</span>
-<span class="co">#&gt; 4           1990-0370            SEG            Conference Paper</span>
-<span class="co">#&gt; 5           1995-0142            SEG            Conference Paper</span>
-<span class="co">#&gt; 6           1996-1259            SEG            Conference Paper</span>
-<span class="co">#&gt;               year</span>
-<span class="co">#&gt; 1             1996</span>
-<span class="co">#&gt; 2             2002</span>
-<span class="co">#&gt; 3             1992</span>
-<span class="co">#&gt; 4             1990</span>
-<span class="co">#&gt; 5             1995</span>
-<span class="co">#&gt; 6             1996</span>
-<span class="co">#&gt;                                                       author1_data</span>
-<span class="co">#&gt; 1                        Essenreiter, Robert, Karlsruhe University</span>
-<span class="co">#&gt; 2           Russell, Brian, Hampson-Russell Software Services Ltd.</span>
-<span class="co">#&gt; 3                              Schmidt, Jumndyr, Petrobras, Brazil</span>
-<span class="co">#&gt; 4                               Wagner, D.E., Amoco Production Co.</span>
-<span class="co">#&gt; 5                                  Leggett, Miles, British Gas plc</span>
-<span class="co">#&gt; 6 Huang, Kou-Yuan, National Chiao Tung University, Hsinchu, Taiwan</span></code></pre></div>
+<span class="kw">as.tibble</span>(<span class="kw"><a href="reference/onepetro_page_to_dataframe.html">onepetro_page_to_dataframe</a></span>(htm_1))
+<span class="co">#&gt; # A tibble: 1,000 x 6</span>
+<span class="co">#&gt;                                                      title_data</span>
+<span class="co">#&gt;                                                           &lt;chr&gt;</span>
+<span class="co">#&gt;  1                          Deconvolution Using Neural Networks</span>
+<span class="co">#&gt;  2                                      Neural Networks And AVO</span>
+<span class="co">#&gt;  3                     Neural Network Stacking Velocity Picking</span>
+<span class="co">#&gt;  4                    First Break Picking Using Neural Networks</span>
+<span class="co">#&gt;  5             Neural Networks And Paper Seismic Interpretation</span>
+<span class="co">#&gt;  6  Seismic Principal Components Analysis Using Neural Networks</span>
+<span class="co">#&gt;  7        Estimation of Welding Distortion Using Neural Network</span>
+<span class="co">#&gt;  8      Artificial Intelligence I Neural Networks In Geophysics</span>
+<span class="co">#&gt;  9 Reservoir Characterization Using Feedforward Neural Networks</span>
+<span class="co">#&gt; 10          Seismic Attribute Calibration Using Neural Networks</span>
+<span class="co">#&gt; # ... with 990 more rows, and 5 more variables: paper_id &lt;chr&gt;,</span>
+<span class="co">#&gt; #   source &lt;chr&gt;, type &lt;chr&gt;, year &lt;chr&gt;, author1_data &lt;chr&gt;</span></code></pre></div>
 </div>
 <div id="collect-second-set-of-1000-rows-out-of-2661" class="section level3">
 <h3 class="hasAnchor">
@@ -338,35 +320,22 @@ xml2::<span class="kw">write_html</span>(page_1, <span class="dt">file =</span> 
 page_2 &lt;-<span class="st"> </span><span class="kw"><a href="reference/read_onepetro.html">read_onepetro</a></span>(my_url_2)
 htm_2 &lt;-<span class="st"> </span><span class="kw">paste</span>(outdir, <span class="st">"2000_conference.html"</span>, <span class="dt">sep =</span> <span class="st">"/"</span>)
 xml2::<span class="kw">write_html</span>(page_2, <span class="dt">file =</span> htm_2)
-<span class="kw">head</span>(<span class="kw"><a href="reference/onepetro_page_to_dataframe.html">onepetro_page_to_dataframe</a></span>(htm_2))
-<span class="co">#&gt;                                                                                                                 title_data</span>
-<span class="co">#&gt; 1                        Pore Pressure Prediction Using High Resolution Velocity And Acoustic Impedance In a Complex Field</span>
-<span class="co">#&gt; 2                                       Single Gas Flow Prediction through Chokes using Artificial Intelligence Techniques</span>
-<span class="co">#&gt; 3 A Production Performance Prediction and Field Development Tool for Coalbed Methane Reservoirs: A Proxy Modeling Approach</span>
-<span class="co">#&gt; 4                                                Rock Mechanical Properties of Shallow Unconsolidated Sandstone Formations</span>
-<span class="co">#&gt; 5                                      Challenges in Using Operational Data for Reliable Wind Turbine Condition Monitoring</span>
-<span class="co">#&gt; 6                                                          Production Optimization Strategy Using Hybrid Genetic Algorithm</span>
-<span class="co">#&gt;               paper_id           source                       type</span>
-<span class="co">#&gt; 1           162204-MS              SPE            Conference Paper</span>
-<span class="co">#&gt; 2           177991-MS              SPE            Conference Paper</span>
-<span class="co">#&gt; 3           169588-MS              SPE            Conference Paper</span>
-<span class="co">#&gt; 4           180803-MS              SPE            Conference Paper</span>
-<span class="co">#&gt; 5            I-17-470            ISOPE            Conference Paper</span>
-<span class="co">#&gt; 6           177442-MS              SPE            Conference Paper</span>
-<span class="co">#&gt;               year</span>
-<span class="co">#&gt; 1             2012</span>
-<span class="co">#&gt; 2             2015</span>
-<span class="co">#&gt; 3             2014</span>
-<span class="co">#&gt; 4             2016</span>
-<span class="co">#&gt; 5             2017</span>
-<span class="co">#&gt; 6             2015</span>
-<span class="co">#&gt;                                                       author1_data</span>
-<span class="co">#&gt; 1                            Thakur, Ram Kumar, Kuwait Gulf Oil Co</span>
-<span class="co">#&gt; 2 Elhaj, Murtada A., King Fahad University of Petroleum &amp; Minerals</span>
-<span class="co">#&gt; 3                   Rajput, Vaibhav, Pennsylvania State University</span>
-<span class="co">#&gt; 4                                  Ramcharitar, Kamlesh, Petrotrin</span>
-<span class="co">#&gt; 5                   Tautz-Weinert, Jannis, Loughborough University</span>
-<span class="co">#&gt; 6              Salam, Damian Dion, Bandung Institute of Technology</span></code></pre></div>
+<span class="kw">as.tibble</span>(<span class="kw"><a href="reference/onepetro_page_to_dataframe.html">onepetro_page_to_dataframe</a></span>(htm_2))
+<span class="co">#&gt; # A tibble: 1,000 x 6</span>
+<span class="co">#&gt;                                                                     title_data</span>
+<span class="co">#&gt;                                                                          &lt;chr&gt;</span>
+<span class="co">#&gt;  1 Pore Pressure Prediction Using High Resolution Velocity And Acoustic Impeda</span>
+<span class="co">#&gt;  2 Single Gas Flow Prediction through Chokes using Artificial Intelligence Tec</span>
+<span class="co">#&gt;  3 A Production Performance Prediction and Field Development Tool for Coalbed </span>
+<span class="co">#&gt;  4   Rock Mechanical Properties of Shallow Unconsolidated Sandstone Formations</span>
+<span class="co">#&gt;  5 Challenges in Using Operational Data for Reliable Wind Turbine Condition Mo</span>
+<span class="co">#&gt;  6             Production Optimization Strategy Using Hybrid Genetic Algorithm</span>
+<span class="co">#&gt;  7 Modelling Pipeline and Choke Optimization for Improved Gas Field Production</span>
+<span class="co">#&gt;  8 Estimating Saturation Changes from 4D Seismic: A Case Study from Malay Basi</span>
+<span class="co">#&gt;  9               Automated Reservoir Surveillance through Data Mining Software</span>
+<span class="co">#&gt; 10                            Improvements to Computer Based Fault Extractions</span>
+<span class="co">#&gt; # ... with 990 more rows, and 5 more variables: paper_id &lt;chr&gt;,</span>
+<span class="co">#&gt; #   source &lt;chr&gt;, type &lt;chr&gt;, year &lt;chr&gt;, author1_data &lt;chr&gt;</span></code></pre></div>
 </div>
 <div id="collect-remaining-set-of-1000-rows-out-of-2661" class="section level3">
 <h3 class="hasAnchor">
@@ -380,35 +349,22 @@ xml2::<span class="kw">write_html</span>(page_2, <span class="dt">file =</span> 
 page_3 &lt;-<span class="st"> </span><span class="kw"><a href="reference/read_onepetro.html">read_onepetro</a></span>(my_url_3)
 htm_3 &lt;-<span class="st"> </span><span class="kw">paste</span>(outdir, <span class="st">"3000_conference.html"</span>, <span class="dt">sep =</span> <span class="st">"/"</span>)
 xml2::<span class="kw">write_html</span>(page_3, <span class="dt">file =</span> htm_3)
-<span class="kw">head</span>(<span class="kw"><a href="reference/onepetro_page_to_dataframe.html">onepetro_page_to_dataframe</a></span>(htm_3))
-<span class="co">#&gt;                                                                                                          title_data</span>
-<span class="co">#&gt; 1                                       Cyclic Behavior of Laterally Loaded Piles in Soils With Variable Properties</span>
-<span class="co">#&gt; 2               A New Approach to Predict Failure Parameters of Carbonate Rocks using Artificial Intelligence Tools</span>
-<span class="co">#&gt; 3 Seismic to Simulation Fracture Characterization of a Green Carbonate Reservoir in Presence of Large Uncertainties</span>
-<span class="co">#&gt; 4                                                                                 Advanced Streaming Data Cleansing</span>
-<span class="co">#&gt; 5                                                      Wave Height Forecast Using Self-Organization Algorithm Model</span>
-<span class="co">#&gt; 6                                                The Role Of Ocean Engineers In Japanese Ocean Measurement Research</span>
-<span class="co">#&gt;               paper_id           source                       type</span>
-<span class="co">#&gt; 1            I-13-199            ISOPE            Conference Paper</span>
-<span class="co">#&gt; 2           187974-MS              SPE            Conference Paper</span>
-<span class="co">#&gt; 3           136829-MS              SPE            Conference Paper</span>
-<span class="co">#&gt; 4           163702-MS              SPE            Conference Paper</span>
-<span class="co">#&gt; 5            I-09-151            ISOPE            Conference Paper</span>
-<span class="co">#&gt; 6            I-91-161            ISOPE            Conference Paper</span>
-<span class="co">#&gt;               year</span>
-<span class="co">#&gt; 1             2013</span>
-<span class="co">#&gt; 2             2017</span>
-<span class="co">#&gt; 3             2010</span>
-<span class="co">#&gt; 4             2013</span>
-<span class="co">#&gt; 5             2009</span>
-<span class="co">#&gt; 6             1991</span>
-<span class="co">#&gt;                                                                                                             author1_data</span>
-<span class="co">#&gt; 1                                                           Depina, Ivan, Norwegian University of Science and Technology</span>
-<span class="co">#&gt; 2                                                           Tariq, Zeeshan, King Fahd University of Petroleum &amp; Minerals</span>
-<span class="co">#&gt; 3                                                                                      Astratti, Donatella, Schlumberger</span>
-<span class="co">#&gt; 4                                                                     Zheng, Yingying, University of Southern California</span>
-<span class="co">#&gt; 5 Tsai, Tsung-Min, Department of Hydraulics and Ocean Engineering, National Cheng Kung University, Tainan, TAIWAN, China</span>
-<span class="co">#&gt; 6                                              Koterayama, Wataru, Research Inst. for Appl. Mechanics, Kyushu University</span></code></pre></div>
+<span class="kw">as.tibble</span>(<span class="kw"><a href="reference/onepetro_page_to_dataframe.html">onepetro_page_to_dataframe</a></span>(htm_3))
+<span class="co">#&gt; # A tibble: 687 x 6</span>
+<span class="co">#&gt;                                                                     title_data</span>
+<span class="co">#&gt;                                                                          &lt;chr&gt;</span>
+<span class="co">#&gt;  1 Cyclic Behavior of Laterally Loaded Piles in Soils With Variable Properties</span>
+<span class="co">#&gt;  2 A New Approach to Predict Failure Parameters of Carbonate Rocks using Artif</span>
+<span class="co">#&gt;  3 Seismic to Simulation Fracture Characterization of a Green Carbonate Reserv</span>
+<span class="co">#&gt;  4                                           Advanced Streaming Data Cleansing</span>
+<span class="co">#&gt;  5                Wave Height Forecast Using Self-Organization Algorithm Model</span>
+<span class="co">#&gt;  6          The Role Of Ocean Engineers In Japanese Ocean Measurement Research</span>
+<span class="co">#&gt;  7                  Field Evaluation Of A Hydrate Inhibition Monitoring System</span>
+<span class="co">#&gt;  8 Data-Driven Brittleness Index Prediction From Elemental Spectroscopy and Pe</span>
+<span class="co">#&gt;  9 Maximize the placement of wells and production in unconventional reservoirs</span>
+<span class="co">#&gt; 10     Integrity Monitoring of Offshore Platforms Using Artificial Neural Nets</span>
+<span class="co">#&gt; # ... with 677 more rows, and 5 more variables: paper_id &lt;chr&gt;,</span>
+<span class="co">#&gt; #   source &lt;chr&gt;, type &lt;chr&gt;, year &lt;chr&gt;, author1_data &lt;chr&gt;</span></code></pre></div>
 </div>
 </div>
 </div>
