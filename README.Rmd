@@ -119,65 +119,6 @@ summary_by_doctype(result)
 
 We see that most numerous papers are from conferences. We will proceed to gran the paper titles of those.
 
-### 3. Retrieve the most numerous paper by type
-
-
-```{r}
-# folder where we will save the results
-outdir <- system.file("out", package = "petroOne")
-```
-
-#### 3.1 Collect first 1000 rows out of 2687
-
-```{r}
-# we use "conference-paper" only because other document types have
-# different dataframe structure
-
-my_url_1 <- make_search_url(query = "neural network", 
-                          how = "all", 
-                          dc_type = "conference-paper",
-                          start = 0,
-                          rows  = 1000)
-
-get_papers_count(my_url_1)
-
-page_1 <- read_onepetro(my_url_1)
-htm_1 <- paste(outdir, "1000_conference.html", sep = "/")
-xml2::write_html(page_1, file = htm_1)
-onepetro_page_to_dataframe(htm_1)
-```
-
-
-#### 3.2 Collect second set of 1000 rows
-
-```{r}
-my_url_2 <- make_search_url(query = "neural network", 
-                          how = "all", 
-                          dc_type = "conference-paper",
-                          start = 1000,
-                          rows  = 1000)
-
-page_2 <- read_onepetro(my_url_2)
-htm_2 <- paste(outdir, "2000_conference.html", sep = "/")
-xml2::write_html(page_2, file = htm_2)
-onepetro_page_to_dataframe(htm_2)
-```
-
-#### 3.3 Collect remaining set of 1000 rows
-
-```{r}
-my_url_3 <- make_search_url(query = "neural network", 
-                          how = "all", 
-                          dc_type = "conference-paper",
-                          start = 2000,
-                          rows  = 1000)
-
-page_3 <- read_onepetro(my_url_3)
-htm_3 <- paste(outdir, "3000_conference.html", sep = "/")
-xml2::write_html(page_3, file = htm_3)
-onepetro_page_to_dataframe(htm_3)
-```
-
 
 ## Summaries
 Here is a nother example of summaries.
