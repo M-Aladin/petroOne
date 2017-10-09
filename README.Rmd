@@ -133,6 +133,12 @@ get_papers_count(my_url)
 ### Collect first 1000 rows out of 2661
 
 ```{r}
+outdir <- system.file("out", package = "petroOne")
+
+```
+
+
+```{r}
 my_url_1 <- make_search_url(query = "neural network", 
                           how = "all", 
                           dc_type = "conference-paper",
@@ -142,8 +148,9 @@ my_url_1 <- make_search_url(query = "neural network",
 get_papers_count(my_url_1)
 
 page_1 <- read_onepetro(my_url_1)
-xml2::write_html(page_1, file = "./inst/html/1000_conference.html")
-onepetro_page_to_dataframe("./inst/html/1000_conference.html")
+htm_1 <- paste(outdir, "1000_conference.html", sep = "/")
+xml2::write_html(page_1, file = htm_1)
+onepetro_page_to_dataframe(htm_1)
 ```
 
 
@@ -157,8 +164,9 @@ my_url_2 <- make_search_url(query = "neural network",
                           rows  = 1000)
 
 page_2 <- read_onepetro(my_url_2)
-xml2::write_html(page_2, file = "./inst/html/2000_conference.html")
-onepetro_page_to_dataframe("./inst/html/2000_conference.html")
+htm_2 <- paste(outdir, "2000_conference.html", sep = "/")
+xml2::write_html(page_2, file = htm_2)
+onepetro_page_to_dataframe(htm_2)
 ```
 
 ### Collect remaining set of 1000 rows out of 2661
@@ -171,8 +179,9 @@ my_url_3 <- make_search_url(query = "neural network",
                           rows  = 1000)
 
 page_3 <- read_onepetro(my_url_3)
-xml2::write_html(page_3, file = "./inst/html/3000_conference.html")
-onepetro_page_to_dataframe("./inst/html/3000_conference.html")
+htm_3 <- paste(outdir, "3000_conference.html", sep = "/")
+xml2::write_html(page_3, file = htm_3)
+onepetro_page_to_dataframe(htm_3)
 ```
 
 
