@@ -53,7 +53,6 @@ get_papers_count(my_url)
 
 ```{r}
 library(petroOne)
-library(tibble)
 
 my_url <- make_search_url(query = "neural network", 
                           from_year = 1990, 
@@ -62,7 +61,7 @@ my_url <- make_search_url(query = "neural network",
 
 get_papers_count(my_url)
 # 415
-as.tibble(onepetro_page_to_dataframe(my_url))
+onepetro_page_to_dataframe(my_url)
 ```
 
 ### Get papers by document type (dc_type)
@@ -78,7 +77,7 @@ my_url <- make_search_url(query = "neural network",
 get_papers_count(my_url)
 # 2661
 # 2687
-as.tibble(onepetro_page_to_dataframe(my_url))
+onepetro_page_to_dataframe(my_url)
 ```
 
 
@@ -94,7 +93,7 @@ my_url <- make_search_url(query = "neural network",
 get_papers_count(my_url)
 # 303
 # 304
-as.tibble(onepetro_page_to_dataframe(my_url))
+onepetro_page_to_dataframe(my_url)
 ```
 
 ## Summaries
@@ -107,10 +106,10 @@ my_url <- make_search_url(query = "well test",
 
 result <- read_onepetro(my_url)
 
-as.tibble(summary_by_doctype(result))
-as.tibble(summary_by_publisher(result))
-as.tibble(summary_by_dates(result))
-as.tibble(summary_by_publications(result))
+summary_by_doctype(result)
+summary_by_publisher(result)
+summary_by_dates(result)
+summary_by_publications(result)
 
 ```
 
@@ -151,7 +150,7 @@ get_papers_count(my_url_1)
 page_1 <- read_onepetro(my_url_1)
 htm_1 <- paste(outdir, "1000_conference.html", sep = "/")
 xml2::write_html(page_1, file = htm_1)
-as.tibble(onepetro_page_to_dataframe(htm_1))
+onepetro_page_to_dataframe(htm_1)
 ```
 
 
@@ -167,7 +166,7 @@ my_url_2 <- make_search_url(query = "neural network",
 page_2 <- read_onepetro(my_url_2)
 htm_2 <- paste(outdir, "2000_conference.html", sep = "/")
 xml2::write_html(page_2, file = htm_2)
-as.tibble(onepetro_page_to_dataframe(htm_2))
+onepetro_page_to_dataframe(htm_2)
 ```
 
 ### Collect remaining set of 1000 rows out of 2661
@@ -182,7 +181,7 @@ my_url_3 <- make_search_url(query = "neural network",
 page_3 <- read_onepetro(my_url_3)
 htm_3 <- paste(outdir, "3000_conference.html", sep = "/")
 xml2::write_html(page_3, file = htm_3)
-as.tibble(onepetro_page_to_dataframe(htm_3))
+onepetro_page_to_dataframe(htm_3)
 ```
 
 

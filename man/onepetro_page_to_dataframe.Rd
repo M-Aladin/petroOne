@@ -11,5 +11,5 @@ onepetro_page_to_dataframe(url)
 }
 \description{
 A OnePetro URL with a query is read into a HTML page and
-converted to a datarame
+converted to a dataframe
 }
