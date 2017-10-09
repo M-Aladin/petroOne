@@ -77,12 +77,14 @@ read_sources <- function(webpage) {
 
     #Converting the ranking data to text
     source_data <- html_text(source_data_html)
+    # print(source_data);    stop()
 
     # pre-processing. split at \n
     source_data <- data.frame(do.call('rbind', strsplit(as.character(source_data),
                                                         '\n',fixed=TRUE)),
                               stringsAsFactors = FALSE)
     # remove blank columns
+
     source_data <- source_data[, 2:5]
     # rename columns
     names(source_data) <- c("paper_id", "source", "type", "year")
