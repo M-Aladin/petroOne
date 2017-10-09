@@ -30,11 +30,13 @@ devtools::install_github("f0nzie/petroOne")
 ### Get the number of papers for *neural networks*.
 
 ```{r example}
+library(petroOne)
 
 my_url <- make_search_url(query = "neural network", how = "any")
 my_url
 get_papers_count(my_url)
 # 3284
+# 3314
 ```
 
 ### Read papers from from_year to to_year
@@ -74,6 +76,7 @@ my_url <- make_search_url(query = "neural network",
 
 get_papers_count(my_url)
 # 2661
+# 2687
 onepetro_page_to_dataframe(my_url)
 ```
 
@@ -89,6 +92,7 @@ my_url <- make_search_url(query = "neural network",
 
 get_papers_count(my_url)
 # 303
+# 304
 onepetro_page_to_dataframe(my_url)
 ```
 
@@ -119,6 +123,7 @@ my_url <- make_search_url(query = "neural network",
 
 get_papers_count(my_url)
 # 2661
+# 2697 @ 200171009
 ```
 
 ### Collect first 1000 rows out of 2661

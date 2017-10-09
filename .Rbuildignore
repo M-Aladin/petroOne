@@ -3,3 +3,4 @@
 ^README\.Rmd$
 ^README-.*\.png$
 notebooks
+^I:\github\.oilgains\petroOne\docs$
