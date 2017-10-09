@@ -9,50 +9,107 @@ vignette: >
   %\VignetteEncoding{UTF-8}
 ---
 
-Vignettes are long form documentation commonly included in packages. Because they are part of the distribution of the package, they need to be as compact as possible. The `html_vignette` output type provides a custom style sheet (and tweaks some options) to ensure that the resulting html is as small as possible. The `html_vignette` format:
 
-- Never uses retina figures
-- Has a smaller default figure size
-- Uses a custom CSS stylesheet instead of the default Twitter Bootstrap style
+When a query is returned by OnePetro inside the web page with the results also comes the `dc_type` or document type for all the papers that returned from that search.
 
-## Vignette Info
+The type of papers are:
 
-Note the various macros within the `vignette` section of the metadata block above. These are required in order to instruct R how to build the vignette. Note that you should change the `title` field and the `\VignetteIndexEntry` to match the title of your vignette.
+* Conference paper
+* Journal paper
+* General
+* Media			
+* Presentation
+* Other		
 
-## Styles
+If we want to know what type of papers are available for a particular search we follow these steps:
 
-The `html_vignette` template includes a basic CSS theme. To override this theme you can specify your own CSS in the document metadata as follows:
+## Create a query
+Our search is for the exact words "well test". 
+How many papers return from that search?
 
-    output: 
-      rmarkdown::html_vignette:
-        css: mystyles.css
+```{r}
+library(petroOne)
 
-## Figures
+my_url <- make_search_url(query = "well test", 
+                          how = "all")          # exact match
 
-The figure sizes have been customised so that you can easily put two images side-by-side. 
-
-```{r, fig.show='hold'}
-plot(1:10)
-plot(10:1)
+get_papers_count(my_url)
 ```
 
-You can enable figure captions by `fig_caption: yes` in YAML:
+## Find the type of papers available
 
-    output:
-      rmarkdown::html_vignette:
-        fig_caption: yes
-
-Then you can use the chunk option `fig.cap = "Your figure caption."` in **knitr**.
-
-## More Examples
-
-You can write math expressions, e.g. $Y = X\beta + \epsilon$, footnotes^[A footnote here.], and tables, e.g. using `knitr::kable()`.
-
-```{r, echo=FALSE, results='asis'}
-knitr::kable(head(mtcars, 10))
+```{r}
+result <- read_onepetro(my_url)
+sdc <- summary_by_doctype(result)
+sdc
 ```
 
-Also a quote using `>`:
+We see that the most numerous category is **conference** papers followed by **journal**. The total number of papers is about `r sprintf("%d", sum(sdc$value))`
 
-> "He who gives up [code] safety for [code] speed deserves neither."
-([via](https://twitter.com/hadleywickham/status/504368538874703872))
+
+## Variable type of documents
+Depending of the words we are searching, the document types that return from the search may not be the same in all cases. For instance, in this case, we don't get the type for `Other` or `Chapter`.
+
+```{r}
+library(petroOne)
+
+my_url <- make_search_url(query = "smart completion", 
+                          how = "all")          # exact match
+
+result <- read_onepetro(my_url)
+sdc    <- summary_by_doctype(result)
+sdc
+```
+
+## Get a list of papers for specific type. 
+### All types for *deepwater*
+
+```{r}
+library(petroOne)
+
+my_url <- make_search_url(query = "deepwater")
+
+result <- read_onepetro(my_url)
+sdc    <- summary_by_doctype(result)
+sdc
+```
+
+### *Chapter* papers for *deepwater*
+
+```{r}
+my_url <- make_search_url(query = "deepwater", 
+                          dc_type = "chapter")
+
+onepetro_page_to_dataframe(my_url)
+```
+
+### *Journal* papers for *deepwater*
+
+```{r}
+my_url <- make_search_url(query = "deepwater", 
+                          dc_type = "journal-paper")
+
+onepetro_page_to_dataframe(my_url)
+```
+
+### *General* papers for *deepwater*
+
+```{r}
+my_url <- make_search_url(query = "deepwater", 
+                          dc_type = "general")
+
+onepetro_page_to_dataframe(my_url)
+```
+
+### *Presentation* papers for *deepwater*
+
+```{r}
+my_url <- make_search_url(query = "deepwater", 
+                          dc_type = "presentation")
+
+onepetro_page_to_dataframe(my_url)
+```
+
+
+
+
