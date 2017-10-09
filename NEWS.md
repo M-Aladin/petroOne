@@ -1,4 +1,9 @@
-# petroOne change log
+## 20171009 0.1.0.9001
+* use tibbles to prevent long printing of dataframes
+* use as.tibble in functions
+* reordering chunks in README
+* improve explanation of what to do when we have more than 1000 papers to retrieve
+
 
 ## 20171009 0.1.0.9000
 * use as.tibble to avoid long printing of dataframes

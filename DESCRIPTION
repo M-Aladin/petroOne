@@ -1,7 +1,7 @@
 Package: petroOne
 Type: Package
 Title: Create Basic statistics of Papers on Oil and Gas in OnePetro website
-Version: 0.1.0.9000
+Version: 0.1.0.9001
 Authors@R: person("Alfonso", "Reyes", role = c("aut", "cre"), email = "alfonso.reyes@oilgainsanalytics.com")
 Description: More about what it does (maybe more than one line)
     Use four spaces when indenting paragraphs within the Description.
@@ -13,4 +13,4 @@ RoxygenNote: 6.0.1
 Suggests: testthat
 Imports: rvest,
     xml2,
-    magrittr
+    magrittr, tibble

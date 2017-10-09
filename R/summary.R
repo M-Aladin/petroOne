@@ -29,7 +29,7 @@ summary_by_publisher <- function(result) {
     pub_vector <- get_dc_publisher(x)
     value <- extract_num_papers(pub_vector)
     name   <- extract_publishers(pub_vector)
-    data.frame(name, value, stringsAsFactors = FALSE)
+    tibble::as.tibble(data.frame(name, value, stringsAsFactors = FALSE))
 }
 
 #' @title Get summary dataframe by document type
@@ -41,7 +41,7 @@ summary_by_doctype <- function(result) {
     doctype_vector <- get_dctype(x)
     value <- extract_num_papers(doctype_vector)
     name   <- extract_publishers(doctype_vector)
-    data.frame(name, value, stringsAsFactors = FALSE)
+    tibble::as.tibble(data.frame(name, value, stringsAsFactors = FALSE))
 }
 
 #' @title Get summary dataframe by year
@@ -53,7 +53,7 @@ summary_by_dates <- function(result) {
     pub_vector <- get_dc_issued_year(x)
     value <- extract_num_papers(pub_vector)
     name   <- extract_publishers(pub_vector)
-    data.frame(name, value, stringsAsFactors = FALSE)
+    tibble::as.tibble(data.frame(name, value, stringsAsFactors = FALSE))
 }
 
 #' @title Get summary dataframe by publication
@@ -66,7 +66,7 @@ summary_by_publications <- function(result) {
     pub_vector <- get_s2_parent_title(x)
     value <- extract_num_papers(pub_vector)
     name   <- extract_publishers(pub_vector)
-    data.frame(name, value, stringsAsFactors = FALSE)
+    tibble::as.tibble(data.frame(name, value, stringsAsFactors = FALSE))
 }
 
 
