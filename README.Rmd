@@ -40,20 +40,13 @@ get_papers_count(my_url)
 ```
 
 ### Read papers from from_year to to_year
-
-```{r}
-# neural network papers from 1990 to 2000. Exact phrase
-my_url <- make_search_url(query = "neural network", 
-                          from_year = 1990, 
-                          to_year   = 2000, 
-                          how = "all")
-get_papers_count(my_url)
-# 510
-```
+We can send a query where we specify the starting years and the end year.
+Use the parameters as in the example below.
 
 ```{r}
 library(petroOne)
 
+# neural network papers from 1990 to 2000. Exact phrase
 my_url <- make_search_url(query = "neural network", 
                           from_year = 1990, 
                           to_year   = 1999, 
@@ -61,10 +54,13 @@ my_url <- make_search_url(query = "neural network",
 
 get_papers_count(my_url)
 # 415
+# 510
 onepetro_page_to_dataframe(my_url)
 ```
 
-### Get papers by document type (dc_type)
+## Get papers by document type (dc_type)
+We can also get paper by the type of document.
+In this example we are requesting only "conference-paper" type.
 
 ```{r}
 # specify document type = "conference-paper", rows = 1000
@@ -80,7 +76,7 @@ get_papers_count(my_url)
 onepetro_page_to_dataframe(my_url)
 ```
 
-
+In this other example we are requesting for "journal-paper" type of papers.
 
 ```{r}
 # specify document type = "journal-paper", rows = 1000
@@ -96,49 +92,47 @@ get_papers_count(my_url)
 onepetro_page_to_dataframe(my_url)
 ```
 
-## Summaries
+## What to do when we have more than a thousand papers
+
+### 1. Get total number of papers
+First, we need to find what is the total number of papers for a particular query.
+In this search we want all papers that have exact words "neural network".
+
 
 ```{r}
-library(petroOne)
 
-my_url <- make_search_url(query = "well test", 
+my_url <- make_search_url(query = "neural network", 
                           how = "all")
 
-result <- read_onepetro(my_url)
-
-summary_by_doctype(result)
-summary_by_publisher(result)
-summary_by_dates(result)
-summary_by_publications(result)
-
+get_papers_count(my_url)
+# 3025 @ 200171009   total number of papers
 ```
 
-## Get total number of papers 
-in multiple pages of 1000 rows (or papers each)
+### 2. Find type of papers
+In this example we investigate the type of papers available for a given search.
+In this case, we want exact match of "neural network" words.
+
+```{r}
+result <- read_onepetro(my_url)
+summary_by_doctype(result)
+```
+
+We see that most numerous papers are from conferences. We will proceed to gran the paper titles of those.
+
+### 3. Retrieve the most numerous paper by type
+
+
+```{r}
+# folder where we will save the results
+outdir <- system.file("out", package = "petroOne")
+```
+
+#### 3.1 Collect first 1000 rows out of 2687
 
 ```{r}
 # we use "conference-paper" only because other document types have
 # different dataframe structure
 
-my_url <- make_search_url(query = "neural network", 
-                          how = "all",
-                          dc_type = "conference-paper",
-                          rows = 1000)
-
-get_papers_count(my_url)
-# 2661
-# 2697 @ 200171009
-```
-
-### Collect first 1000 rows out of 2661
-
-```{r}
-outdir <- system.file("out", package = "petroOne")
-
-```
-
-
-```{r}
 my_url_1 <- make_search_url(query = "neural network", 
                           how = "all", 
                           dc_type = "conference-paper",
@@ -154,7 +148,7 @@ onepetro_page_to_dataframe(htm_1)
 ```
 
 
-### Collect second set of 1000 rows out of 2661
+#### 3.2 Collect second set of 1000 rows
 
 ```{r}
 my_url_2 <- make_search_url(query = "neural network", 
@@ -169,7 +163,7 @@ xml2::write_html(page_2, file = htm_2)
 onepetro_page_to_dataframe(htm_2)
 ```
 
-### Collect remaining set of 1000 rows out of 2661
+#### 3.3 Collect remaining set of 1000 rows
 
 ```{r}
 my_url_3 <- make_search_url(query = "neural network", 
@@ -185,7 +179,38 @@ onepetro_page_to_dataframe(htm_3)
 ```
 
 
+## Summaries
+Here is a nother example of summaries.
+In this case, we want papers that contain the exact words "well test".
+
+```{r}
+library(petroOne)
+
+my_url <- make_search_url(query = "well test", 
+                          how = "all")
+
+result <- read_onepetro(my_url)
+
+summary_by_doctype(result)
+summary_by_publisher(result)
+summary_by_dates(result)
+summary_by_publications(result)
+```
 
 
+In this other example, we want papers that containg the word "well" or "test".
 
+```{r}
+library(petroOne)
+
+my_url <- make_search_url(query = "well test", 
+                          how = "any")
+
+result <- read_onepetro(my_url)
+
+summary_by_doctype(result)
+summary_by_publisher(result)
+summary_by_dates(result)
+summary_by_publications(result)
+```
 
