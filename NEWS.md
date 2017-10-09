@@ -1,6 +1,9 @@
 # petroOne change log
 
 ## 20171009 0.1.0.9000
+* use as.tibble to avoid long printing of dataframes
+* show first attempt of splitting paper pages in groups of 1000. Using example of "neural networks" which has 2661 conference-papers. For the time being using one type of papers because other document types have a different number of columns and causes a conflict with the dataframe binding. Working on it.
+* build site with pkgdown
 * add documentation for datasets
 * add tolerance to expect_equal because number of paper keeps growing
 * Added a `NEWS.md` file to track changes to the package.
