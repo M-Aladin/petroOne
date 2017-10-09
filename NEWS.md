@@ -1,3 +1,7 @@
+## 20171009 0.1.0.9002
+* paper types do not return complete info in first query. It has to be specified in the type combobox. Problem moved to `test_failing.Rmd`
+* new vignette `paper_types.Rmd` to show how to obtain papers by document type. The document types that are homogeneous and return in the first query are: conference papers, jornal papers, general papers, presentation papers and chapter papers. Non-homogeneous: other and media types.
+
 ## 20171009 0.1.0.9001
 * use tibbles to prevent long printing of dataframes
 * use as.tibble in functions onepetro_page_to_dataframe and summary_by_xxx
