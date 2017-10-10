@@ -37,6 +37,21 @@
 <li>
   <a href="reference/index.html">Reference</a>
 </li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    Articles
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+<li>
+      <a href="articles/paper_types.html">Document types for Papers</a>
+    </li>
+    <li>
+      <a href="articles/thousands_to_dataframe.html">Thousands of Papers to Dataframe</a>
+    </li>
+  </ul>
+</li>
 <li>
   <a href="news/index.html">News</a>
 </li>
@@ -108,13 +123,13 @@ my_url &lt;-<span class="st"> </span><span class="kw"><a href="reference/make_se
 <span class="co">#&gt;  1                          Deconvolution Using Neural Networks</span>
 <span class="co">#&gt;  2                     Neural Network Stacking Velocity Picking</span>
 <span class="co">#&gt;  3                     Drill-Bit Diagnosis With Neural Networks</span>
-<span class="co">#&gt;  4      Artificial Intelligence I Neural Networks In Geophysics</span>
-<span class="co">#&gt;  5         Inversion of Seismic Waveforms Using Neural Networks</span>
-<span class="co">#&gt;  6             Neural Networks And Paper Seismic Interpretation</span>
-<span class="co">#&gt;  7                    First Break Picking Using Neural Networks</span>
-<span class="co">#&gt;  8     Conductive fracture identification using neural networks</span>
-<span class="co">#&gt;  9 Reservoir Characterization Using Feedforward Neural Networks</span>
-<span class="co">#&gt; 10          Seismic Attribute Calibration Using Neural Networks</span>
+<span class="co">#&gt;  4  Seismic Principal Components Analysis Using Neural Networks</span>
+<span class="co">#&gt;  5             Neural Networks And Paper Seismic Interpretation</span>
+<span class="co">#&gt;  6                    First Break Picking Using Neural Networks</span>
+<span class="co">#&gt;  7      Artificial Intelligence I Neural Networks In Geophysics</span>
+<span class="co">#&gt;  8         Inversion of Seismic Waveforms Using Neural Networks</span>
+<span class="co">#&gt;  9                    Neural Networks In the Petroleum Industry</span>
+<span class="co">#&gt; 10 Reservoir Characterization Using Feedforward Neural Networks</span>
 <span class="co">#&gt; # ... with 5 more variables: paper_id &lt;chr&gt;, source &lt;chr&gt;, type &lt;chr&gt;,</span>
 <span class="co">#&gt; #   year &lt;chr&gt;, author1_data &lt;chr&gt;</span></code></pre></div>
 </div>
@@ -136,18 +151,18 @@ my_url &lt;-<span class="st"> </span><span class="kw"><a href="reference/make_se
 <span class="co"># 2687</span>
 <span class="kw"><a href="reference/onepetro_page_to_dataframe.html">onepetro_page_to_dataframe</a></span>(my_url)
 <span class="co">#&gt; # A tibble: 1,000 x 6</span>
-<span class="co">#&gt;                                                  title_data</span>
-<span class="co">#&gt;                                                       &lt;chr&gt;</span>
-<span class="co">#&gt;  1                                  Neural Networks And AVO</span>
-<span class="co">#&gt;  2                      Deconvolution Using Neural Networks</span>
-<span class="co">#&gt;  3                 Neural Network Stacking Velocity Picking</span>
-<span class="co">#&gt;  4 Predicting Wax Formation Using Artificial Neural Network</span>
-<span class="co">#&gt;  5    Estimation of Welding Distortion Using Neural Network</span>
-<span class="co">#&gt;  6  Artificial Intelligence I Neural Networks In Geophysics</span>
-<span class="co">#&gt;  7     Inversion of Seismic Waveforms Using Neural Networks</span>
-<span class="co">#&gt;  8         Neural Networks And Paper Seismic Interpretation</span>
-<span class="co">#&gt;  9 Dynamic Neural Network Calibration of Quartz Transducers</span>
-<span class="co">#&gt; 10                First Break Picking Using Neural Networks</span>
+<span class="co">#&gt;                                                         title_data</span>
+<span class="co">#&gt;                                                              &lt;chr&gt;</span>
+<span class="co">#&gt;  1                             Deconvolution Using Neural Networks</span>
+<span class="co">#&gt;  2                                         Neural Networks And AVO</span>
+<span class="co">#&gt;  3                        Neural Network Stacking Velocity Picking</span>
+<span class="co">#&gt;  4        Predicting Wax Formation Using Artificial Neural Network</span>
+<span class="co">#&gt;  5     Seismic Principal Components Analysis Using Neural Networks</span>
+<span class="co">#&gt;  6                Neural Networks And Paper Seismic Interpretation</span>
+<span class="co">#&gt;  7        Dynamic Neural Network Calibration of Quartz Transducers</span>
+<span class="co">#&gt;  8           Estimation of Welding Distortion Using Neural Network</span>
+<span class="co">#&gt;  9 Minimum-variance Deconvolution Using Artificial Neural Networks</span>
+<span class="co">#&gt; 10                       First Break Picking Using Neural Networks</span>
 <span class="co">#&gt; # ... with 990 more rows, and 5 more variables: paper_id &lt;chr&gt;,</span>
 <span class="co">#&gt; #   source &lt;chr&gt;, type &lt;chr&gt;, year &lt;chr&gt;, author1_data &lt;chr&gt;</span></code></pre></div>
 <p>In this other example we are requesting for “journal-paper” type of papers.</p>
@@ -169,12 +184,12 @@ my_url &lt;-<span class="st"> </span><span class="kw"><a href="reference/make_se
 <span class="co">#&gt;  1                Artificial Neural Networks Identify Restimulation Candidates</span>
 <span class="co">#&gt;  2                                    Drill-Bit Diagnosis With Neural Networks</span>
 <span class="co">#&gt;  3                   Implicit Approximation of Neural Network and Applications</span>
-<span class="co">#&gt;  4                 Neural Networks for Predictive Control of Drilling Dynamics</span>
-<span class="co">#&gt;  5             Application of Artificial Neural Network to Pump Card Diagnosis</span>
-<span class="co">#&gt;  6        Application of Artificial Neural Networks to Downhole Fluid Analysis</span>
+<span class="co">#&gt;  4             Application of Artificial Neural Network to Pump Card Diagnosis</span>
+<span class="co">#&gt;  5        Application of Artificial Neural Networks to Downhole Fluid Analysis</span>
+<span class="co">#&gt;  6           Pseudodensity Log Generation by Use of Artificial Neural Networks</span>
 <span class="co">#&gt;  7                Neural Network Approach Predicts U.S. Natural Gas Production</span>
-<span class="co">#&gt;  8                      Neural Network: What It Can Do for Petroleum Engineers</span>
-<span class="co">#&gt;  9 Treating Uncertainties in Reservoir-Performance Prediction With Neural Netw</span>
+<span class="co">#&gt;  8          An Artificial Neural Network Based Relative Permeability Predictor</span>
+<span class="co">#&gt;  9                 Neural Networks for Predictive Control of Drilling Dynamics</span>
 <span class="co">#&gt; 10 Characterize Submarine Channel Reservoirs: A Neural- Network-Based Approach</span>
 <span class="co">#&gt; # ... with 294 more rows, and 5 more variables: paper_id &lt;chr&gt;,</span>
 <span class="co">#&gt; #   source &lt;chr&gt;, type &lt;chr&gt;, year &lt;chr&gt;, author1_data &lt;chr&gt;</span></code></pre></div>
@@ -210,105 +225,6 @@ my_url &lt;-<span class="st"> </span><span class="kw"><a href="reference/make_se
 <span class="co">#&gt; 5            Other     5</span>
 <span class="co">#&gt; 6     Presentation    23</span></code></pre></div>
 <p>We see that most numerous papers are from conferences. We will proceed to gran the paper titles of those.</p>
-</div>
-<div id="retrieve-the-most-numerous-paper-by-type" class="section level3">
-<h3 class="hasAnchor">
-<a href="#retrieve-the-most-numerous-paper-by-type" class="anchor"></a>3. Retrieve the most numerous paper by type</h3>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># folder where we will save the results</span>
-outdir &lt;-<span class="st"> </span><span class="kw">system.file</span>(<span class="st">"out"</span>, <span class="dt">package =</span> <span class="st">"petroOne"</span>)</code></pre></div>
-<div id="collect-first-1000-rows-out-of-2687" class="section level4">
-<h4 class="hasAnchor">
-<a href="#collect-first-1000-rows-out-of-2687" class="anchor"></a>3.1 Collect first 1000 rows out of 2687</h4>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># we use "conference-paper" only because other document types have</span>
-<span class="co"># different dataframe structure</span>
-
-my_url_1 &lt;-<span class="st"> </span><span class="kw"><a href="reference/make_search_url.html">make_search_url</a></span>(<span class="dt">query =</span> <span class="st">"neural network"</span>, 
-                          <span class="dt">how =</span> <span class="st">"all"</span>, 
-                          <span class="dt">dc_type =</span> <span class="st">"conference-paper"</span>,
-                          <span class="dt">start =</span> <span class="dv">0</span>,
-                          <span class="dt">rows  =</span> <span class="dv">1000</span>)
-
-<span class="kw"><a href="reference/get_papers_count.html">get_papers_count</a></span>(my_url_1)
-<span class="co">#&gt; [1] 2687</span>
-
-page_1 &lt;-<span class="st"> </span><span class="kw"><a href="reference/read_onepetro.html">read_onepetro</a></span>(my_url_1)
-htm_1 &lt;-<span class="st"> </span><span class="kw">paste</span>(outdir, <span class="st">"1000_conference.html"</span>, <span class="dt">sep =</span> <span class="st">"/"</span>)
-xml2::<span class="kw">write_html</span>(page_1, <span class="dt">file =</span> htm_1)
-<span class="kw"><a href="reference/onepetro_page_to_dataframe.html">onepetro_page_to_dataframe</a></span>(htm_1)
-<span class="co">#&gt; # A tibble: 1,000 x 6</span>
-<span class="co">#&gt;                                                  title_data</span>
-<span class="co">#&gt;                                                       &lt;chr&gt;</span>
-<span class="co">#&gt;  1                                  Neural Networks And AVO</span>
-<span class="co">#&gt;  2                      Deconvolution Using Neural Networks</span>
-<span class="co">#&gt;  3                 Neural Network Stacking Velocity Picking</span>
-<span class="co">#&gt;  4 Predicting Wax Formation Using Artificial Neural Network</span>
-<span class="co">#&gt;  5    Estimation of Welding Distortion Using Neural Network</span>
-<span class="co">#&gt;  6  Artificial Intelligence I Neural Networks In Geophysics</span>
-<span class="co">#&gt;  7     Inversion of Seismic Waveforms Using Neural Networks</span>
-<span class="co">#&gt;  8         Neural Networks And Paper Seismic Interpretation</span>
-<span class="co">#&gt;  9 Dynamic Neural Network Calibration of Quartz Transducers</span>
-<span class="co">#&gt; 10                First Break Picking Using Neural Networks</span>
-<span class="co">#&gt; # ... with 990 more rows, and 5 more variables: paper_id &lt;chr&gt;,</span>
-<span class="co">#&gt; #   source &lt;chr&gt;, type &lt;chr&gt;, year &lt;chr&gt;, author1_data &lt;chr&gt;</span></code></pre></div>
-</div>
-<div id="collect-second-set-of-1000-rows" class="section level4">
-<h4 class="hasAnchor">
-<a href="#collect-second-set-of-1000-rows" class="anchor"></a>3.2 Collect second set of 1000 rows</h4>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">my_url_2 &lt;-<span class="st"> </span><span class="kw"><a href="reference/make_search_url.html">make_search_url</a></span>(<span class="dt">query =</span> <span class="st">"neural network"</span>, 
-                          <span class="dt">how =</span> <span class="st">"all"</span>, 
-                          <span class="dt">dc_type =</span> <span class="st">"conference-paper"</span>,
-                          <span class="dt">start =</span> <span class="dv">1000</span>,
-                          <span class="dt">rows  =</span> <span class="dv">1000</span>)
-
-page_2 &lt;-<span class="st"> </span><span class="kw"><a href="reference/read_onepetro.html">read_onepetro</a></span>(my_url_2)
-htm_2 &lt;-<span class="st"> </span><span class="kw">paste</span>(outdir, <span class="st">"2000_conference.html"</span>, <span class="dt">sep =</span> <span class="st">"/"</span>)
-xml2::<span class="kw">write_html</span>(page_2, <span class="dt">file =</span> htm_2)
-<span class="kw"><a href="reference/onepetro_page_to_dataframe.html">onepetro_page_to_dataframe</a></span>(htm_2)
-<span class="co">#&gt; # A tibble: 1,000 x 6</span>
-<span class="co">#&gt;                                                                     title_data</span>
-<span class="co">#&gt;                                                                          &lt;chr&gt;</span>
-<span class="co">#&gt;  1 Reducing Uncertainty in Characterization Of Vaca Mureta Shale with Post-Sta</span>
-<span class="co">#&gt;  2 Understanding the Distribution Pattern of Prospective Reservoir Facies: A S</span>
-<span class="co">#&gt;  3 Estimation of Rock Mechanical Parameters Using Artificial Intelligence Tool</span>
-<span class="co">#&gt;  4 A Neuro-Fuzzy Approach for Prediction of Poisson's Ratio and Young's Modulu</span>
-<span class="co">#&gt;  5 Practical Implementation of Knowledge-Based Approaches for SAGD Production </span>
-<span class="co">#&gt;  6 Optimizing the Performance of ANFIS using the Genetic Algorithm to Estimate</span>
-<span class="co">#&gt;  7 Multi-Scale Characterization of Pore Structure in Carbonate Formations: App</span>
-<span class="co">#&gt;  8 "Indirect Estimation of Fluid Transport and Rock Mechanical Properties from</span>
-<span class="co">#&gt;  9 A Model For Predicting Corrosion Rates In Oil Wells Containing Carbon Dioxi</span>
-<span class="co">#&gt; 10 Integration and Data Analysis of Conventional Core Data with NMR and CT Dat</span>
-<span class="co">#&gt; # ... with 990 more rows, and 5 more variables: paper_id &lt;chr&gt;,</span>
-<span class="co">#&gt; #   source &lt;chr&gt;, type &lt;chr&gt;, year &lt;chr&gt;, author1_data &lt;chr&gt;</span></code></pre></div>
-</div>
-<div id="collect-remaining-set-of-1000-rows" class="section level4">
-<h4 class="hasAnchor">
-<a href="#collect-remaining-set-of-1000-rows" class="anchor"></a>3.3 Collect remaining set of 1000 rows</h4>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">my_url_3 &lt;-<span class="st"> </span><span class="kw"><a href="reference/make_search_url.html">make_search_url</a></span>(<span class="dt">query =</span> <span class="st">"neural network"</span>, 
-                          <span class="dt">how =</span> <span class="st">"all"</span>, 
-                          <span class="dt">dc_type =</span> <span class="st">"conference-paper"</span>,
-                          <span class="dt">start =</span> <span class="dv">2000</span>,
-                          <span class="dt">rows  =</span> <span class="dv">1000</span>)
-
-page_3 &lt;-<span class="st"> </span><span class="kw"><a href="reference/read_onepetro.html">read_onepetro</a></span>(my_url_3)
-htm_3 &lt;-<span class="st"> </span><span class="kw">paste</span>(outdir, <span class="st">"3000_conference.html"</span>, <span class="dt">sep =</span> <span class="st">"/"</span>)
-xml2::<span class="kw">write_html</span>(page_3, <span class="dt">file =</span> htm_3)
-<span class="kw"><a href="reference/onepetro_page_to_dataframe.html">onepetro_page_to_dataframe</a></span>(htm_3)
-<span class="co">#&gt; # A tibble: 687 x 6</span>
-<span class="co">#&gt;                                                                     title_data</span>
-<span class="co">#&gt;                                                                          &lt;chr&gt;</span>
-<span class="co">#&gt;  1          The Role Of Ocean Engineers In Japanese Ocean Measurement Research</span>
-<span class="co">#&gt;  2 Data-Driven Brittleness Index Prediction From Elemental Spectroscopy and Pe</span>
-<span class="co">#&gt;  3 A New Technique to Determine Porosity and Deep Resistivity from Old Gamma R</span>
-<span class="co">#&gt;  4                                           Advanced Streaming Data Cleansing</span>
-<span class="co">#&gt;  5 Cyclic Behavior of Laterally Loaded Piles in Soils With Variable Properties</span>
-<span class="co">#&gt;  6 An Improved And Optimized Positioning Method Of Microseismic Source In Mini</span>
-<span class="co">#&gt;  7                  Field Evaluation Of A Hydrate Inhibition Monitoring System</span>
-<span class="co">#&gt;  8            Multiphase Flow Metering: Current Status and Future Developments</span>
-<span class="co">#&gt;  9 Analysis of Influencing Factors of Water Traffic Accidents Severity Based o</span>
-<span class="co">#&gt; 10                  A Novel Model for Permeability Prediction in Uncored Wells</span>
-<span class="co">#&gt; # ... with 677 more rows, and 5 more variables: paper_id &lt;chr&gt;,</span>
-<span class="co">#&gt; #   source &lt;chr&gt;, type &lt;chr&gt;, year &lt;chr&gt;, author1_data &lt;chr&gt;</span></code></pre></div>
-</div>
 </div>
 </div>
 <div id="summaries" class="section level2">
@@ -426,7 +342,7 @@ result &lt;-<span class="st"> </span><span class="kw"><a href="reference/read_on
 <span class="co">#&gt; # A tibble: 103 x 2</span>
 <span class="co">#&gt;          name value</span>
 <span class="co">#&gt;         &lt;chr&gt; &lt;dbl&gt;</span>
-<span class="co">#&gt;  1 Since 2017  3543</span>
+<span class="co">#&gt;  1 Since 2017  3542</span>
 <span class="co">#&gt;  2 Since 2016  8690</span>
 <span class="co">#&gt;  3 Since 2015 14264</span>
 <span class="co">#&gt;  4 Since 2014 19543</span>

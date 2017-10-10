@@ -60,6 +60,21 @@
 <li>
   <a href="../reference/index.html">Reference</a>
 </li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    Articles
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="../articles/paper_types.html">Document types for Papers</a>
+    </li>
+    <li>
+      <a href="../articles/thousands_to_dataframe.html">Thousands of Papers to Dataframe</a>
+    </li>
+  </ul>
+</li>
 <li>
   <a href="../news/index.html">News</a>
 </li>
@@ -85,7 +100,19 @@
     <div class="contents">
     <div id="section" class="section level2">
 <h2 class="hasAnchor">
-<a href="#section" class="anchor"></a>20171009 0.1.0.9001</h2>
+<a href="#section" class="anchor"></a>20171009 0.1.0.9002</h2>
+<ul>
+<li>playing with RSelenium to click over the abstract link to get the text.</li>
+<li>Notebooks to play with Rselenium under ./notebooks/01-url_query folder</li>
+<li>new vignette “thousands_to_dataframe” to bind multiple pages into one dataframe. Not all paper types are homogeneous and they return different columns. Until we find the algorithm, we will retrieve papers by a unique document type.</li>
+<li>paper types do not return complete info in first query. It has to be specified in the type combobox. Problem moved to <code>test_failing.Rmd</code>
+</li>
+<li>new vignette <code>paper_types.Rmd</code> to show how to obtain papers by document type. The document types that are homogeneous and return in the first query are: conference papers, jornal papers, general papers, presentation papers and chapter papers. Non-homogeneous: other and media types.</li>
+</ul>
+</div>
+    <div id="section-1" class="section level2">
+<h2 class="hasAnchor">
+<a href="#section-1" class="anchor"></a>20171009 0.1.0.9001</h2>
 <ul>
 <li>use tibbles to prevent long printing of dataframes</li>
 <li>use as.tibble in functions onepetro_page_to_dataframe and summary_by_xxx</li>
@@ -93,9 +120,9 @@
 <li>improve explanation of what to do when we have more than 1000 papers to retrieve</li>
 </ul>
 </div>
-    <div id="section-1" class="section level2">
+    <div id="section-2" class="section level2">
 <h2 class="hasAnchor">
-<a href="#section-1" class="anchor"></a>20171009 0.1.0.9000</h2>
+<a href="#section-2" class="anchor"></a>20171009 0.1.0.9000</h2>
 <ul>
 <li>use as.tibble to avoid long printing of dataframes</li>
 <li>show first attempt of splitting paper pages in groups of 1000. Using example of “neural networks” which has 2661 conference-papers. For the time being using one type of papers because other document types have a different number of columns and causes a conflict with the dataframe binding. Working on it.</li>
@@ -112,8 +139,9 @@
     <div id="tocnav">
       <h2>Contents</h2>
       <ul class="nav nav-pills nav-stacked">
-        <li><a href="#section">0.1.0.9001</a></li>
-        <li><a href="#section-1">0.1.0.9000</a></li>
+        <li><a href="#section">0.1.0.9002</a></li>
+        <li><a href="#section-1">0.1.0.9001</a></li>
+        <li><a href="#section-2">0.1.0.9000</a></li>
       </ul>
     </div>
   </div>
