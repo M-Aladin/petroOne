@@ -1,5 +1,6 @@
 ## 20171009 0.1.0.9002
 * playing with RSelenium to click over the abstract link to get the text.
+* Installing a Docker container with Selenium for firfox-standalone.
 * Notebooks to play with Rselenium under ./notebooks/01-url_query folder
 * new vignette "thousands_to_dataframe" to bind multiple pages into one dataframe. Not all paper types are homogeneous and they return different columns. Until we find the algorithm, we will retrieve papers by a unique document type.
 * paper types do not return complete info in first query. It has to be specified in the type combobox. Problem moved to `test_failing.Rmd`
