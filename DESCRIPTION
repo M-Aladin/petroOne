@@ -1,10 +1,13 @@
 Package: petroOne
 Type: Package
-Title: Create Basic statistics of Papers on Oil and Gas in OnePetro website
+Title: Create Basic Statistics of Oil and Gas Papers from OnePetro website
 Version: 0.1.0.9002
 Authors@R: person("Alfonso", "Reyes", role = c("aut", "cre"), email = "alfonso.reyes@oilgainsanalytics.com")
-Description: More about what it does (maybe more than one line)
-    Use four spaces when indenting paragraphs within the Description.
+Description: Application that retrieves paper information from the OnePetro website.
+    Thousand of papers on oil and gas live in OnePetro. By retrieving metadata 
+    from the search queries sent to OnePetro a summary of papers that match the
+    query words can be retrived to create a dataframe for further analysis. There 
+    is some data mining provided with this package such as text cloud.
 Depends: R (>= 3.2)    
 License: GPL-2
 Encoding: UTF-8
