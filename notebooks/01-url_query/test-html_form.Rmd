@@ -6,6 +6,8 @@ output: html_notebook
 
 ```{r}
 library(petroOne)
+library(xml2)
+library(rvest)
 
 query <- "neural network"
 session <- html_session("https://www.onepetro.org/")

@@ -142,7 +142,7 @@ $(document).ready(function () {
 </style>
 <script>
 $(document).ready(function () {
-  window.initializeSourceEmbed("custom_synonyms.Rmd");
+  window.initializeSourceEmbed("extract_links.Rmd");
   window.initializeCodeFolding("show" === "show");
 });
 </script>
@@ -172,277 +172,290 @@ $(document).ready(function () {
 
 
 <!-- rnb-text-begin -->
-<div id="create-corpus" class="section level2">
-<h2>create corpus</h2>
+<p><a href="https://stackoverflow.com/a/36723520/5270873" class="uri">https://stackoverflow.com/a/36723520/5270873</a></p>
 <!-- rnb-text-end -->
 <!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxubGlicmFyeShwZXRyb09uZSlcbmxpYnJhcnkoXCJ0bVwiKVxucDEgPC0gb25lcGV0cm9fcGFnZV90b19kYXRhZnJhbWUoXCIxMDAwX2NvbmZlcmVuY2UuaHRtbFwiKVxucDIgPC0gb25lcGV0cm9fcGFnZV90b19kYXRhZnJhbWUoXCIyMDAwX2NvbmZlcmVuY2UuaHRtbFwiKVxucDMgPC0gb25lcGV0cm9fcGFnZV90b19kYXRhZnJhbWUoXCIzMDAwX2NvbmZlcmVuY2UuaHRtbFwiKVxubm5fcGFwZXJzIDwtIHJiaW5kKHAxLCBwMiwgcDMpXG4jIGNyZWF0ZSBjb3JwdXNcbnZkb2NzU3luIDwtIFZDb3JwdXMoVmVjdG9yU291cmNlKG5uX3BhcGVycyR0aXRsZV9kYXRhKSlcbnZkb2NzU3luIDwtIHRtX21hcCh2ZG9jc1N5biwgY29udGVudF90cmFuc2Zvcm1lcih0b2xvd2VyKSlcbmBgYCJ9 -->
-<pre class="r"><code>library(petroOne)
-library(&quot;tm&quot;)
-p1 &lt;- onepetro_page_to_dataframe(&quot;1000_conference.html&quot;)
-p2 &lt;- onepetro_page_to_dataframe(&quot;2000_conference.html&quot;)
-p3 &lt;- onepetro_page_to_dataframe(&quot;3000_conference.html&quot;)
-nn_papers &lt;- rbind(p1, p2, p3)
-# create corpus
-vdocsSyn &lt;- VCorpus(VectorSource(nn_papers$title_data))
-vdocsSyn &lt;- tm_map(vdocsSyn, content_transformer(tolower))</code></pre>
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxubGlicmFyeSh4bWwyKVxubGlicmFyeShydmVzdClcblVSTCA8LSBcImh0dHA6Ly9zdGFja292ZXJmbG93LmNvbS9xdWVzdGlvbnMvMzc0NjI1Ni9leHRyYWN0LWxpbmtzLWZyb20td2VicGFnZS11c2luZy1yXCJcbnBnIDwtIHJlYWRfaHRtbChVUkwpXG5oZWFkKGh0bWxfYXR0cihodG1sX25vZGVzKHBnLCBcImFcIiksIFwiaHJlZlwiKSlcbmBgYCJ9 -->
+<pre class="r"><code>library(xml2)
+library(rvest)
+URL &lt;- &quot;http://stackoverflow.com/questions/3746256/extract-links-from-webpage-using-r&quot;
+pg &lt;- read_html(URL)
+head(html_attr(html_nodes(pg, &quot;a&quot;), &quot;href&quot;))</code></pre>
 <!-- rnb-source-end -->
-<!-- rnb-chunk-end -->
-<!-- rnb-text-begin -->
-</div>
-<div id="synonyms-replacement-before" class="section level2">
-<h2>Synonyms replacement before</h2>
-<!-- rnb-text-end -->
-<!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuIyBhZGQgYSBzcGFjZSBhZnRlciBcIm5ldFwiXG5jdXN0b21fc3lub255bXMgPC0gXCJcbjJEfDItRFxuM0R8My1EXG40RHw0LURcbmFsZ29yaXRobXN8YWxnb3JpdGhtXG5iaWcgZGF0YXxiaWctZGF0YVxuYm90dG9tLWhvbGV8Ym90dG9taG9sZVxuY2FzZWQgaG9sZXxjYXNlZC1ob2xlXG5kYXRhIGRyaXZlbnxkYXRhLWRyaXZlblxuZGVlcC13YXRlcnxkZWVwd2F0ZXJcbmRlZXAgd2F0ZXJ8ZGVlcHdhdGVyXG5mZWVkZm9yd2FyZHxmZWVkLWZvcndhcmRcbmZyYWN0dXJlfCBmcmFja1xuZnJhY3R1cmluZ3wgZnJhY2tcbmZyYWN0dXJlc3wgZnJhY2tcbmZyYWN0dXJlZHwgZnJhY2tcbmZyYWNrc3xmcmFja1xuZnJhY2tkfGZyYWNrXG5tb2RlbGxpbmd8bW9kZWxpbmdcbm11bHRpIHBoYXNlfG11bHRpcGhhc2Vcbm11bHRpLXBoYXNlfG11bHRpcGhhc2Vcbm5ldXJhbCBuZXQgfG5ldXJhbCBuZXR3b3JrICAgXG5uZXVyYWwgbmV0c3xuZXVyYWwgbmV0d29ya1xubmV1cmFsLW5ldHdvcmt8bmV1cmFsIG5ldHdvcmtcbm5ldXJhbCBuZXR3b3Jrc3xuZXVyYWwgbmV0d29ya1xucHJlc3N1cmVzfHByZXNzdXJlXG5yZWFsIHRpbWV8cmVhbC10aW1lXG5yZXNlcnZvaXJzfHJlc2Vydm9pclxuc3lzdGVtc3xzeXN0ZW1cbnRpbWUgbGFwc2V8dGltZS1sYXBzZVxudW5kZXJiYWxhbmNlZCBkcmlsbGluZ3xVQkRcbnVuZGVyYmFsYW5jZSBkcmlsbGluZ3xVQkRcbnR3byBwaGFzZXx0d28tcGhhc2VcbndlbGwtaGVhZHx3ZWxsaGVhZFxuXCJcbiMgcmVhZCB0ZXh0IHRhYmxlIGFuZCBzcGxpdCByb3dzIGF0IGNhcnJpYWdlIHJldHVyblxuY3VzdG9tX3N5bm9ueW1zIDwtIHJlYWQudGFibGUodGV4dCA9IGN1c3RvbV9zeW5vbnltcywgaGVhZGVyID0gRkFMU0UsIFxuICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgc2VwID0gXCJcXG5cIiwgc3RyaW5nc0FzRmFjdG9ycyA9IEZBTFNFKVxuIyBzcGxpdCBzdHJpbmcgYXQgb25lIGNvbHVtbiBieSB0aGUgZGVsaW1pdGVyIFwifFwiXG5jdXN0b21fc3lub255bXMgPC0gZGF0YS5mcmFtZShkby5jYWxsKCdyYmluZCcsIFxuICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBzdHJzcGxpdChjdXN0b21fc3lub255bXMkVjEsIHNwbGl0ID0gXCJ8XCIsIFxuICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBmaXhlZCA9IFRSVUUpKSwgc3RyaW5nc0FzRmFjdG9ycyA9IEZBTFNFKVxuY3VzdG9tX3N5bm9ueW1zXG5gYGAifQ== -->
-<pre class="r"><code># add a space after &quot;net&quot;
-custom_synonyms &lt;- &quot;
-2D|2-D
-3D|3-D
-4D|4-D
-algorithms|algorithm
-big data|big-data
-bottom-hole|bottomhole
-cased hole|cased-hole
-data driven|data-driven
-deep-water|deepwater
-deep water|deepwater
-feedforward|feed-forward
-fracture| frack
-fracturing| frack
-fractures| frack
-fractured| frack
-fracks|frack
-frackd|frack
-modelling|modeling
-multi phase|multiphase
-multi-phase|multiphase
-neural net |neural network   
-neural nets|neural network
-neural-network|neural network
-neural networks|neural network
-pressures|pressure
-real time|real-time
-reservoirs|reservoir
-systems|system
-time lapse|time-lapse
-underbalanced drilling|UBD
-underbalance drilling|UBD
-two phase|two-phase
-well-head|wellhead
-&quot;
-# read text table and split rows at carriage return
-custom_synonyms &lt;- read.table(text = custom_synonyms, header = FALSE, 
-                              sep = &quot;\n&quot;, stringsAsFactors = FALSE)
-# split string at one column by the delimiter &quot;|&quot;
-custom_synonyms &lt;- data.frame(do.call('rbind', 
-                                      strsplit(custom_synonyms$V1, split = &quot;|&quot;, 
-                                               fixed = TRUE)), stringsAsFactors = FALSE)
-custom_synonyms</code></pre>
-<!-- rnb-source-end -->
-<!-- rnb-frame-begin eyJtZXRhZGF0YSI6eyJjbGFzc2VzIjpbImRhdGEuZnJhbWUiXSwibmNvbCI6MiwibnJvdyI6MzN9LCJyZGYiOiJINHNJQUFBQUFBQUFCcFdVd1k3YklCQ0dpUjN2eGs2MzI2cHF6K1FCaUxUWmZZSXFUMUNwVXE3RUpyRVZEQmJHNi9iV0o5OFdiQThCUnoyc3BjVERQelBBREovNXNUL3Nza09HRUlwUXZGeWdLRGJtTWpKL0M3UkVxWDMvUWlqK01nUWc5TW44TnBNajJ1M0JlbmJXQzFnWjVXZXBLbDNXN2FTc2p0VVpGMVRUYWJ3K1NxMWxUVXJKR1NUbHRHVUY5cFMxVGNDRnFsNlpnS0NDc1liMFZEUGxLOWhYMWlmR2lwTlVQVlVGTEg5U05OZWRjbXRONDBxY0p5V0ZpSFl1d0J4M1ZyaTB3UWg4YVMwTHh2bDF1blhkY1YzaHBqUTFCUklKSk1FNlJUa1dUT05iQ1piNk9FckVTTDFVbDBsOXZBWmExVzI3TVNXMGZoMkttU2hkMWE1MjQyUHFWVllLUXU3YjM2MW03cXd5RzR3NWJkdyt2M1dpWU9wSU9SVzVPU0p6SW42dFgzM3YzSm1hM1FWdFNIdlRLRkl5V3N5UWluY0UrSW1mcithTE0xTkhsUWNWOGFES1JxaHVtQ0p6cGtqQVZHb0o4Z0c2RVQ1WW9raUkxQjBlQ0hqM0tQbnZZRFZBZEcxZE5nRGo5KzVXK1J4U2dERU9vY0VoTk85UlYwQ1NEeEx4UUVvZFNGRG95SkdQRWZFeGluOSszOSthbHBEZ3ExaFpRa1pBZ3Nzb0ViUTJXSS9VUkhEcEhKNmN0WnNscEVyMlcwaDZzQ0YvMFBCczVqUG5uTFl3TTRpWkpXVnJEc2dVak5EYkxPVmVOcnFTd2lSRjluNU1ac2tMTlJNZU8yRjNVcEM4N01TRlBOa0ZCdmY0UEV6MnhyT2pjY25vN3pSVkFtMW00bHdKNkZiQzZaRnhPRWxUOFZEd3RqRjNtM1pmdk96YnJaYWFRbHlXU3c3S1VCdDYrd2ZZeUd5WURRWUFBQT09In0= -->
-<div data-pagedtable="false">
-<script data-pagedtable-source type="application/json">
-{"columns":[{"label":["X1"],"name":[1],"type":["chr"],"align":["left"]},{"label":["X2"],"name":[2],"type":["chr"],"align":["left"]}],"data":[{"1":"2D","2":"2-D"},{"1":"3D","2":"3-D"},{"1":"4D","2":"4-D"},{"1":"algorithms","2":"algorithm"},{"1":"big data","2":"big-data"},{"1":"bottom-hole","2":"bottomhole"},{"1":"cased hole","2":"cased-hole"},{"1":"data driven","2":"data-driven"},{"1":"deep-water","2":"deepwater"},{"1":"deep water","2":"deepwater"},{"1":"feedforward","2":"feed-forward"},{"1":"fracture","2":"frack"},{"1":"fracturing","2":"frack"},{"1":"fractures","2":"frack"},{"1":"fractured","2":"frack"},{"1":"fracks","2":"frack"},{"1":"frackd","2":"frack"},{"1":"modelling","2":"modeling"},{"1":"multi phase","2":"multiphase"},{"1":"multi-phase","2":"multiphase"},{"1":"neural net","2":"neural network"},{"1":"neural nets","2":"neural network"},{"1":"neural-network","2":"neural network"},{"1":"neural networks","2":"neural network"},{"1":"pressures","2":"pressure"},{"1":"real time","2":"real-time"},{"1":"reservoirs","2":"reservoir"},{"1":"systems","2":"system"},{"1":"time lapse","2":"time-lapse"},{"1":"underbalanced drilling","2":"UBD"},{"1":"underbalance drilling","2":"UBD"},{"1":"two phase","2":"two-phase"},{"1":"well-head","2":"wellhead"}],"options":{"columns":{"min":{},"max":[10],"total":[2]},"rows":{"min":[10],"max":[10],"total":[33]},"pages":{}}}
-  </script>
-</div>
-<!-- rnb-frame-end -->
-<!-- rnb-chunk-end -->
-<!-- rnb-text-begin -->
-</div>
-<div id="replace-original-by-synonym" class="section level2">
-<h2>Replace original by synonym</h2>
-<!-- rnb-text-end -->
-<!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuIyBlbmhhbmNlZCByZXBsYWNlQnkgaW5jbHVkaW5nIHRoZSBkYXRhZnJhbWUgdG8gdXNlIGFzIGEgcmVwbGFjZW1lbnRcbnJlcGxhY2VCeSA8LSBmdW5jdGlvbih4LCBkZikge1xuICAgIGZvciAoayBpbiBzZXFfbGVuKG5yb3coZGYpKSkge1xuICAgICAgICB4IDwtIGdzdWIoZGYkWDFbW2tdXSwgZGYkWDJbW2tdXSwgeCwgZml4ZWQgPSBUUlVFKSAgXG4gICAgfVxuICAgIHhcbn0gICAgXG52ZG9jc19wcm9jIDwtIHRtX21hcCh2ZG9jc1N5biwgY29udGVudF90cmFuc2Zvcm1lcihmdW5jdGlvbih4KSByZXBsYWNlQnkoeCwgY3VzdG9tX3N5bm9ueW1zKSkpXG5gYGAifQ== -->
-<pre class="r"><code># enhanced replaceBy including the dataframe to use as a replacement
-replaceBy &lt;- function(x, df) {
-    for (k in seq_len(nrow(df))) {
-        x &lt;- gsub(df$X1[[k]], df$X2[[k]], x, fixed = TRUE)  
-    }
-    x
-}    
-vdocs_proc &lt;- tm_map(vdocsSyn, content_transformer(function(x) replaceBy(x, custom_synonyms)))</code></pre>
-<!-- rnb-source-end -->
-<!-- rnb-chunk-end -->
-<!-- rnb-text-begin -->
-</div>
-<div id="how-many-have-been-replaced" class="section level2">
-<h2>How many have been replaced</h2>
-<!-- rnb-text-end -->
-<!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxudmN1bSA8LSBjKClcbmZvciAoaXggaW4gMTpucm93KGN1c3RvbV9zeW5vbnltcykpIHtcbiAgICBwYXR0ZXJuIDwtIGN1c3RvbV9zeW5vbnltcyRYMVtpeF1cbiAgICBcbiAgICB2IDwtIGdyZXAocGF0dGVybiwgbm5fcGFwZXJzJHRpdGxlX2RhdGEpXG4gICAgY2F0KHBhdHRlcm4sIGxlbmd0aCh2KSwgXCJcXG5cIilcbiAgICB2Y3VtIDwtIGModmN1bSwgdilcbn1cbmBgYCJ9 -->
-<pre class="r"><code>vcum &lt;- c()
-for (ix in 1:nrow(custom_synonyms)) {
-    pattern &lt;- custom_synonyms$X1[ix]
-    
-    v &lt;- grep(pattern, nn_papers$title_data)
-    cat(pattern, length(v), &quot;\n&quot;)
-    vcum &lt;- c(vcum, v)
-}</code></pre>
-<!-- rnb-source-end -->
-<!-- rnb-output-begin eyJkYXRhIjoiMkQgMyBcbjNEIDcyIFxuNEQgMTIgXG5hbGdvcml0aG1zIDAgXG5iaWcgZGF0YSAxIFxuYm90dG9tLWhvbGUgMCBcbmNhc2VkIGhvbGUgMCBcbmRhdGEgZHJpdmVuIDAgXG5kZWVwLXdhdGVyIDEgXG5kZWVwIHdhdGVyIDAgXG5mZWVkZm9yd2FyZCAwIFxuZnJhY3R1cmUgMTEgXG5mcmFjdHVyaW5nIDUgXG5mcmFjdHVyZXMgNSBcbmZyYWN0dXJlZCAxIFxuZnJhY2tzIDAgXG5mcmFja2QgMCBcbm1vZGVsbGluZyAxIFxubXVsdGkgcGhhc2UgMCBcbm11bHRpLXBoYXNlIDAgXG5uZXVyYWwgbmV0ICAwIFxubmV1cmFsIG5ldHMgMCBcbm5ldXJhbC1uZXR3b3JrIDEgXG5uZXVyYWwgbmV0d29ya3MgMiBcbnByZXNzdXJlcyAxIFxucmVhbCB0aW1lIDAgXG5yZXNlcnZvaXJzIDMgXG5zeXN0ZW1zIDQgXG50aW1lIGxhcHNlIDAgXG51bmRlcmJhbGFuY2VkIGRyaWxsaW5nIDAgXG51bmRlcmJhbGFuY2UgZHJpbGxpbmcgMCBcbnR3byBwaGFzZSAwIFxud2VsbC1oZWFkIDAgXG4ifQ== -->
-<pre><code>2D 3 
-3D 72 
-4D 12 
-algorithms 0 
-big data 1 
-bottom-hole 0 
-cased hole 0 
-data driven 0 
-deep-water 1 
-deep water 0 
-feedforward 0 
-fracture 11 
-fracturing 5 
-fractures 5 
-fractured 1 
-fracks 0 
-frackd 0 
-modelling 1 
-multi phase 0 
-multi-phase 0 
-neural net  0 
-neural nets 0 
-neural-network 1 
-neural networks 2 
-pressures 1 
-real time 0 
-reservoirs 3 
-systems 4 
-time lapse 0 
-underbalanced drilling 0 
-underbalance drilling 0 
-two phase 0 
-well-head 0 </code></pre>
+<!-- rnb-output-begin eyJkYXRhIjoiWzFdIFwiaHR0cHM6Ly9zdGFja292ZXJmbG93LmNvbVwiICAgICAgXCIvcXVlc3Rpb25zXCIgICAgICAgICAgICAgICAgICAgIFxuWzNdIFwiL2pvYnM/bWVkPXNpdGUtdWkmcmVmPWpvYnMtdGFiXCIgXCIvdGFnc1wiICAgICAgICAgICAgICAgICAgICAgICAgIFxuWzVdIFwiL3VzZXJzXCIgICAgICAgICAgICAgICAgICAgICAgICAgXCJodHRwczovL3N0YWNrb3ZlcmZsb3cuY29tXCIgICAgIFxuIn0= -->
+<pre><code>[1] &quot;https://stackoverflow.com&quot;      &quot;/questions&quot;                    
+[3] &quot;/jobs?med=site-ui&amp;ref=jobs-tab&quot; &quot;/tags&quot;                         
+[5] &quot;/users&quot;                         &quot;https://stackoverflow.com&quot;     </code></pre>
 <!-- rnb-output-end -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuIyB2Y3VtXG5jb3JwdXNfcmFuZ2UodmRvY3NfcHJvYywgdmN1bSlcbmBgYCJ9 -->
-<pre class="r"><code># vcum
-corpus_range(vdocs_proc, vcum)</code></pre>
+<!-- rnb-chunk-end -->
+<!-- rnb-text-begin -->
+<p><a href="https://stackoverflow.com/a/35247304/5270873" class="uri">https://stackoverflow.com/a/35247304/5270873</a></p>
+<!-- rnb-text-end -->
+<!-- rnb-chunk-begin -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxubGlicmFyeShydmVzdClcbnBhZ2U9cmVhZF9odG1sKFwiaHR0cDovL3d3dy55ZWxwLmNvbS9zZWFyY2g/ZmluZF9sb2M9TmV3K1lvcmssK05ZLCtVU0FcIilcbnBhZ2UgJT4lIGh0bWxfbm9kZXMoXCIuYml6LW5hbWVcIikgJT4lIGh0bWxfYXR0cignaHJlZicpXG5gYGAifQ== -->
+<pre class="r"><code>library(rvest)
+page=read_html(&quot;http://www.yelp.com/search?find_loc=New+York,+NY,+USA&quot;)
+page %&gt;% html_nodes(&quot;.biz-name&quot;) %&gt;% html_attr('href')</code></pre>
 <!-- rnb-source-end -->
-<!-- rnb-frame-begin eyJtZXRhZGF0YSI6eyJjbGFzc2VzIjpbImRhdGEuZnJhbWUiXSwibmNvbCI6MiwibnJvdyI6MTIzfSwicmRmIjoiSDRzSUFBQUFBQUFBQnFWYlhZd3N4MVh1dS9kL0hVTDQvNGZtTCt5RjdUWHgzaVN3eElRRWgyQ3dDWEVTeHpqQlRrMTN6VXpkN2U3cVc5VTl1M01kZ1JOQkpDUVVCTVFFNVlrZktSQkFSQUVVQ1lrM1h1QUJJWUY0QlNRa0VFSklQUENRcDhCM1R2MTBkYzljRTRrb3gzdTNwK2ZVcWZQN25WTzF6enp4M0dPSHp4MW1XWGFRWGIxMkpUdTRpbjllTzhCL3JtVFhzdHYwOHpMTHJuNFZ2NUJsWHdaNkNmLzhXVHo3ZEpiZCtBTjgvbE9nM3dIOUllanZRUDhPK2krODh3MmdkNE9lY2U4Zi9CWG9iL0c5SFBRbTBCK0Qvc1F0ZHUwclFOOEJlaFpVZ3U2QmZnNzBNZEFuUVg4SytrZlF2MlRaZGJ4Ly9UdEJqNEhBOTNvREF1L3Ivd0RDNXpmZUJ2b1FhQTJ5b0w4SC9UUG8zMEQva1dVM1h3VDlBdWczUVgrVVpiZHVnckQrcmZlQUpBajhidjB1NkxOWmRodHkzdjVoMEkrQ3NJL2JOZWpqb0ZkQXZ3VUN6OXZZNytIWGcrNkNQZ1g2UEFqN1BNUzZoLytLUFQ4QS9SNzIrcFdRL3daaytDZXMreG53L3pIUWo0UGU1L2dlWXErSCtPeFE0Tm1mUWMrUTY2QVk5WFh0YjBCZmNQdTVpZmR1WVkrMzhlNGg5SEVBbWE1K0w1NWR3ZS8vbldXUHZEYjUzaGZjKy9RZWZZZjRYUGxQeHovN2MveTRBOEo3TjZHdlc3RGZ6YjhHWDlqeUVISS9BZ2U0Nm0wT2gzQSt3QjRDdWc2NjRmbmNBcEd6a0NNOUFucU5mNSsrQzFteUwvZjBPaEIwblVFWEdmblVWNE8rQnZTMW9LOERRWThaL0NiN1J0QTNnYjRaOUMyZ2J3VjlHd2g3eXI0ZEJGL0o0QVBaZDRHK0cvUjYwUGVBamtEWVR3WmRaTjhIT2daQmg5a0o2RkhROTRQZUFJTHZaS2NnMkN4N0l3ajd6OTRNK2dIUUQ0TE9RRDhFZWd2b2NSQjhJSHNyNkVkQThLL3M3U0Q0UlBZRTZCMGcyREo3SndqMnpKNEUvUVRvSjBGUGdaNEdJVWF5ZDRGK0dvU1l5Sjd4Zk9GejJYdEI4SUVNdnArOUgvUmNvcStmQVQzdjkvTUIwQWRCOFBuc0JSRDhPSU05TS9oQXRnQ1Z5ZmVlOSsrLzRMOURmQ3JQSHo2ZUxVRXJFR3llS1JEaUxUc0h3USt6WnBZQWJ0UnlJMnZycmRmNHArK3RwT3lLV2dyVHFuYVZON0pmNjhybVMyM3l6c2hLbFQwOTdxUnBwRmlvV3ZYYmZHbDBrejlXUFhwYTVRdlZDck10ckZ3MXN1MWxsYXRHcktUMXZEdlJkYlVxUmE5MG0rdGxMaS9CUjlHYm9zNHJhZFdxelVWYjVTdlp5bDZWdWFoWDJxaCszVXpFNk5jeU4zb3gyRDU4UjdWWVBtK0hCdHhLc0xvUUc1bjNvajMzNnlvRldWWkdrRUNkMFZnVVV0TkNFRjJVNTNtaksxblR0Z1pML3dVdks1VnRJRUVsZW5HV3AyTDNPaGQ1S1pxRlVhTE5sMHJXRmEwUFViRzRDRXFFS2tTcElTSjRxS2FUbFdoTHlVdDIybWhMV212QWxWWmo3WVgxVkx1Unh0STY5RzRyQjRQdFFCa1gyb1ROL1ByMEtiOTRPa3JjeTNMZHF2dUR0TFN3MGFRSktDell6aWwrS1VxRkZ5cGxlNk1XQXorK2dLSnBJN2tkRm8wd3FwVjV1Ulp0Syt1ODFFMVh5OHN6RWdpYzIzd2hvS2pqWEJoWUN2NFF0djNMcXFMZmw0bUoxMnExSHZkc3BKVm1vNVhKTGNTMmJ1K25WUkdFRjcyVEI3STVVOHoyR2pkSEtyZDY2TmY1MERUNWFxZ0VlTEl4anZQejRVS28vc1RMOUZHN0ZyVU1sc2FPOExPSHFSNDRFVWw3dXV0VkV4NHN0bjVwMFNxcmUzZ0x5UlZ0Q1VjeTBHWFBMeCtUNHVjKzlGREQvY1pnSmFsRTdPeEs1NHRCd1k4RThUTWEzS0tYTWx0MmU0R3cwSTBrbTdDVHUwL3dYUysrekp1aDdsVmhlMFJja0dvTWtIS3RTZzNwTzFrRzh6WHlFcys4ZEwvZkl1UmhJRkVYWUljSWsvMWcya0szaFdOVmtHdmFub0lWSWk3VlZHc2s0RVRSVUdNSXV2K0hNbzhmcmsxYlVmYlNIUXNFclk2dXRXTmo1aFk4cXRSR0h1Y1hzcTd6V3ZzRlRxY0J6ODlJdUxwVzVPRHd0R1YvSVl6MFN4OEwwbWlyTjJDUDhFSWNHeTNLTmRsaWR3ditPeS9zUmppRUpvbWdNeXRiQ3dYV00xbnNZRFp5ZStZZEd2WVNxd3NSdkJ6eWlISFRmcFgzaVZiVVc2c3NNZThLem9QRUZKYkhxa2gvN3RGc3Y2UUVVUWx6cm9ObjZQTmFySFdEVHdZclFpUjE0VHZnaHJ3aGtDR2N1R1MvTW03NGpENHZaZGNQMFVtTkhQUG5qbU1JbUlHeUZja1pWbkQ1eWEvN3NWblZ1RUNXS2NRRDFWRDRKMXRKa2djczRSTWVKejk4YXJTM0MwSmhVVk9JTmJBejNEMXgzWld3VkpKcWJkeGFNY2NnZG1LTysxQndvMUVIRTVOaVl4dmx5d3NNNWdxWkt4TXNsYTRHcWdRa09Jcm5XaGRKWm1adCtYVmVQRTFxQlFJUGhaVGZjY3R6cUk4N3pxUGRRNkdFN0xybGROT1JiUERZMVZBdmM2MXFKMHhRN3FjVnBYWXV3VUcvQ0U4OFl0TW1HY2NaQ0JXalJNREdNQThwN0toYXRuZENvS2xRRnljaHl1bkM4aXBuWEVLUkRXMC9WQjQvbE1Jc2RJc1NQVG8xL0hJeDVOVWFPTU5MKy9QUmRaeW8rNnpQY29iNGRvaEIxckpFOHZGVkx4UmVyc2FUc21qZ3dHSUJUK2drNWFvMU5FcVoxaWZqMFNPM1BwTXZod2NQdGdXV3dmb1RST1FWQVlQVG1uaEUrM0w2TENIWlVDUFZUZ3BHVWhqaDE3WFhFbXlEUkpaVDFKRFpwUTBDZk9MVWdTU2tSV1VuSG5na05ocDZVM2R5UWZYZFlPUDR0QnQ2RW9hUlUxeUpCVGpKQ2U5ZFFENHo4WDI5WE5vMVVtWGVhb01JdUlBSDVndHRXcWtwRDlVQ3FoRjVNYkZqQ0pEVC9kc2hoVjE2eDBEd09PYklyd1lTMUVpNi9HOEZ0TVZ3UlYvZ0EzeURIUjN1bUN0SXlIeUNEdDVrUktkUU02MkZYa0lWU0IyQ2tuaVBpRWFvNnNiaE1HalRmM3NsWU5DbFlPM2tMdFJrd1hrQ1lUMlVxSDNTK2VWbFljUVd5bXMwL0s2SlhCMHpTN2FaKzhrMjJYUVE5dm1ld21VSE9UUGVhc1E5U3Y0b3VyYW5tSTNLTzNNU01DRFFDM29ZSVNna25oV1lSUkpRVTBWTU1lVVVYb3hSSXplaUhxS2h5QVpyc1lYTGJWUk5GWW9TcEYvcEw5SWlRd2xsbzJ0QTczeFpENWVTSDY2M0ZaYmhnSVlVc3FNZ2RPbUxGVWJNVjBZQ1I1YWkzWHE1a0Jzcy9SK3g2UjlUbG5EN2NUbHZmNm9uYUtNYjZqc2lpZ1c0NU5ydGMwSEVHMVRyL0I3T085ZzVaQUNDVEZCS1lHN2trdklGY1dNMEFHV1ZjREVTd1NrMmVXRmFxckU3cUpxQ1FqOEd3ZTY1bC95U3oxcEFMd1UzSVg4TnF1QkU0MUF0ZWRCR1dWVE5pRTNobGNyNTlkRnBkUWVmeWd2NjB1UXR6LzJEby9uUDhxVGQ4VWs4NUJxS0tLaHFwZXc2MTVwVkZHMXovRkFzN2RkNGYxcTRKdzYyUDdjY3o2S0ZaRTllZ1J1dHVQSjQ5azhZaVowcEJ3c0dSSnh3cGRPUXBZeFJHd294NWFKb3lYQUo3UWZYVVlZT3pnS2UxMXRDQVVnenZNZjFvKys0OXFNc1puakk4L2pBRko5eWNVZFNCUmhvV3NteHk5aENvRmNpS1h4bVd6ck1JQTArQmtScnhia0txS3FGK1I0QVlFUGNMSHVabHZpc3ZLVEUwTHRPVzFESHZSeHFzcGd2S3VDQWlvN3dUZXMrcGNNOXBaODhacU9SVGFFcVNWcHAvdkl6UHR3RG16RVgyTFBVZ3ZOaUhMY2c2Z1h5QkhCZ3lSRFJhK1p6Y0lLdDFhSE0zd004aDBzakNockVFWWZBbm13R0hwUW5Gb3JDWTJqN0xmV1A1Nksxd3M3d2dOdHFMVVZGUDJXMWtxK0c3c01lZHNKMGowbmZzNkE2MXJIS3krQUFka0F1TEZiQVNEMzFvbnBSenNMNmVLeUdFVC90UUpNblovMElJenpvcVZ0elUwN0xvaVJRc0xIekRpM3M1TXF1MFF0Tm5yNlJlTFdPSU9QK1huQXo2Ym80Y1pDck9MaVo0bVJhQTJETlF1WDhleW5JSi9hQXJDUkEvTUp2ajcxajc3TWNYSDFvdVlkbzZYZkVJUVZDUnlnZzV1WmlqN29scDRHaUlvZHNwekNaUWdjeTlrT0x5aTg4MTNrZkZrT3NIR3dIQjR6dGlZY1Brd2IyV2U3S1l1Skx1ekxYWGM5Nk01Y0w3ZHFvdEhrOGluWjFkcjRUMEViRThoVHFBdWFFOU9qQnhqcnNTczlHbUMzOUFzTlNkNURNZzZhWWNqWnk4aE9XZlFXT0xJdHdVclNwbU5VU0piL3RZV0IxTi9XZFZ0eis1cmFrdVk1eHd6a1RnTnVUUHVuS0trSms2Z2FpeXpTSTJzcnVGdU1lU1l6ZzBpaXpaL2lyK3l0MlRGZzB1eGo2T3AwMGVZanVJUEVHdVRKZlU5N1NCSFpSeFZOZzJWTWg0Z0JEeGJ1UUNsV3NEV1dMb0hMTU1pN0hjQ3ZyQmZ0d2tJbzdNSTRmYm14VUUyQ0VReFZzRXNDYURaZnR5WUk5b1crMTVQcHpPaWFLUmxWVlRSNjdxZ0NZNExFb1dqV0t4UkZ5SDZFVWNTZDAweC9CSjZweXRWUUt3dGkrYWVESVJmdThadk9NTG9LRk5yYURaTEZnNzJ1amRyRVY5YmcrNEZ3THVKekd6UWtZTzNSSjBDVzZRQVNzZG10NzJSQUNnUkZ0aUllbjNiQUpPcU5VTENiaDlxVVU3OU15YkNoeDVaZDhEdVV5N1JRdVlSdDZueENWMUlZUjgwNDJHcjNpNFVneHB6NTFXZXNMbTA1K09RSzRVZlFpaUozNlFuMmhteGZBcDhibWdERkhINEI4Q29tUjA4aVZuU2dvNWFpS3hTNWViMFl0SVplcEJ3UUd2WDVjUnpMSmhJNFpKWCtLOGFXcUdSTTQzTnlpMjBBVlE0TGtpWDBQNitkSEhWU0hRdFRKbG9wb3NOcFRxclZxdGU3dDZDeUpaSzVzVmJLMXNvYldCU3dzRVV5TWp1V2txV09YOER3L1ArbjM5ZzVZazdUc29zb3BkajVBNUpxSTFWamtvQlU2R3VDMGh3MldQQklreTVGUXF6Z2c1TStSOVRneWFORHVDMGVyOU1MUW5DekJ1TlU5VjBWQ3NVc3hyZVBESTVvUi9zK0djZ1N4eXByd1RoaHplMDZmb3NLQVFFbWFQMUlvaXFRMDB2VmRJWGxTU3gybW9SSzh5QW5zdGdGRU03NlNKK05TdUp4c1Y1d08zRGgvVE91OEFBbTlvS3krRktvT25xbmFBa2g2NEMvSHFZRVNaVGtZUDRwSXdQc001RHBjRGNXcFNsYStPUjhOL0hySzJXaVRPeis2NHc2TWh3UThJK0JSV2NoeHZ6SWRyOGpsa2dBRmJTRU10aGdzTWhaZ1VMVVR2cHhseHRweFBKcGgvK2tLS1NQZ2pkM2x2RmlYMEFQVmhwQ0x4Z25JdU0yeDdDaXVwZjNhNkdGRjg4Wkg3MGJ4aXRYQU9wcjFQYk5TRDFzZ1lKUFEvMFZPMm1zRmdHeFFTcVpEenpHVndFMGxqVW80UkNkNkNCMzMxQTk1WHJrV2xWd2hRd0tvT3BVV3ViQjBuSk1DY1lXK0pOaG82YnNpMUl0YUxXTFQ2UE9qZDJZNmRVc09Hc1lndG00TXhobVJkRzlENkVsQmcyMW90NXJNRGo3bjlWamduV0toZWtxOUs0ZVhJcFJGMlZ6VTQvSFZxMllYdnhwU1JhdExBRDA0NnpHQWRDc2ZEQWdzMStQNGxCMm4wWlB4YzdVaDM2bnk0TW5DcWRwbG5HU3FwYUkwVklsUVIzUTFDY1RvdWJGM3F5UWhpaTRtd1hRUzVxUzJTSGo2QWthckJWUkMvamUwc2RuK3hMU0pqem5hSGRIRlBTRlJCNkN5TU1TTXJVN0lZRWx3YlV5dWU3UTVkdURKTVppTmVXQTVHR29DMHlsdWFFMm9rMFVGUVFoUkdacldxMzBGZEUvZmNaYkxTMEdDdTFJa1hCdm11ckR4VkhYV1pGMGtUWjRmM3RRTTJzeDJUeUlqSGNPWXlQOTBDbGxRWWVQajZnRTVZcy81UWNCdzFYQytIcUhrZmRTQWNMenlZVlRIUWRURnl0RGdjYXpmTHBJTC9FYnBiNVVjVTNKUGtQUmwxZy92WWtIaTF0RGIxWi9UV2tuWnpNM1dDcGNFbWlFTzdCOFhEMDBZS1FZRGdrLzM1b3RwWVBKbTZnU2luVWFUOHdBMEptY0N3ZEZ3MURpRXI3OHpPWS9nRTRaSkF6TE9MUHp4cnI4RU1IVUU0dWZaYVg2UFE0NHJiakxmdEdmY2hwb0l6TDFaQ1hmNjFhZ3lCdDJ4Yy9BNisxRGM3TERNUTloOWs1UmxmcGVLTU94YnEzZ1dqYVY2bW9rWVdlb1ZBblhhZ1h1bXRYTTJXaXkwM2dGNGNoamVyWXFsVVVCbDlRZ2FkeTRZb0xzdWFOSkFCN1kwTjJzMGxxTWNSOU1yQUR4ZDF6eVI5MnYrR2x3Y3JzMTRqOHE5QXdHVHZjeXhHejNvNEE4KyttZ29MVnBpd0FrSlBSR2RoZzFrdEtPdVd0MWgwZE1xRitRNWp2N3J6cnRtSTcybmdxTlFIeUVvWWJsaEJPSnJGY1l2WXpuZDE4L3dXY01Fc1QwOWRiNVJLalJxQ0V0WEdzZUNmVGM5RVJnblpXaUY2cVU0RHg3OWpQQW5aKzZpaTRPU2pFSmRiT2N4dG1kTHdxeVQ0K1Z4dVhCT2ZZOW51THZaaVordzA4UE1MU01WQ3JyWitXZ2lQdWVTT0ZYMitTOWlWZXdlRldGeTZLRENwbHhkaFdQRm1qSU9FcE95NURkQ2pPL08rZzg2N2xRMFdhVHN0cGJVYVNGSm1WNm9OamtYYSs0bVZ6a2VjcW9Wa3ROaTI5SFJUY1VqTlRxVUhhdlg1TndRRGsrdVRvR24wQmlJOFdqS0w0bzAzTG1TSytxQTJNY0JBNklRQUhDaFZrV1k1UU5iTkxUZ0tCemd0V29sYjI0bkZKVS9PSjlySkl5RjVMbGVLbnVlZmx5TVdYZnVQQ0VWK0c4WER3SGhQcDlSYXdwSENjTDdMNzJyVWNrSktHa3ZUTm50c0VEc295cElPc296NFpqQmN4dFI3dDR4d0J0aFl2YWxUVHpjbmQzbTJYY2paeHpkMDBsa2VnMkFGcGdlRW50ODVVcjhIa1FReHU2eVhUdE1WbTFid1lVNWNSNGYxWlFaVlR2UVNHaCsvMlkvM0RqT2tjeERDdm5rOUxETEhhWTdObUdCMllTQlptNitvUmROQTNDRnp6blVqbjBWUHM1cmE4V3hiOGtUQTQzWERtckJWUXdiNDh0UHZUK2ZUeTdtaEVIY0pDSFFpUUpLai9KWXp3RHlNQlBIK0N6VkRpM3VJb2d5NkJpWEw2ZlZ3TFdFNFM2YUhFc0c5WEVpZ01xQS8vbGl4SGg4eDhCU3RYUnVKTjIxQWQrbWxHdlphRUwxQmo4SVFYUytyMDN2Tkx3eVh0R2JuRWdsK3A5My9XNHVFRkpOTW1naCtlZnhkVGFXRHhYS1M3akt3bC9vZ1RsdGN0dURXeFl2M0R1bXQzcGkxYVo4eFgzRGFNbi8yNGtmZHhISHFpSnV1eGZqU2hwelZQUmQxemU1Q3V2V0NJZFlsaTh1OEh6NFZkNE84R1E2dC9BODF2R3R5VGpOSXNPMnRxT1VaOGRlMFYwVGMzTjIxM3FHYmthNExKTmt5aFEvd3M1Qml4c3I2WUlJeEJRZGVlUUtack85UHgyc2NtQmkyWjZGb1RkOHhvTzQ4anpNc3lvcVVCWGZ3a2d1dTFXSzA3QnJOdUtXYU5JOXFYZ3ZpaHdHaEszb2xvcE1MckQ2VFlkald6cWpIaDB0OG90YXRyNlg5bTR5dCs1dk8rdE96M3NNMnhkaFdreFRwSWZ3YU8zbytNTk42QytWdTZUa2dBNnFHOTBzb1BOdkN1eHdnNmlpQXdTcUFVZFdyS283N2lMWHRxeDVKa1RmSUJ3VVF2K290UFpPUU1BeDhPOTV2K01qaVZsSzZ6Uk5DR215N2F6eHBWeEJQYVBoNjd5MW4vVEp2MlFINUVlejlUZ0prVzFEZ3hlQVVEVlltbk81dmZjNktKSll4eVkxeFMzcDFXTi9EQ3QxekZvOHdERnV2a0pXaTJYT0MvVHVSbHk2cVFXM0NEV3FZekNaQzZVWmp0bzk2eHBiVnJRMmZmNEd6L2l0Z2xJdm44V3VWa2F1S0RqSGcxWTNzMjQ2d2JIQ0FybWh3ZHlYUGg1Y2R0SW12TnAxVlRlbGpCdHgxbHVzVlR3enUxaTRleXA2MFFTTlBIeGlEajI0S3o2VG8vNUg2WGlEWmpGTDhtbDNmMHVPUmMzZmxNUDNwclBnajNKdmh0Zkpad3gxRWV5MGF6b0VhWDBMT0wyTEhkUStoakxjM2JVb3M3dGVZNnQxbks4SE91eHhRd3Zwa2JMN1ZwaDAzMThpZXdoLytiSGh5eVdhODBHUjg5Q09UcDA0QlAyZHJ5ME5PaFZQSTZlSHFsNFl6aDlEU2RGRkovVFI0OElVSUk2QlgrR3BnN3NmbHQ0aG5jM0JQVnNXZ0c4RUlvMmVBMFdFSWU5OXV1RVJyaEhTaUYrQnBadG91aW9PbnlEMG85cVNZOXlHKzlzOERndkgxU0hZVG1aWC82L3o1TkRmL0k5L0QwRFhvYlRCdjc0NGZ4MDRUSWJYRC96RFc4QWkzUWtxdXYvOU5mdzdReG4wZjFNR3R3SHVUd0lUK3R1Umc1Y3ovdDlMN3NXci96T1Q1WkI4K1dSSjBiUkhucHU2YzFrL082QS9OcmsrKy9JVk0zdnd1cUdseGF1aVhBL3RlWEZLZncxeW1MbS9aTW04UkZlY05QSGZCLzR2bUlKazE0T1dYQTBNbXFuRklzS2IxMUlMUTVzOG9jSWFRdWtRVCsxSnIxRnB3cE5TMStFSmJ5Nzc0djhDQkE4bkZLODFBQUE9In0= -->
+<!-- rnb-output-begin eyJkYXRhIjoiIFsxXSBcIi9iaXovbC1pbmR1c3RyaWUtcGl6emVyaWEtYnJvb2tseW5cIiAgICAgICAgICAgIFxuIFsyXSBcIi9iaXovbGEtY29udGVudGEtbmV3LXlvcmtcIiAgICAgICAgICAgICAgICAgICAgIFxuIFszXSBcIi9iaXovcnVmZmlhbi13aW5lLWJhci1hbmQtY2hlZnMtdGFibGUtbmV3LXlvcmtcIlxuIFs0XSBcIi9iaXovcGl0YS1wYWxhY2UtYnJvb2tseW5cIiAgICAgICAgICAgICAgICAgICAgIFxuIFs1XSBcIi9iaXovbG9zLW1hcmlzY29zLW5ldy15b3JrXCIgICAgICAgICAgICAgICAgICAgIFxuIFs2XSBcIi9iaXovcGlzaWxsby1pdGFsaWFuLXBhbmluaS1uZXcteW9ya1wiICAgICAgICAgIFxuIFs3XSBcIi9iaXovYmFiYXMtcGllcm9naWVzLWJyb29rbHluXCIgICAgICAgICAgICAgICAgIFxuIFs4XSBcIi9iaXovbWlzY2VsYW5lYS1ueS1uZXcteW9ya1wiICAgICAgICAgICAgICAgICAgIFxuIFs5XSBcIi9iaXovbW9tb2Z1a3Uta28tbmV3LXlvcmstM1wiICAgICAgICAgICAgICAgICAgIFxuWzEwXSBcIi9iaXovbG9zLXRhY29zLW5vLTEtbmV3LXlvcmtcIiAgICAgICAgICAgICAgICAgIFxuIn0= -->
+<pre><code> [1] &quot;/biz/l-industrie-pizzeria-brooklyn&quot;            
+ [2] &quot;/biz/la-contenta-new-york&quot;                     
+ [3] &quot;/biz/ruffian-wine-bar-and-chefs-table-new-york&quot;
+ [4] &quot;/biz/pita-palace-brooklyn&quot;                     
+ [5] &quot;/biz/los-mariscos-new-york&quot;                    
+ [6] &quot;/biz/pisillo-italian-panini-new-york&quot;          
+ [7] &quot;/biz/babas-pierogies-brooklyn&quot;                 
+ [8] &quot;/biz/miscelanea-ny-new-york&quot;                   
+ [9] &quot;/biz/momofuku-ko-new-york-3&quot;                   
+[10] &quot;/biz/los-tacos-no-1-new-york&quot;                  </code></pre>
+<!-- rnb-output-end -->
+<!-- rnb-chunk-end -->
+<!-- rnb-text-begin -->
+<div id="using-r-to-scrape-the-link-address-of-a-downloadable-file-from-a-web-page" class="section level2">
+<h2>Using R to scrape the link address of a downloadable file from a web page?</h2>
+<p><a href="https://stackoverflow.com/questions/31517121/using-r-to-scrape-the-link-address-of-a-downloadable-file-from-a-web-page" class="uri">https://stackoverflow.com/questions/31517121/using-r-to-scrape-the-link-address-of-a-downloadable-file-from-a-web-page</a></p>
+<!-- rnb-text-end -->
+<!-- rnb-chunk-begin -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxubGlicmFyeShydmVzdClcbnJlYWx0aW1lLnBhZ2UgPC0gXCJodHRwOi8vd3d3LmFjbGVkZGF0YS5jb20vZGF0YS9yZWFsdGltZS1kYXRhL1wiXG5yZWFsdGltZS5odG1sIDwtIHJlYWRfaHRtbChyZWFsdGltZS5wYWdlKVxucmVhbHRpbWUuaHRtbCAlPiUgXG4gICAgaHRtbF9ub2RlKHhwYXRoID0gXCIvaHRtbC9ib2R5L2Rpdi9kaXYvZGl2L2RpdlsxXS9kaXYvYXJ0aWNsZS9kaXYvdWxbMV0vbGlbMl0vYVwiKSAlPiUgXG4gICAgaHRtbF9hdHRyKFwiaHJlZlwiKVxuYGBgIn0= -->
+<pre class="r"><code>library(rvest)
+realtime.page &lt;- &quot;http://www.acleddata.com/data/realtime-data/&quot;
+realtime.html &lt;- read_html(realtime.page)
+realtime.html %&gt;% 
+    html_node(xpath = &quot;/html/body/div/div/div/div[1]/div/article/div/ul[1]/li[2]/a&quot;) %&gt;% 
+    html_attr(&quot;href&quot;)</code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-output-begin eyJkYXRhIjoiWzFdIFwiaHR0cHM6Ly93d3cuYWNsZWRkYXRhLmNvbS93cC1jb250ZW50L3VwbG9hZHMvMjAxNy8xMC9BQ0xFRC1BbGwtQWZyaWNhLUZpbGVfMjAxNzAxMDEtdG8tMjAxNzEwMDdfY3N2LnppcFwiXG4ifQ== -->
+<pre><code>[1] &quot;https://www.acleddata.com/wp-content/uploads/2017/10/ACLED-All-Africa-File_20170101-to-20171007_csv.zip&quot;</code></pre>
+<!-- rnb-output-end -->
+<!-- rnb-chunk-end -->
+<!-- rnb-text-begin -->
+<!-- rnb-text-end -->
+<!-- rnb-chunk-begin -->
+<!-- rnb-chunk-end -->
+<!-- rnb-text-begin -->
+<p><a href="https://stackoverflow.com/a/31525104/5270873" class="uri">https://stackoverflow.com/a/31525104/5270873</a></p>
+<!-- rnb-text-end -->
+<!-- rnb-chunk-begin -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxubGlicmFyeShydmVzdClcbmxpYnJhcnkoc3RyaW5ncilcbnBhZ2UgPC0gcmVhZF9odG1sKFwiaHR0cDovL3d3dy5hY2xlZGRhdGEuY29tL2RhdGEvcmVhbHRpbWUtZGF0YS9cIilcbnBhZ2UgJT4lXG4gIGh0bWxfbm9kZXMoXCJhXCIpICU+JSAgICAgICAjIGZpbmQgYWxsIGxpbmtzXG4gIGh0bWxfYXR0cihcImhyZWZcIikgJT4lICAgICAjIGdldCB0aGUgdXJsXG4gIHN0cl9zdWJzZXQoXCJcXFxcLnhsc3hcIikgJT4lICMgZmluZCB0aG9zZSB0aGF0IGVuZCBpbiB4bHN4XG4gIC5bWzFdXSAgICAgICAgICAgICAgICAgICAgIyBsb29rIGF0IHRoZSBmaXJzdCBvbmVcbmBgYCJ9 -->
+<pre class="r"><code>library(rvest)
+library(stringr)
+page &lt;- read_html(&quot;http://www.acleddata.com/data/realtime-data/&quot;)
+page %&gt;%
+  html_nodes(&quot;a&quot;) %&gt;%       # find all links
+  html_attr(&quot;href&quot;) %&gt;%     # get the url
+  str_subset(&quot;\\.xlsx&quot;) %&gt;% # find those that end in xlsx
+  .[[1]]                    # look at the first one</code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-output-begin eyJkYXRhIjoiWzFdIFwiaHR0cHM6Ly93d3cuYWNsZWRkYXRhLmNvbS93cC1jb250ZW50L3VwbG9hZHMvMjAxNy8xMC9BQ0xFRC1BbGwtQWZyaWNhLUZpbGVfMjAxNzAxMDEtdG8tMjAxNzEwMDcueGxzeFwiXG4ifQ== -->
+<pre><code>[1] &quot;https://www.acleddata.com/wp-content/uploads/2017/10/ACLED-All-Africa-File_20170101-to-20171007.xlsx&quot;</code></pre>
+<!-- rnb-output-end -->
+<!-- rnb-chunk-end -->
+<!-- rnb-text-begin -->
+<!-- rnb-text-end -->
+<!-- rnb-chunk-begin -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxubGlicmFyeShydmVzdClcbnggPC0gXCJodHRwczovL2VuLndpa2lwZWRpYS5vcmcvd2lraS9BY2FkZW15X0F3YXJkX2Zvcl9CZXN0X1BpY3R1cmVcIiAlPiUgXG4gIHJlYWRfaHRtbCgpICU+JSBcbiAgaHRtbF9ub2RlcyhcIiNtdy1jb250ZW50LXRleHQgdGFibGU6bnRoLWNoaWxkKDU1KVwiKVxuaHRtbF90YWJsZSh4KVxuYGBgIn0= -->
+<pre class="r"><code>library(rvest)
+x &lt;- &quot;https://en.wikipedia.org/wiki/Academy_Award_for_Best_Picture&quot; %&gt;% 
+  read_html() %&gt;% 
+  html_nodes(&quot;#mw-content-text table:nth-child(55)&quot;)
+html_table(x)</code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-output-begin eyJkYXRhIjoiW1sxXV1cbiJ9 -->
+<pre><code>[[1]]</code></pre>
+<!-- rnb-output-end -->
+<!-- rnb-frame-begin eyJtZXRhZGF0YSI6eyJjbGFzc2VzIjpbImRhdGEuZnJhbWUiXSwibmNvbCI6MywibnJvdyI6MTB9LCJyZGYiOiJINHNJQUFBQUFBQUFCb1ZVYlc4U1FSQys4cUp5OXMwMGF1SUhNOUZvTkpHTGFmd0RGRXJCUW1pZ3hxYmZwbmNEYkZoMnlkeGVLZjNrTDYvdUhidEVNY1pMN3BoN1p1YVpaMmJuR0xhdWpzT3JNQWlDVWxDdTdBU2xzalVySmZ2WUNTcEJMZis5QzRMeWtUVnl6Nkc5UStkNGNUa2w2SWt4Z1I3RDZWeElnbXN0MFhrUGNtOWpPYzRrWEhKbXBnNCthdUxDb0ZBcE5IWEdPQ0dkcGM3MXBFV1l3S2xLM1B0K3puQ210Y1dRTndUN1hRVURtVUJ6S21LY2FJZnU5blJxb0tOWjNHdmxzRmNEUmRESlZNS1VRSjhVb0VvQTRVeXdkQkhoeUZnRjBOS2FQWHNETE1iUVRlRkVzOXJxZVBjN3NpS0dFOVpwNUZVM3Rjem1OOEwzZmRRbnc3cCtwbVd5WEtsNkgxZmt5Vjg2OEJOOFU4SllVUTAySWpYcC96TVBqeitiS1RSSm1ZeFgwTlozL3loZXM4UzN4Q242RG12RDh3RU1NUkYrVU85SEpPK1ZpR2ZRVllaWW9SRmFvZnhMMGxiakhWSzI4SWxFTlNPSHZlNlJobjdjUktaVk1kcFRXNW1NZ2FGSVo4SWZ3bDVQWnlLMWF6S1ptczNKdkJuaFBDTUpydFVpdTAvTXdtWjNNbmxEYkZ3a2RQbFdxQWxjVGpHSEowVm9vNGlBSGkwM1pkNjFrSGtsb1IzQk5hck10cGNIbnBOU1pBZlh4M2lpbCtpRG43Ylo5Z0YyRTlrUDdtMXppaXdwaFdFRVF6MnhJeXdJdm1xQ0MweUxRYzM4V1Z4WUQyc1lSWEJDUE4rd1BtdmhyVWhnRUlFZjhkYUhWRlU0SnovWnNnTXJiU0huem41K3dUcko0dnhFSU5iekJhclZoL1NqRjcxMkV1ZlFuOFExMXN2SWsrL2xuL0tQb0xqQ2JRV3h4TlFyOEdDWW9NRm96RGJmdmoxc3BUeldpMXlQVFNybC93SFZyZVFkM2dJT01wVXJTZXJ4TkZPeitwZTFDdXRlWDN2T0RuK3p5K3VTcForT3F1cW9IcEdhQ09YWHJTcnhodnhhNzl1T2k0YWpCUXZsbHlXMGFCb1piVGJySDhaYWVxVG9MWGo0QlZoZEFQL3hCQUFBIn0= -->
 <div data-pagedtable="false">
 <script data-pagedtable-source type="application/json">
-{"columns":[{"label":["corp.num"],"name":[1],"type":["int"],"align":["right"]},{"label":["corp.content"],"name":[2],"type":["fctr"],"align":["left"]}],"data":[{"1":"605","2":"deep-learning methods for predicting permeability from 2d/3d binary-segmented images"},{"1":"934","2":"application of experimental design and genetic algorithm methods for the robust design in 2d numerical wave tank"},{"1":"1706","2":"integrated property and  frack modeling using 2d seismic data: application to a cambrian field in algeria"},{"1":"334","2":"3d acoustic impedance and porosity mapping from seismic inversion and neural network"},{"1":"418","2":"neural network and 3d seismic techniques improve the prediction of facies distribution within a submarine channel complex: neuquen basin, argentina"},{"1":"427","2":"identification of high porosity reservoir sands from 3d-seismic attributes using neural network technique in south umm gudair field, kuwait."},{"1":"466","2":"shale  frack characterization and optimization by using anisotropic acoustic interpretation, 3d  frack modeling and neural network"},{"1":"489","2":"use of a neural network to build a 3d rock property model for a geomechanical model to optimize multi-stage  frack design in chicontepec basin, mexico"},{"1":"496","2":"near real-time return-on- frack-investment rofi optimization for shale  frack by integrating anisotropic acoustic interpretation, 3d  frack modeling, and neural network"},{"1":"537","2":"development of reservoir characterization models using core, well log, and 3d seismic data and intelligent software"},{"1":"593","2":"an innovative approach to 3d  frack modeling"},{"1":"594","2":"seismic inversion of single sensor land 3d seismic survey: kuwait, magwa field, wara reservoir"},{"1":"605","2":"deep-learning methods for predicting permeability from 2d/3d binary-segmented images"},{"1":"712","2":"analysis of p-wave and converted-wave 3d seismic data, anadarko basin, oklahoma, usa."},{"1":"719","2":"seismic constrained 3d static modeling: conceptual model replication by integrating analogues and seismic facies"},{"1":"800","2":"application of wide-azimuth 3d seismic attributes to predict the micro frack in block ma area for shale gas exploration in south china"},{"1":"822","2":"application of wide-azimuth 3d seismic attributes to predict the micro frack in block ma area for shale gas exploration in south china"},{"1":"942","2":"using constrained inversion of gravity and magnetic field to produce a 3d litho-prediction model"},{"1":"946","2":"3d porosity estimation using multi attribute analysis methods in one of persian gulf oil fields"},{"1":"1026","2":"implementation of coupled 3d geomechanics and discrete  frack network (dfn) models in field development optimisation: a case study from carbonate reservoir, abu dhabi"},{"1":"1041","2":"integration of 3d seismic attribute and well logs for electrofacies mapping and prediction of reliable petrophysical properties"},{"1":"1058","2":"use of fuzzy-logic permeability models to facilitate 3d geocellular modeling and reservoir simulation: impact on business"},{"1":"1110","2":"3d generalised inversion (avo, ai) as direct input to the reservoir model. deepwater exploration offshore north west borneo, malaysia - a case study"},{"1":"1123","2":"3d reservoir simulation of x field onshore niger delta nigeria: the power of multiple iterations"},{"1":"1130","2":"rapid assessment of 3d seismic and its economic impact"},{"1":"1150","2":"artifact in 3d pore-microstructure from x-ray tomogram and its impacts on physical property simulations"},{"1":"1158","2":"tracking permeability in a major limestone reservoir: from rock observation to 3d modeling"},{"1":"1175","2":"case study of 3d seismic inversion and rock property attribute evaluation of the haynesville shale"},{"1":"1203","2":"analysis of oil volume fluxes of hydrocarbon seep formations on the green canyon and mississippi canyon: a study using 3d seismic attributes in combination with satellite and acoustic data"},{"1":"1246","2":"post and pre-stack seismic reflection data processing of 3d reflection seismic surveys over a co2 injection"},{"1":"1251","2":"special sessions on petrotechnical visualization a point of (3d) view on visualization"},{"1":"1282","2":"case study: integrated 3d geomodeling of minagish oolite formation, umm gudair field, kuwait"},{"1":"1315","2":"integrating 3d seismic into the reservoir model, and its impact on reservoir management"},{"1":"1330","2":"revisiting automatic first arrival picking for large 3d land surveys"},{"1":"1373","2":"well log prediction using attributes from 3c-3d seismic data"},{"1":"1389","2":"interpretation of gas chimney in the maari 3d field of southern taranaki basin, new zealand"},{"1":"1480","2":"extracting meaningful geologic parameters using multiple attribute analysis on avo derived lamé rock parameter inversions: 3d seismic case study from southern alberta, canada"},{"1":"1493","2":"grayson field jurassic smackover limestone reservoir, columbia county, arkansas: a case study using leading edge reservoir characterization seismic processing of 3d seismic data"},{"1":"1507","2":"best practices from super-giant 3d-obc seismic survey, offshore oil field abu dhabi"},{"1":"1601","2":"development of a 3d graphic test platform for underwater robotic vehicles"},{"1":"1632","2":"3d seismic attribute optimization technology and application for dissolution caved carbonate reservoir prediction"},{"1":"1640","2":"frack detection in unconventional gas plays using 3d-seismic data"},{"1":"1651","2":"model-driven inversion of the fortuna national 3d seismic data in the macuspana basin, onshore mexico"},{"1":"1747","2":"an integrated approach to build 3d  frack model of mishrif reservoir (abu dhabi field)"},{"1":"1760","2":"magnetic 3d fast forward modeling with varying terrain"},{"1":"1767","2":"3d petrophysical modeling using complex seismic attributes and limited well log data"},{"1":"1771","2":"petrophysical properties prediction using 3d core scanner imagery"},{"1":"1887","2":"automated mapping of carbonate mounds using 3d seismic texture attributes"},{"1":"1924","2":"3d seismic attributes analysis to outline channel facies and reveal heterogeneous reservoir stratigraphy: weirman field, ness county, kansas, usa"},{"1":"1944","2":"seismic lithology discrimination in complex fluvial stratigraphy: tenerife 3d 3c survey, middle magdalena valley (colombia)."},{"1":"1964","2":"validating earth models for depth imaging using 3d vsp information: a case study from the green canyon area of the gulf of mexico"},{"1":"2055","2":"3d observer automated tracking system (3d ats)"},{"1":"2065","2":"multi-criteria approach to automatic first arrival picking for 3c 3d vsp data"},{"1":"2131","2":"developing a strategy for co2 eor in an unconventional reservoir using 3d seismic attribute workflows and  frack image logs"},{"1":"2149","2":"characterization of rock mass structure and stability analysis of tunnel using geosma-3d modeling"},{"1":"2157","2":"automatic horizon picking in 3d seismic data using optical filters and minimum spanning tree (patent pending)"},{"1":"2211","2":"insights from the 3d modeling of a densely faulted, stacked reservoir system"},{"1":"2223","2":"3d reservoir characterization and integrated completion optimization for understanding horizontal well spacing, frac staging, and well performance in the niobrara formation, dj basin"},{"1":"2358","2":"integrating well production data and 3d seismic avo classification"},{"1":"2366","2":"3d fem simulations of layered rocks using orthotropic elastic symmetry and anisotropic strength improve predictions of wellbore failure and in-situ stress"},{"1":"2371","2":"accurate 3d seismic interpretation of large braided delta reservoir & outcrop analogs in northwest china."},{"1":"2386","2":"prediction of effective porosity over the field using 3d seismic multiattributes, seismic acoustic impedance and well-driven effective porosity"},{"1":"2412","2":"accounting for deepwater reservoir heterogeneities through 3d/4d seismic-guided reservoir model petrophysical in-filling"},{"1":"2446","2":"case history: seismic facies analysis based on 3d multiattribute volume classification in shadegan oilfield - asmari reservoir, iran."},{"1":"2453","2":"using a calibrated 3d  frack simulator to optimize completions of future wells in the eagle ford shale"},{"1":"2464","2":"through-the-bit logging technology enables improved reservoir characterization in the orinoco belt, venezuela: 3d structural model integrating advanced logs in a multiwell study"},{"1":"2535","2":"improved co2 flood predictions using 3d geologic description and simulation on the sundown slaughter unit"},{"1":"2537","2":"integrated 3d modeling in a structurally complex brown field: a foundation for improved reservoir management and optimisation of further development"},{"1":"2584","2":"new frontiers in 3d seismic characterization of carbonate reservoir: example from a supergiant field in abu dhabi"},{"1":"2612","2":"processing and preliminary interpretation of the ultra high-density full-azimuth 3d seismic survey, dukhan field, qatar"},{"1":"2714","2":"a dual-grid automatic history-matching technique with applications to 3d formation testing in the presence of oil-based muds"},{"1":"2742","2":"a seismic facies analysis approach to map 3d seismic horizons"},{"1":"2767","2":"3d characterisation of microporosity in carbonate cores"},{"1":"2771","2":"estimation of petrophysical parameters from 3d images of carbonate core"},{"1":"2790","2":"from well data to 3d models: determination of the critical path in the process of characterization of reservoir"},{"1":"634","2":"multi-attribute analysis of 4d anomalies using pattern recognition technology"},{"1":"679","2":"a high resolution workflow for 4d-friendly analysis: application to gas-oil contact monitoring at troll west"},{"1":"786","2":"transient pressure analysis of 4d reservoir system response from permanent down hole gauges (pdg) for reservoir monitoring, testing and management"},{"1":"1030","2":"estimating saturation changes from 4d seismic: a case study from malay basin"},{"1":"1759","2":"estimation of reservoir fluid volumes through 4d seismic analysis on gullfaks"},{"1":"1961","2":"a method for performing history matching of reservoir flow models using 4d seismic"},{"1":"2118","2":"joint interpretation of interwell connectivity by integrating 4d seismic with injection and production fluctuations"},{"1":"2120","2":"a methodology to integrate multiple simulation models and 4d seismic data considering their uncertainties"},{"1":"2133","2":"4d-seismic and reservoir simulation to map bypassed oil in brown field development at western indian offshore"},{"1":"2412","2":"accounting for deepwater reservoir heterogeneities through 3d/4d seismic-guided reservoir model petrophysical in-filling"},{"1":"2694","2":"topological data analysis to solve big-data problem in reservoir engineering: application to inverted 4d seismic data"},{"1":"2783","2":"ekofisk 4d seismic - seismic history matching workflow"},{"1":"2657","2":"seismic interpretation in the age of big-data"},{"1":"2228","2":"migration of oil and its subsurface expressions in the deepwater gulf of mexico"},{"1":"7","2":"conductive  frack identification using neural network"},{"1":"557","2":"realistic modeling of  frack networks in a giant carbonate reservoir"},{"1":"800","2":"application of wide-azimuth 3d seismic attributes to predict the micro frack in block ma area for shale gas exploration in south china"},{"1":"822","2":"application of wide-azimuth 3d seismic attributes to predict the micro frack in block ma area for shale gas exploration in south china"},{"1":"1229","2":"enhanced dynamic simulation through continuous  frack modeling of carbonate reservoir, oman"},{"1":"1272","2":"evaluation of multi frack through unconventional log using gamma functions, facies, lssa, and migration of  frack in laminated sandstone of chicontepec"},{"1":"1747","2":"an integrated approach to build 3d  frack model of mishrif reservoir (abu dhabi field)"},{"1":"2015","2":"connectivity of spatially correlated  frack: simulation and field studies"},{"1":"2144","2":"analysis of stress and pore pressure in naturally  frack shale formations: a finite element based chemo-thermo-poroplastic model"},{"1":"2401","2":"numerical modeling of multi frack horizontal well for uncertainty analysis and history matching: case studies from oklahoma and texas shale gas wells"},{"1":"2562","2":"an innovative workflow to model  frack in a giant carbonate reservoir"},{"1":"654","2":"the definitive identification of candidate wells for re frack"},{"1":"810","2":"selecting candidate wells for re frack using production data"},{"1":"2049","2":"re frack strategy for sevensprings oilfield in china based on geological and engineering characteristics"},{"1":"2804","2":"secret weapon against the red queen: using chemical packers and degradable mechanical diverters in re frack operations"},{"1":"2830","2":"a novel screening method for selection of horizontal re frack candidates in shale gas reservoir"},{"1":"800","2":"application of wide-azimuth 3d seismic attributes to predict the micro frack in block ma area for shale gas exploration in south china"},{"1":"822","2":"application of wide-azimuth 3d seismic attributes to predict the micro frack in block ma area for shale gas exploration in south china"},{"1":"1272","2":"evaluation of multi frack through unconventional log using gamma functions, facies, lssa, and migration of  frack in laminated sandstone of chicontepec"},{"1":"2015","2":"connectivity of spatially correlated  frack: simulation and field studies"},{"1":"2562","2":"an innovative workflow to model  frack in a giant carbonate reservoir"},{"1":"2144","2":"analysis of stress and pore pressure in naturally  frack shale formations: a finite element based chemo-thermo-poroplastic model"},{"1":"1229","2":"enhanced dynamic simulation through continuous  frack modeling of carbonate reservoir, oman"},{"1":"493","2":"the development of artificial-neural network-based universal proxies to study steam assisted gravity drainage (sagd) and cyclic steam stimulation (css) processes"},{"1":"7","2":"conductive  frack identification using neural network"},{"1":"185","2":"identifying unconventional potential using seismic inversion and neural network: an eagle ford shale study"},{"1":"1833","2":"summary of results from a joint industry study to develop an improved methodology for prediction of geopressure for drilling in deepwater"},{"1":"1846","2":"maximize the placement of wells and production in unconventional reservoir:part 1"},{"1":"1896","2":"a simple aggregate parameter for comparing waterflood reservoir"},{"1":"2258","2":"a novel workflow for  frack characterization and well placement using bhi data in wbm and obm in deep unconventional reservoir of north kuwait"},{"1":"1993","2":"energy efficient operation of gas export system"},{"1":"2475","2":"the central role and challenges of integrated production operations (system integration of technology, human and operating system)"},{"1":"2682","2":"fmeca and commissioning - guidelines to reliably deliver technology and system for successful drilling automation"},{"1":"2825","2":"the use of intelligent and integrated system to reduce risks, improve quality and minimise effects of serious incidents within the offshore industry."}],"options":{"columns":{"min":{},"max":[10],"total":[2]},"rows":{"min":[10],"max":[10],"total":[123]},"pages":{}}}
+{"columns":[{"label":["Film"],"name":[1],"type":["chr"],"align":["left"]},{"label":["Production company(s)"],"name":[2],"type":["chr"],"align":["left"]},{"label":["Producer(s)"],"name":[3],"type":["chr"],"align":["left"]}],"data":[{"1":"The Life of Emile Zola","2":"Warner Bros.","3":"Henry Blanke"},{"1":"The Awful Truth","2":"Columbia","3":"Leo McCarey and Everett Riskin"},{"1":"Captains Courageous","2":"Metro-Goldwyn-Mayer","3":"Louis Lighton"},{"1":"Dead End","2":"Goldwyn, United Artists","3":"Samuel Goldwyn and Merritt Hulbert"},{"1":"The Good Earth","2":"Metro-Goldwyn-Mayer","3":"Irving Thalberg and Albert Lewin"},{"1":"In Old Chicago","2":"20th Century Fox","3":"Darryl F. Zanuck and Kenneth Macgowan"},{"1":"Lost Horizon","2":"Columbia","3":"Frank Capra"},{"1":"One Hundred Men and a Girl","2":"Universal","3":"Charles R. Rogers and Joe Pasternak"},{"1":"Stage Door","2":"RKO Radio","3":"Pandro S. Berman"},{"1":"A Star Is Born","2":"Selznick International, United Artists","3":"David O. Selznick"}],"options":{"columns":{"min":{},"max":[10],"total":[3]},"rows":{"min":[10],"max":[10],"total":[10]},"pages":{}}}
   </script>
 </div>
 <!-- rnb-frame-end -->
+<!-- rnb-output-begin eyJkYXRhIjoiTkFcbiJ9 -->
+<pre><code>NA</code></pre>
+<!-- rnb-output-end -->
 <!-- rnb-chunk-end -->
 <!-- rnb-text-begin -->
 <!-- rnb-text-end -->
 <!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuY29ycHVzX3JhbmdlKHZkb2NzX3Byb2MsIHZjdW0pXG5gYGAifQ== -->
-<pre class="r"><code>corpus_range(vdocs_proc, vcum)</code></pre>
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxudHJhY2UocnZlc3Q6OjpodG1sX3RhYmxlLnhtbF9ub2RlLCBxdW90ZSh7IFxuICB2YWx1ZXMgICAgICA8LSBsYXBwbHkobGFwcGx5KGNlbGxzLCBodG1sX25vZGUsIFwiYVwiKSwgaHRtbF9hdHRyLCBuYW1lID0gXCJocmVmXCIpXG4gIHZhbHVlc1tbMV1dIDwtIGh0bWxfdGV4dChjZWxsc1tbMV1dKVxufSksIGF0ID0gMTQpXG5gYGAifQ== -->
+<pre class="r"><code>trace(rvest:::html_table.xml_node, quote({ 
+  values      &lt;- lapply(lapply(cells, html_node, &quot;a&quot;), html_attr, name = &quot;href&quot;)
+  values[[1]] &lt;- html_text(cells[[1]])
+}), at = 14)</code></pre>
 <!-- rnb-source-end -->
-<!-- rnb-frame-begin eyJtZXRhZGF0YSI6eyJjbGFzc2VzIjpbImRhdGEuZnJhbWUiXSwibmNvbCI6MiwibnJvdyI6MTIyfSwicmRmIjoiSDRzSUFBQUFBQUFBQnFWYlc0d2t5VlhOZWMvMEdtUGViMGhlWmdhNlp2RE1nRTM3UlhWVmQwL1BUblgzZHZWTWp4Y3Y2NmpNcUtxWXpzeW96VWQzMXlCYkt3c1pnUVN5d012emg0Y0VXa0NBRmd2RUIxLzh3QWRDQXZFTFNFZ2doSkQ0NE1OZmhuTnZSR1JHVnRVc1NGaStPOTFWbVJFM2J0eDc3cmszb2cvN1QrK3VQVjBMZ3VCaWNPbnloZURpSmZ4NCtTTCtjeUc0SE55Z2Y4K0Q0TkxYOEFOQjhCV1E1L2p4Tlh6MjIwRnc5WGZ4L1I3a055Ry9CL2xieUw5Qi9oUFBmQlBrRmNpaGVmN2lYMEwrQnUrRmtCK0cvQUhrSFRQWjVhK0NmQmZrQ1NTQ1BJTjhCdkk1eUM5Qi9oanlENUIvRG9JcmVQN0tkMFB1UWpEdWxSU0NzYS84UFFUZlgrMUNQZ1daUWdySTMwSCtDZkt2a0g4UGdtdXZRMzRTOHN1UTN3K0M2OWNnbVAvNkVDSWhHTy82YjBIK01BaHVRTThiSDRQMElGakhqUVR5YzVDM0lMOE93Wmczc042MWI0VGNoL3dxNUU4Z1dPY2E1bDM3RjZ5WjdQVTdXT3RYUS8rcjBPRWZNZS9iR0g4YjhnRHkySXk3aHJXdTRidnJYNFNOb2RQRlRtT3J5MzhOK1pKWnl6VjZCdXU3SWZBOGJIRVIrbHo2Zm54MkFiLy9WeEM4OUY3dnZTK1o1K2s1ZW9mR3VmQWZadnpnei9EUExRaWV1d1piWGNmZVhmc3JqSXQ5WElQT0wySHpMOW45aGpPWS9XZnZnRnlCWExYalhJZVFvNUFUdlFSNWozMmUzb1V1d1ZkYWVSOEVkZzVnaDREODZXc2hYd2Y1ZXNnM1FHRERBRDRUZkRQa1d5RGZDdmsyeUxkRHZnT0NOUVhmQ1lHZkJOai80SHNnM3d0NVArVDdJRGNoV0U4QVd3US9BRm1Id0liQmJjZ2R5QTlDUGdDQjN3VDNJTml2NEljZ1dIL3dRY2lISUQ4QzJZQjhHUElSeUVjaDJQL2c0NUFmaGNDM2drMEkvQ0hvUTdZZzJNZGdCNEs5REhZaER5RXZReDVCQmhERVI3QVBPWUFnSG9KRE95NzhMVGlDWVA4RCtIMXc3Tm5xS2VRVGRpMnZRbjRNOGtrSS9EMzRjUWg4T01CK0J2Q0JZT1M5OXduNy9HdjJIUm9uc3VQSEVQaDNNSVpNSU5qelFFRVFhOEVKSkZrSS9LdUpQSlZKWVhjdXNaOCs2VXM1NnlSUzVKbktKbUVxeTZtT2kzQ3M4M0NXeTFoRkpYMDhrM2txeFVnbHFweUg0MXluNGQxTy84NjlUajhjcVV6azgwNGhKNm5NU2htSEtoVVRXZGpSOCs1c2xxaElsRXBub1I2SFcrY1lTZEdUSWduN3NsQ1RMT3htY2Jnak0xbXFLT3dtRTUycmNwb1c0Y0Jxc2cxTnlxa01EL1dvS2tyMzBtNUdHb1I3VllyeElneDJMRTVsZUNTeUV6dHpzZ3R0SnJrZ2xRNXlqV21odWNCVTI3bUl5aXFYNFVESE1xSEZQUzdvdnpUY1VLb2loUnA5VVlxTjBOZTkxS0VJZXlJZDVVcGs0YmFTQ1ZhYWtiNllYemhia2tHNmtZYWVHR1EzbmNsWVpKSGtGUjdvWEJka3ZZR1l6V2krYmJLaW0zQTNPNVY1UVJQUnMzdXl5ckdrUFZtZTZmekUyZklMN1k5NU1mYzhwWTlrTk0zVUc1VXNhT3Bjd3g1a3R3TzdpMllEdGtXazhFQmZGV1d1UmhWL2ZBeURZeTBpSEZhalZPUXFrMkZ2S3JKTUptRlBwN05Fbm0rUVNoZzVDemNGakxVZWR2TUo5aEJiYjNYNzJkMllmaDk3V3oxVmsyazRjNnZPWlNIelU2M3lzSURlaGZFaGFBL0hNZHFMMGlnRTVTcmVqOHlzTnJPckxkM3F5T3hEWFpYVDhIR2FoanRWTERBb2I4aDYrSEoxSmxSNTJ5cjEwOE9wU0tUYmNCb1R5Nkpmc0dYUGpaNWt3LzFacVZMM3dXaHUzYUdicVVLWGNCenl5bnBMNFZNNXdxTGtoOWZaL012K0pKYTIwQ3IwSzQ4TFNhWVJDMStUZDIxV0NpNGxlTWhESFowMFRzdmpjaGdJeElsT1lRaVJzYytiYi9DeVhRSjBxSkpTZFlvU0lkZ28xb1JNYjZvaWpUWE1aT1IyY2lEUDhabFY4SXQ3d0lId1VJcWtjNFFveFU4WUlPdm9yTk1Zc1VPK1dwUVV3K0hoL3ZadTIzNkVHMHRtaDFGZE5QNy9UTHUrd3JZdVBNbyt3WnVlc1dMN1kranVQRzVwMTNtNHdtNTBUK2R5UFR5V1NSSSswbmFHZXd0WXdCK1Noa21peVBIaGdPUHlUT1RTem4yblMrYk45Q25HUjlnQk9ISXRvaWx0emNwMTJOZGVYdzUvZU1jUUQ4QitRNWtWTU9halJYMkdWWDRxNXh2VzE3R0JZbkltWEFBY1k2WE55aDBzZFRPUnpBdFYwT2dIblROQ1NvS1pucVpwQVpEbW84VkZJOG96RVl2OFJEdGYyVDlKeEZTbitPYnhzT3VpTEhmdllEaUFpZ0I4V0lWcEt5T3pabHIwQmowUnlWbFoxYTU3S0J1RVhYSVNrZWdKZ1JrWndNMWg0TXZPL0ZNTHllVll4YkxUZmE1U0FnZC9OZDBHVzdBakZoQVpIQWNxeXZVWTIzTlNFSzVzSmhSNWd5N3dUUXJQbDNkRVFha3IwYm1acklZZ0JGU05nY0w0VStTWlFmbjdpcFdkS3B1RWtDTk53aHR6Sm9GVzhKaTRRcTR3Q0lBOE85V2RXUVBkS2RuTFR2UXBlcUxPSjFzSW45U29aUlJnREdqV0hOYTc3eklxdE4vUEdJZ09TRHZrczUwcUdZZjdLakZ1NU96NzlpNkJQeWRyWitLZXJ2Q1IyVjhQaTh3bUlhbEVDR0FQZVJ5KzNleHY3OTF5WWFkYy9td0ZMSU5Jd1JNaDh5TFZBaXFIWlJWYnV0RVQrVWhueU9hTmQ4TS9SMVhZbjRLV1dJWGZyQjNJYUV0YUx1VVhWdldNd2gzK1pZaU9UR1FFUEJxYjNKamFCRTNQelZySk0wZndpaEg4WVNZSnZxYXdLc0h3ekNCMTQ1alBMYzV2VjgrZnp6dEFGY3gvNERNb2E0a2p6UTZOajJoaDFxWVJWS3NTd0hBcm56Um9Ob1IvSjlaTzJDQllPb1IybTVRMFplRTBlTXNNbGtrQXBTcGs3Q0hNemU2VGZaaHU5MVlvaUFma1dEcStuVlVsZWVIUjFET3cwZUIyU0F6eERCcm1yUmpZSDQrTHFhWk4xamtpNFJnNUlkelVlU1kxWVZJaVlCd1JkbHBiNlFLRmM5eUtCWkhObmxybjJNL3M2QURjSENva1FHSCtXWUdaa1pvSCtneGY0QTMyZDNobHVBc1ZlUnhuaFE4ZWlwbUt3MjVSd0RMc1p0WXBIREF3ckplSWJRU3RUZzFuZzBIdDY5TXVOblVzMkQ2aGpUblpTUWt5RU9HVmNYR21jVTg3dVpoak8xTU43MHNaWEdsWU0xcUJ0WVFIemxucXRONHMyNm43eVNNQ0l0cnhsck5nOGk0cytveVNBWkp5VWVyTTI2UU5vd0ZUaHYwUmZXaE1lV1JTVDQyK2RvN0lDNndGWXpRdXdnN1g0aUFObW15ZGlxU3FkNHN3OUlHWXcvTk9WVUpKaStEU1R2WG5mdG9oY0htaUU5RDFjRHVwemlWLytHQWU1enJpeUlZV2NrWWt4MEJaUVQ1TmcrL2tFcXl6SjdLNTFXdWdpb0wranhpMUh4TmNtQVVaL0hzQjhnTjJ3R2FwWEtsSmJ6Z1VuTkl0S05SY2hMS2ZLeU1Pc05lR3dHUHZRYXhnRlRmNG9Sd1RjTkJvVEJKZ3JRaU9SanBZMDNwUHROTTNmQUxHcHBKaS95NE0vOHc4Wk9jOEhvS2ZLZmpLa0VhenhqZ2d5REVrbU56b2lTcVFSaDJoNmNJMWxYSHZtNWozRnI2V1ovUlc2ekU3L0d1TkMyeUVYcFhrTU4zQkRvVVdyRFZSeFRUYzEyeWxlbi9XWDBpKzdTUlAvVnp1N3dqVTFLYWVhOFBNZWgyTURhaDVqd2dvd3FuSWpyOTFLRThWOGg5VGhhclVLWE9OYlpYVGJ1VzVPcVZRVXlhYXRwbEdvV0poUlpoUTJWMndnMzNVc1QrL1dMSmxRT05BSEdmM2VwMUZudVNpdDgxZ09lTURZYU9wU2pNNUovZGp3aUZRWUxFZUp2UGpxWUtZaE13UnNpQnZtVGhSam03dFlROWZCUmVId3NodE5NY2ZiWjJYbEZzNXpVdEJGZnU0U21qWEVwTmtNQUlxZUlTeHp3VUlHMWZRQWFBU1VnR2dGZGJDOWo4UzZWKzhiY1BlRGROZ1FySFIya1VQUlV3ZDY5YlFUVVlBRERCRXhDYklvN1hOT3p2QXgwSzd4UDhRL0IyZWpXQklFVSthSW1FRnNtRU1Bb3dSMGdob1IxYk9xZXc4RVZraGlnV0dZTmI2U0lxWS90MktKL0xkMkw5YnczSzRydGpWbzAzS2F3ZHNkRHh0eU1pd0FpcDJkc0NjU3E1aDl6ZDdDL0c5M3FUSG1sWXQwWldIQ3hWTDE0UmdMbVpUTHVkcFltUUlNSlNVZmZoeEZzdmNKT0pEUGRMazhFOGtIazJhZHN0SzdHdFhhTndtSUgrWk02ejVISm9tQVlrcllIYit2U2ZJTVZaUUx5OU9YRHg2MVdacElROHUvemlMcU1qSTZIZEVKUEhvQTZJR0RWUjNWaGg5eklqUWlja3hzM1p4UkRFRU5jc3FBeDBRZHRpbGNtM1hCVnRVRlRNNFlsM0FXRkxSS25xZmNQRld3NkR3aXJjUkYrVWNyWlNhRFFzM3dGaE1jK1VYbVRmcjNUVzdmY3R4a0lHaitsd0pDbXdxOUVmdEdEY0VqM1BSRTVIUDZaY2ptVlAxWUY5L3pMeWpSVGNYK2xhMlJiTXE1ZEgrSXJBVUxhdUdPTS9PbSsyQkQyb2V1NHlEcEFaVnl1RXdvczRRa0lIYWZMbWpkQTh0Qm1NaTE5K2lhcUgybkFFQ09DNVdKT2dqZWM1ZTAyaHRSL3o1RjZUeEdyNm83VkdWaWQrdHNzMnRMdlBsVXlCbitJQlFUS05rbDBqdFB1Y3NLVFZOS05TUUJJK2xRbDdMWENMYkF5clVrUE15QXc1WHZGYXpUenV0SGxHUnhvSEVsUThNbmRYbG9kc1ZrSjFUVHVXdENZK0ltYXV4U1VqM2VqVm9ERlFjSitTM2t4ZzhDbjc3UklCVnpjT2JRRUxpTHVLV3E3by9pMjlVYk5LckZFVEFVMU5UVUQwVG84aWVjaU9XdnE1cW96OFpIa0Mzc1V2aWhLSVJvV2pSMUZuTG5Jc3FZUnQ0WENhUzkvdmhjK2RlYklrbnZLSnhnNXJMRHVkRktWUG1KV0gzYU9qaVlzKzBxbUEyZ21iUjZwbjhYeEk2ck9hVzVIbjBaeXlrY3Rsa2pDNnhQMlFVWWxwYis0ZTBPV0lKbUJyUGVCY09HUjZqbGgwbitxeG9ONUk1RkNpMm5PK09sbklPak1hWmRZQzhSMnJaNG9HcFNPbUl2cytYanlyMmFLTU44dnR3ME8zVWZMNmg4MWxqcWdjYXN4RlJ0RWF5TlVzTEY4MXdsQTRvM3JkVndsU2h5N1E2UXoyQzFBYTQ1SU9BSXpoQmVQTUE5a055T3BBWnBWYTNkNFBkckZDVGFWazBQdVByWmxxY2Zaa1ZNZ0UvRU5ob2liQWFFbm1XclZLV1hjTU8rcWZ0cW5CbHE5YURhUk5ncGhKZGJFQnlvZ1JYWjZXZFllakVnVUVRUzR5NGwwZ2JTRnBONnM0aWY0L2lpME9FT3ZlV3RlMHBQY3FwdGVZUjRQNURrMVdzK2oyZjhISjd3WFIwV0tuWTlSRDlqZ1NScnlnaEl1VGE1bmFvWCtOTWdaanhTa1RpQjQvRVhPYlNsR1lPUy9jUitxNlh1b1hCeUJPRzh4VHNMYmY1M1d1Mnd2RmtOZ0UwdVBPQkJ1WjVBbHIraUVCK1c2aUVVWmx0M2htcXN1S1g2LzdDczI0VVZibnJXalFWNUNJRE5yUjdFd2t0bHJHdDRwczlmajhoT0tycG1lMzJGZVMwM0U0NEkvTER6VFVIZUovM1VoSlUzUnFQaVdYUUdsd2pqQ3NxNmd3WXRyVWN5SXc0elRuRGVoUGhxNDlzeUJ5ZHZpRWh5L05adlg0Q2xxQlVRWk9SNy9GeDJyRWhhZlZDbXpTa09MMGVUWE5kVGJoSmVlZCtvMkZucDJJN0xaUkdDL2tmR3pKV2ZrMy9PYWJDRHhUNGM0N2s0bFpsMjFuQ29jcElVQ05JRzFoSVc3WUlUMDFwM25aSGJuTk9SU3duQUV6UVdGT3hkTUp1UWFkRVBsSGZSZUhpTnVyRUdKNU95eEkxYWtwTDd6ekEralVkN0hsbkYwMUVGNlo1eGhCSm0xQzRPTndTMUJsSEVNYXRUc003MXA0ZFBOUFpWQ1ZoOGNSd3FacnJibVhVdWF1UHh1SjNneG83Mno2VTFaRU9OK0cyNjZEYW1YeGV5VVRZU3NpQ2VOM0xiald2NDFQeW9waVRBbWNjNDN5TUMzNHI3Rm10RHFXbjdVVHJ1QldValJQWE5WNWZFdGVZMVpqb3Q4K00za053TFgyR3ZVc0VqRUtlK0RpckMvTmZYS2o0NndhUlViTlpGcURia1pqTm5JYmpzQ0xPc0Uxa3JrSGJGUlp0eW5YdmhLMm9VV0c3eXFsYTlCdkFWcnVDYWw1VWxJZ255a3lxbmNOV3BkVVYxUW5LdzYxelFhcWIvQ1JNd1RiaGVxMDV1bDJveHM2OWVsQ1lmay9DbEM2ZnJ3QTJzdlBqQlB3Q2NRZkhvMlJIR0xSZEFUSldIVUU0aHRldlRxWU4wM3dGZWNHZDBueTZpeTlGMHRuSnFXWFpwSFVUMXAyQktLTnA3ZE44RU1wbGcxZS9GZlY1azh0U1hFVGF2YlZud1lVa2VETWR1YzRtUThLZ3FsditIK3N1SExVMHBNUW5hT0Q0cmRYWkZPdEcrUkJYQy9WbU5SdlB4eTMxbVREUjVIcjNxTGh3N3ovd3pqVDRsS0pWcFRROURuZUliQmhZMFhZSEd0Q085d2IzS0RpNU13MHF2ZDRvbklVcTFyd203M1p6ZXlDbWRqN2kwczUrN0NJODBTcUtWM3RnbStTSzVlWUxuaWJnNzJiWTVvVHNiQ0lkazVYVVJqbVVrWjRnYU5zRnV4MDE3YkxUMFhTdVVuZk1sS2t4QnU2TWN3WE9salNrY3VrNkEycnhqbFoweEE5cUZKV3dCdWJUdVdsNmdmN3BKT0dtdnAzMEYwRG80ZU1VMGpNaUFvYSt0bGZqSGZJYjBvOFBabkFMRzRkMGlVUmtOQUxERTJvbkdVNEFVVmo5ellQK3ppMUdrMmFNdEZab1BTeXRINXV6czRWZTRNQzVDNlVXUWVCbHVoY0l0SWxyMlhoWmR0WHhFaDlZdFBqY1h0c0hHMnhEUlljQU5iM3NKcFBmOXdzR3I4T0draWtaaS9xUWV0aTFwM0M4VVpacE1razFZUjdXWWI0d0o3YTJkV3J0emVmT3Z4OXlDM2dacXZnVHpqelk2b3haREVYZndubXJ2NEF6QXBhNksyM1JzQ2F6TUFBeVJPdms0cGxibHNtMThLNDZ5elF0U0M5UjJhWFF3UGNYYXhRNlJnWUxZa2NFbTZPU0RJaVZsMEpsM2hGYmR0OXJIYjNvZ0l3T1FRaXFOdWN6OEJvZ0hmWGk2SmkzeVdldFEwaFJzc2RUQU82aWRoRE5JWmVkOWZRSTZNVnBXRmdvOGRzUlE1MkFIMjZxU1gwY0FNYVIwb1NOY2xzWmlJbmsxUzFGNUs0OWpsK3lpV3NsYlozb3NTcE9XdDkzR2hCZWRDRUhDdmIxL1lIeXprWXA5TWx1Q2xWY1VZMFF6K0NMTXBUbkhOMmNUU3pveGZYeDM4cjYvejQyakYzalZOb3VtV3JmQlZwMW5jY1ZUWFRWUkRIMTlvOGR6REQyVWN1ZlRQYU9hbmpQRnk0NXZMcVZUUTNuaXVlWklIc1VqUitVTmtycDhvdktLdW9GZVEyOXBXNlZ4MnozZ1RidTlrNzc2SXY5Mmw0ZGNDaXcwRldnZHB1dDRFV2FvbnFzTXNQcjFtMTJYUThmRFlmZGRYdXc1ZTFPM1Z2QTJoOEp6azFZMlpDdVRuR1RuQk5RZlpmSEtyamJpbTg2V1poaFFHWnlrYzVCWjNnUW8vS0dieDZhM3BCNzZnUTFRZmFtbjY0S3J2L01xVGpWaUhVV2dJcVpjSlNSUjhjNGZHMmk3alJoT29FWk1qcERrdVpLZ1MxSG9xbE1OZkgySFA4UU01alpJdGEvOFBDRjVwcWYzMk5vZG1DcHhqZGRBQWNiWG11RjFGOE1sSTBtSFNoM3p1T3V1dkFMUi9KY0ZONVZFSzVKWE9PN1MvVkNmZlhuekNWaXhMUHBGamUzUy81M0ovNElsYTk5eVphaTBaWnYxZldvcVJIVHU2WXdvb1VlU3A3RGp2SGhJVjluNE5id2l4OTJmS09CZFE5b0p1NmhWZ050Q0tUTWlobEJWOUdVZ3lvemRYcTQ2Y3BMVjZrSUF6QWU0dm1jRUh2c1RGZ05KZDBiZ1pKaVJvZVpFK3haVWRwRHdqaDhwWkl5MjNEZGJ2aUxwV1hSQ1hGQXZuaENxU2JtbXhtRDVuWmNYekdjbWpMQ3JXaC90bkJINFBWdXVJZnFCV1ZaUkcxUGM3TEdHZHFzMlozZjBuRjE0MlJ1dU5yQ2hTMldyWWNzTWNIZk1EdmI1QnFNeDljTEZKMzBkdHJvMkRHeGdhcU5UajVNWi81Y21kdExoclFNUzBuM0RPZ29uR0o2eDE0dDZ0UEpBVFVqYnc2N08vMWJiSnplUEVxNDkwTnZETXNtNm0vMmhzTmJqdExXTWYvTStoeWZSVlJ0UEp0cDZnWlNPOXRndXV0a3FkYk5nZlpha09XeXBicmRkSnp0akQ4enJBQ08rZHhTSGdSMTRlbzJSMm5pcXFCK2xsazdqR0FOU1kzY3V2cjBDUWh0WGZ2ZUs1eXlCaXh1MCtTcXJucXBaUk55eThacTlNcEFuSnVlQlBrZ0VDbVNicy9PT0pETTFhQTZkRERHZ3FYcXdONUF1VktHSDdBRGY3eExzRXRrU0V3bXVaeFFhTTdxdzFiU0swTEpMVGhXT09XT3VTT3dDQk9mZHo1YjAzNTZ0YzRaUzZWSnQyNXQxa3N4MGJUNVlOZHdGYXpnZUhOZ2luWDhpMThwNnkvbXM0YWJ3eExtMmsvcjBQL09Wb1l5ZXg3S01iazFXOHlGbXpzT0I3L0FlN1krY0djWkZCczlQRTV1YzBoVkFmdnRsTTQrTWx2WHRXOXpPOE0zMFF5UE55V0hhbDhCSyt2aWFUMmNWblRJUTJOYnRjaUYrUzNYMkg1amU3RFY2NXJwZFpvcUprTDBXQ2ZrMWh5ZE5uRVUycHRnODVBK283NWpNdysvYmVzZjJwYWlpaWpBNkp5K2RqcFgzdGN0MzdmSUJKVzVOZWJmTTExb2V0dGhXUUcrTFFnZ1BRR0xVTGFmK3daZDluQlhES21qcnpDazVOYWx5ZUh3Q1NJL0tvdVlwQlZNOVYyN3k1MVl1M2k3dmZBSEJGZTRQV2ovZnFEK3F3SzZJS1Z6L1BUbHhjZEJ3NlI3L0tMOThEcVl5T3gyVnJtOWZ3Ly96a1FHOVZ4N2dCdWc2YmZkSVBUWEp4ZmZEUGgvejgyRGwvNTdRWmMxNnJQZkhsTThyZERubXA0WjRBOHUwcCtyWEZsNCtVSys4TUg3cW93bWp6dlJ0TXBPT25mcDcwdldBdk8zTUlIVjZJTFJwdjc1b3YzN0o2ZlpGV2NseVZuUVdTWVJvNXJjdkplS0VWcmtiVXF0THBUVzhHbHh1OVJJTnU2VFNDZnVFMTVjOE9YL0FUVWN3bmZ0TlFBQSJ9 -->
+<!-- rnb-output-begin eyJkYXRhIjoiVHJhY2luZyBmdW5jdGlvbiBcImh0bWxfdGFibGUueG1sX25vZGVcIiBpbiBwYWNrYWdlIFwicnZlc3QgKG5vdC1leHBvcnRlZClcIlxuIn0= -->
+<pre><code>Tracing function &quot;html_table.xml_node&quot; in package &quot;rvest (not-exported)&quot;</code></pre>
+<!-- rnb-output-end -->
+<!-- rnb-output-begin eyJkYXRhIjoiWzFdIFwiaHRtbF90YWJsZS54bWxfbm9kZVwiXG4ifQ== -->
+<pre><code>[1] &quot;html_table.xml_node&quot;</code></pre>
+<!-- rnb-output-end -->
+<!-- rnb-chunk-end -->
+<!-- rnb-text-begin -->
+<p>html_table essentially extracts the cells of the html table and runs html_text on them. All we need to do is replace that by extracting the <a> tag from each cell and running html_attr(., “href”) instead.</p>
+<!-- rnb-text-end -->
+<!-- rnb-chunk-begin -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuaHRtbF90YWJsZSh4KVxuYGBgIn0= -->
+<pre class="r"><code>html_table(x)</code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-output-begin eyJkYXRhIjoiVHJhY2luZyBodG1sX3RhYmxlLnhtbF9ub2RlKFhbW2ldXSwgLi4uKSBzdGVwIDE0IFxuW1sxXV1cbiJ9 -->
+<pre><code>Tracing html_table.xml_node(X[[i]], ...) step 14 
+[[1]]</code></pre>
+<!-- rnb-output-end -->
+<!-- rnb-frame-begin eyJtZXRhZGF0YSI6eyJjbGFzc2VzIjpbImRhdGEuZnJhbWUiXSwibmNvbCI6MywibnJvdyI6MTB9LCJyZGYiOiJINHNJQUFBQUFBQUFCb1ZUUzAvYlFCQjJYcTFJMVphV1BxUzJxcmhVb2dkTVM2VldQVUpDSUJLSUtPR0F1SXdHZTJPdnNwbU54bXRDT1BXWFE5ZnhicWtqSkN3NTNzejN6Y3czangxMnozZmI1KzBnQ09wQm8xa0w2ZzE3Yk5idFR5MW9CbXZGOXpvSUdodjJVQ0RyOW0wNzROUE9YRTdremxrcTRGaU9CZWd4SEV5bEVuQ2hGVHJPMjN2TzNueWNLempqM0tRTy9GS0NIWndabEpSQlIrZU1pZEI1Qmx2ZmYvLzRCV09wcGw4ZCtVTko3Z3FNNFlEaUJ4Z2Y3M01kYW0xWnlDYUZyZjhwYjBwS24rQlV4ZEJKWllTSmR0am5FanZXbVlFanpmSkcwd05KTmt2V0tRazR5aWxtRWNPSklFQ3JDT0ZRc25LODlaSTNNcllnNkdyTlZmODlzQWhEUDROOXpkVTh2c2xCc0habm4wZS9aZHgzWmR6ZGI3YmtqaUNUOHdKNit2b1JMemVCa1ZBM0pLTUo5TWtJSmpSU0V5b1l5TWpHRWRuSzNGK1hUa2VDYkk1OWhUUVJEbm5sV2lnMG5FUWRaTEZ3d0lidmJTNHp1eXhKYWpSVlJ6TENhUzZVSFp5SzV3dXFiaytmcnlRbGNKYWl1aFNjVkN2dUl2TkNRUytFQzZROG1sU2w5TmpLQTd0aDdEZnl2VnU2RkZtSkRJWWhESFVpT0t0R0hkaUJzb1pSQ1B1Q3AwaFY1eTVleVJoT1EvQ05XN2t5TGNMcHY3WTFuTEhacytQMWhRMVl4M2xVOUhrejB0TVowbUlyOHl2MnJBUUZGNlpxNERYVzg5QUhmMTVjMmovQjhtbXZLb2dVWmw2Qk43WmpOQmlPMmZyYmY3Y3JMay8xck5Cam5lckZiVyt0T05kNHhmQXlwMEpKdkIybE9VMjJmN3FsclpXQ2x1cHF6dWJQalRKbC9jNkZhcmxRVHdRbGt2d1d0UlJlQ24rUFh0aUtsd1dITTVaa2ZDWFdtb1ZHRy9TOGRxU1Z0eXhyQzI3L0F2aUxTa2ZiQkFBQSJ9 -->
 <div data-pagedtable="false">
 <script data-pagedtable-source type="application/json">
-{"columns":[{"label":["corp.num"],"name":[1],"type":["int"],"align":["right"]},{"label":["corp.content"],"name":[2],"type":["fctr"],"align":["left"]}],"data":[{"1":"605","2":"Deep-learning methods for predicting permeability from 2-D/3-D binary-segmented images"},{"1":"934","2":"Application of Experimental Design And Genetic Algorithms Methods For the Robust Design In 2-D Numerical Wave Tank"},{"1":"1706","2":"Integrated Property and Fracture Modeling Using 2-D Seismic Data: Application to a Cambrian Field in Algeria"},{"1":"334","2":"3-D Acoustic Impedance And Porosity Mapping From Seismic Inversion And Neural Networks"},{"1":"418","2":"Neural Network and 3-D Seismic Techniques Improve the Prediction of Facies Distribution Within a Submarine Channel Complex: Neuquen Basin, Argentina"},{"1":"427","2":"Identification of high porosity reservoir sands from 3-D-seismic attributes using neural network technique in South Umm Gudair Field, Kuwait."},{"1":"466","2":"Shale Fracturing Characterization and Optimization by Using Anisotropic Acoustic Interpretation, 3-D Fracture Modeling and Neural Network"},{"1":"489","2":"Use of a Neural Network to Build a 3-D Rock Property Model For a Geomechanical Model to Optimize Multi-stage Fracture Design In Chicontepec Basin, Mexico"},{"1":"496","2":"Near Real-Time Return-on-Fracturing-Investment ROFI Optimization for Shale Fracturing by Integrating Anisotropic Acoustic Interpretation, 3-D Fracture Modeling, and Neural Networks"},{"1":"537","2":"Development Of Reservoir Characterization Models Using Core, Well Log, and 3-D Seismic Data and Intelligent Software"},{"1":"593","2":"An Innovative Approach to 3-D Fracture Modeling"},{"1":"594","2":"Seismic Inversion of Single Sensor Land 3-D Seismic Survey: Kuwait, Magwa Field, Wara Reservoir"},{"1":"605","2":"Deep-learning methods for predicting permeability from 2-D/3-D binary-segmented images"},{"1":"712","2":"Analysis of P-wave And Converted-wave 3-D Seismic Data, Anadarko Basin, Oklahoma, USA."},{"1":"719","2":"Seismic Constrained 3-D Static Modelling: Conceptual Model Replication by Integrating Analogues and Seismic Facies"},{"1":"800","2":"Application of Wide-Azimuth 3-D Seismic Attributes to Predict the Microfracks in Block MA Area for Shale Gas Exploration in South China"},{"1":"822","2":"Application of Wide-Azimuth 3-D Seismic Attributes to Predict the Microfracks in Block MA Area for Shale Gas Exploration in South China"},{"1":"942","2":"Using constrained inversion of gravity and magnetic field to produce a 3-D litho-prediction model"},{"1":"946","2":"3-D Porosity Estimation Using Multi Attribute Analysis Methods in One of Persian Gulf Oil Fields"},{"1":"1026","2":"Implementation of Coupled 3-D Geomechanics and Discrete Fracture Network (DFN) Models in Field Development Optimisation: A Case Study from Carbonate Reservoir, Abu Dhabi"},{"1":"1041","2":"Integration of 3-D seismic attribute and well logs for electrofacies mapping and prediction of reliable petrophysical properties"},{"1":"1058","2":"Use of Fuzzy-Logic Permeability Models To Facilitate 3-D Geocellular Modeling and Reservoir Simulation: Impact on Business"},{"1":"1110","2":"3-D Generalised Inversion (AVO, AI) as Direct Input to The Reservoir Model. Deepwater Exploration Offshore North West Borneo, Malaysia - A Case Study"},{"1":"1123","2":"3-D Reservoir Simulation of X Field Onshore Niger Delta Nigeria: The Power of Multiple Iterations"},{"1":"1130","2":"Rapid Assessment of 3-D Seismic and Its Economic Impact"},{"1":"1150","2":"Artifact In 3-D Pore-microstructure From X-ray Tomogram And Its Impacts On Physical Property Simulations"},{"1":"1158","2":"Tracking Permeability In A Major Limestone Reservoir: From Rock Observation To 3-D Modelling"},{"1":"1175","2":"Case Study of 3-D Seismic Inversion and Rock Property Attribute Evaluation of the Haynesville Shale"},{"1":"1203","2":"Analysis of Oil Volume Fluxes of Hydrocarbon Seep Formations on the Green Canyon and Mississippi Canyon: A Study Using 3-D Seismic Attributes in Combination With Satellite and Acoustic Data"},{"1":"1246","2":"Post And Pre-stack Seismic Reflection Data Processing of 3-D Reflection Seismic Surveys Over a CO2 Injection"},{"1":"1251","2":"Special Sessions on Petrotechnical Visualization A Point of (3-D) View on Visualization"},{"1":"1282","2":"Case Study: Integrated 3-D Geomodeling of Minagish Oolite Formation, Umm Gudair Field, Kuwait"},{"1":"1315","2":"Integrating 3-D Seismic into the Reservoir Model, and Its Impact on Reservoir Management"},{"1":"1330","2":"Revisiting Automatic First Arrival Picking For Large 3-D Land Surveys"},{"1":"1373","2":"Well Log Prediction Using Attributes From 3C-3-D Seismic Data"},{"1":"1389","2":"Interpretation of gas chimney in the Maari 3-D field of southern Taranaki Basin, New Zealand"},{"1":"1480","2":"Extracting Meaningful Geologic Parameters Using Multiple Attribute Analysis On AVO Derived Lamé Rock Parameter Inversions: 3-D Seismic Case Study From Southern Alberta, Canada"},{"1":"1493","2":"Grayson Field Jurassic Smackover Limestone Reservoir, Columbia County, Arkansas: A Case Study Using Leading Edge Reservoir Characterization Seismic Processing of 3-D Seismic Data"},{"1":"1507","2":"Best Practices from Super-Giant 3-D-OBC Seismic Survey, Offshore Oil Field Abu Dhabi"},{"1":"1601","2":"Development Of A 3-D Graphic Test Platform For Underwater Robotic Vehicles"},{"1":"1632","2":"3-D Seismic Attribute Optimization Technology And Application For Dissolution Caved Carbonate Reservoir Prediction"},{"1":"1640","2":"Fracture Detection in Unconventional Gas Plays Using 3-D-Seismic Data"},{"1":"1651","2":"Model-driven Inversion of the Fortuna National 3-D Seismic Data In the Macuspana Basin, Onshore Mexico"},{"1":"1747","2":"An Integrated approach to build 3-D frack model of Mishrif Reservoir (Abu Dhabi Field)"},{"1":"1760","2":"Magnetic 3-D Fast Forward Modeling With Varying Terrain"},{"1":"1767","2":"3-D Petrophysical Modeling Using Complex Seismic Attributes And Limited Well Log Data"},{"1":"1771","2":"Petrophysical Properties Prediction Using 3-D Core Scanner Imagery"},{"1":"1887","2":"Automated Mapping of Carbonate Mounds Using 3-D Seismic Texture Attributes"},{"1":"1924","2":"3-D Seismic Attributes Analysis to Outline Channel Facies And Reveal Heterogeneous Reservoir Stratigraphy: Weirman Field, Ness County, Kansas, USA"},{"1":"1944","2":"Seismic Lithology Discrimination in Complex Fluvial Stratigraphy: Tenerife 3-D 3C Survey, Middle Magdalena Valley (Colombia)."},{"1":"1964","2":"Validating earth models for depth imaging using 3-D VSP information: A case study from the Green Canyon area of the Gulf of Mexico"},{"1":"2055","2":"3d Observer Automated Tracking System (3-D ATS)"},{"1":"2065","2":"Multi-criteria Approach to Automatic First Arrival Picking For 3C 3-D VSP Data"},{"1":"2131","2":"Developing a Strategy for CO2 EOR in an Unconventional Reservoir Using 3-D Seismic Attribute Workflows and Fracture Image Logs"},{"1":"2149","2":"Characterization of Rock Mass Structure and Stability Analysis of Tunnel Using GeoSMA-3-D Modeling"},{"1":"2157","2":"Automatic Horizon Picking In 3-D Seismic Data Using Optical Filters And Minimum Spanning Tree (Patent Pending)"},{"1":"2211","2":"Insights from the 3-D Modeling of a Densely Faulted, Stacked Reservoir System"},{"1":"2223","2":"3-D Reservoir Characterization and Integrated Completion Optimization for Understanding Horizontal Well Spacing, Frac Staging, and Well Performance in the Niobrara Formation, DJ Basin"},{"1":"2358","2":"Integrating well production data and 3-D seismic AVO classification"},{"1":"2366","2":"3-D Fem Simulations Of Layered Rocks Using Orthotropic Elastic Symmetry And Anisotropic Strength Improve Predictions Of Wellbore Failure And In-Situ Stress"},{"1":"2371","2":"Accurate 3-D Seismic Interpretation of Large Braided Delta Reservoir & Outcrop Analogs In Northwest China."},{"1":"2386","2":"Prediction Of Effective Porosity Over The Field Using 3-D Seismic Multiattributes, Seismic Acoustic Impedance And Well-Driven Effective Porosity"},{"1":"2412","2":"Accounting for Deep-Water Reservoir Heterogeneities Through 3-D/4-D Seismic-Guided Reservoir Model Petrophysical In-filling"},{"1":"2446","2":"Case History: Seismic facies analysis based on 3-D multiattribute volume classification in Shadegan Oilfield - Asmari Reservoir, Iran."},{"1":"2453","2":"Using a Calibrated 3-D Fracturing Simulator to Optimize Completions of Future Wells in the Eagle Ford Shale"},{"1":"2464","2":"Through-the-Bit Logging Technology Enables Improved Reservoir Characterization in the Orinoco Belt, Venezuela: 3-D Structural Model Integrating Advanced Logs in a Multiwell Study"},{"1":"2535","2":"Improved CO2 Flood Predictions Using 3-D Geologic Description and Simulation on the Sundown Slaughter Unit"},{"1":"2537","2":"Integrated 3-D Modelling in a Structurally Complex Brown Field: A Foundation for Improved Reservoir Management and Optimisation of Further Development"},{"1":"2584","2":"New Frontiers in 3-D Seismic Characterization of Carbonate Reservoirs: Example from a Supergiant Field in Abu Dhabi"},{"1":"2612","2":"Processing and Preliminary Interpretation of the Ultra High-Density Full-Azimuth 3-D Seismic Survey, Dukhan Field, Qatar"},{"1":"2714","2":"A Dual-Grid Automatic History-Matching Technique With Applications to 3-D Formation Testing in the Presence of Oil-Based Muds"},{"1":"2742","2":"A Seismic Facies Analysis Approach to Map 3-D Seismic Horizons"},{"1":"2767","2":"3-D Characterisation of Microporosity in Carbonate Cores"},{"1":"2771","2":"Estimation of Petrophysical Parameters from 3-D Images of Carbonate Core"},{"1":"2790","2":"From Well Data to 3-D Models: Determination of the Critical Path in the Process of Characterization of Reservoirs"},{"1":"634","2":"Multi-attribute Analysis of 4-D Anomalies Using Pattern Recognition Technology"},{"1":"679","2":"A High Resolution Workflow For 4-D-friendly Analysis: Application to Gas-oil Contact Monitoring At Troll West"},{"1":"786","2":"Transient pressure analysis of 4-D reservoir system response from permanent down hole gauges (PDG) for reservoir monitoring, testing and management"},{"1":"1030","2":"Estimating Saturation Changes from 4-D Seismic: A Case Study from Malay Basin"},{"1":"1759","2":"Estimation of Reservoir Fluid Volumes Through 4-D Seismic Analysis On Gullfaks"},{"1":"1961","2":"A Method For Performing History Matching of Reservoir Flow Models Using 4-D Seismic"},{"1":"2118","2":"Joint Interpretation of Interwell Connectivity by Integrating 4-D Seismic with Injection and Production Fluctuations"},{"1":"2120","2":"A Methodology to Integrate Multiple Simulation Models and 4-D Seismic Data Considering Their Uncertainties"},{"1":"2133","2":"4-D-Seismic and Reservoir Simulation To Map Bypassed Oil in Brown Field Development at Western Indian Offshore"},{"1":"2412","2":"Accounting for Deep-Water Reservoir Heterogeneities Through 3-D/4-D Seismic-Guided Reservoir Model Petrophysical In-filling"},{"1":"2694","2":"Topological Data Analysis to Solve Big Data Problem in Reservoir Engineering: Application to Inverted 4-D Seismic Data"},{"1":"2783","2":"Ekofisk 4-D Seismic - Seismic History Matching Workflow"},{"1":"2228","2":"Migration of oil and its subsurface expressions in the deepwater Gulf of Mexico"},{"1":"7","2":"Conductive frack identification using neural network"},{"1":"557","2":"Realistic modeling of frack networks in a giant carbonate reservoir"},{"1":"800","2":"Application of Wide-Azimuth 3-D Seismic Attributes to Predict the Microfracks in Block MA Area for Shale Gas Exploration in South China"},{"1":"822","2":"Application of Wide-Azimuth 3-D Seismic Attributes to Predict the Microfracks in Block MA Area for Shale Gas Exploration in South China"},{"1":"1229","2":"Enhanced dynamic simulation through continuous frack modeling of Carbonate Reservoir, Oman"},{"1":"1272","2":"Evaluation of Multifracks Through Unconventional Log Using Gamma Functions, Facies, LSSA, and Migration of Fracture in Laminated Sandstone of Chicontepec"},{"1":"1747","2":"An Integrated approach to build 3-D frack model of Mishrif Reservoir (Abu Dhabi Field)"},{"1":"2015","2":"Connectivity of spatially correlated fracks: simulation and field studies"},{"1":"2144","2":"Analysis of stress and pore pressure in naturally frackd shale formations: a finite element based chemo-thermo-poroplastic model"},{"1":"2401","2":"Numerical Modeling of Multifrack Horizontal Well for Uncertainty Analysis and History Matching: Case Studies From Oklahoma and Texas Shale Gas Wells"},{"1":"2562","2":"An innovative workflow to model fracks in a giant carbonate reservoir"},{"1":"654","2":"The Definitive Identification of Candidate Wells for Refrack"},{"1":"810","2":"Selecting Candidate Wells for Refrack Using Production Data"},{"1":"2049","2":"Refrack Strategy for Sevensprings Oilfield in China Based on Geological and Engineering Characteristics"},{"1":"2804","2":"Secret Weapon Against the Red Queen: Using Chemical Packers and Degradable Mechanical Diverters in Refrack Operations"},{"1":"2830","2":"A Novel Screening Method for Selection of Horizontal Refrack Candidates in Shale Gas Reservoirs"},{"1":"800","2":"Application of Wide-Azimuth 3-D Seismic Attributes to Predict the Microfracks in Block MA Area for Shale Gas Exploration in South China"},{"1":"822","2":"Application of Wide-Azimuth 3-D Seismic Attributes to Predict the Microfracks in Block MA Area for Shale Gas Exploration in South China"},{"1":"1272","2":"Evaluation of Multifracks Through Unconventional Log Using Gamma Functions, Facies, LSSA, and Migration of Fracture in Laminated Sandstone of Chicontepec"},{"1":"2015","2":"Connectivity of spatially correlated fracks: simulation and field studies"},{"1":"2562","2":"An innovative workflow to model fracks in a giant carbonate reservoir"},{"1":"2144","2":"Analysis of stress and pore pressure in naturally frackd shale formations: a finite element based chemo-thermo-poroplastic model"},{"1":"1229","2":"Enhanced dynamic simulation through continuous frack modeling of Carbonate Reservoir, Oman"},{"1":"493","2":"The Development of Artificial-neural network-based Universal Proxies to Study Steam Assisted Gravity Drainage (SAGD) and Cyclic Steam Stimulation (CSS) Processes"},{"1":"7","2":"Conductive frack identification using neural network"},{"1":"185","2":"Identifying unconventional potential using seismic inversion and neural network: An Eagle Ford Shale study"},{"1":"1833","2":"Summary of Results from a Joint Industry Study to Develop an Improved Methodology for Prediction of Geopressure for Drilling in Deep Water"},{"1":"1846","2":"Maximize the placement of wells and production in unconventional reservoir:Part 1"},{"1":"1896","2":"A simple aggregate parameter for comparing waterflood reservoir"},{"1":"2258","2":"A Novel Workflow for Fracture Characterization And Well Placement Using BHI Data in WBM and OBM in deep Unconventional reservoir of North Kuwait"},{"1":"1993","2":"Energy efficient operation of gas export system"},{"1":"2475","2":"The Central Role and Challenges of Integrated Production Operations (System integration of technology, human and operating system)"},{"1":"2682","2":"FMECA and Commissioning - Guidelines to reliably deliver technology and system for successful Drilling Automation"},{"1":"2825","2":"The use of Intelligent and Integrated system to reduce risks, improve quality and minimise effects of serious incidents within the Offshore Industry."}],"options":{"columns":{"min":{},"max":[10],"total":[2]},"rows":{"min":[10],"max":[10],"total":[122]},"pages":{}}}
+{"columns":[{"label":["Film"],"name":[1],"type":["chr"],"align":["left"]},{"label":["Production company(s)"],"name":[2],"type":["chr"],"align":["left"]},{"label":["Producer(s)"],"name":[3],"type":["chr"],"align":["left"]}],"data":[{"1":"/wiki/The_Life_of_Emile_Zola","2":"NA","3":"/wiki/Henry_Blanke"},{"1":"/wiki/The_Awful_Truth","2":"NA","3":"/wiki/Leo_McCarey"},{"1":"/wiki/Captains_Courageous_(1937_film)","2":"NA","3":"/wiki/Louis_Lighton"},{"1":"/wiki/Dead_End_(1937_film)","2":"NA","3":"/wiki/Samuel_Goldwyn"},{"1":"/wiki/The_Good_Earth_(film)","2":"NA","3":"/wiki/Irving_Thalberg"},{"1":"/wiki/In_Old_Chicago","2":"/wiki/20th_Century_Fox","3":"/wiki/Darryl_F._Zanuck"},{"1":"/wiki/Lost_Horizon_(1937_film)","2":"NA","3":"/wiki/Frank_Capra"},{"1":"/wiki/One_Hundred_Men_and_a_Girl","2":"NA","3":"/wiki/Charles_R._Rogers"},{"1":"/wiki/Stage_Door","2":"NA","3":"/wiki/Pandro_S._Berman"},{"1":"/wiki/A_Star_Is_Born_(1937_film)","2":"/wiki/Selznick_International_Pictures","3":"/wiki/David_O._Selznick"}],"options":{"columns":{"min":{},"max":[10],"total":[3]},"rows":{"min":[10],"max":[10],"total":[10]},"pages":{}}}
   </script>
 </div>
 <!-- rnb-frame-end -->
+<!-- rnb-output-begin eyJkYXRhIjoiTkFcbiJ9 -->
+<pre><code>NA</code></pre>
+<!-- rnb-output-end -->
 <!-- rnb-chunk-end -->
 <!-- rnb-text-begin -->
 <!-- rnb-text-end -->
 <!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuc2F2ZShjdXN0b21fc3lub255bXMsIGZpbGUgPSBcIi4uL2RhdGEvc3lub255bXMucmRhXCIpXG5gYGAifQ== -->
-<pre class="r"><code>save(custom_synonyms, file = &quot;../data/synonyms.rda&quot;)</code></pre>
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxubGlicmFyeShydmVzdClcbnVybCA8LSBcImh0dHA6Ly93d3cuYWpuci5vcmcvY29udGVudC8zMC83LzE0MDIuZnVsbFwiXG5wYWdlIDwtIHJlYWRfaHRtbCh1cmwpXG4jIEZpcnN0IGZpbmQgYWxsIHRoZSB1cmxzXG50YWJsZV91cmxzIDwtIHBhZ2UgJT4lIFxuICBodG1sX25vZGVzKFwiLnRhYmxlLWlubGluZSBsaTpudGgtY2hpbGQoMSlcIikgJT4lXG4gIGh0bWxfYXR0cihcImhyZWZcIikgJT4lXG4gIHhtbDI6OnVybF9hYnNvbHV0ZSh1cmwpXG50YWJsZV91cmxzXG5gYGAifQ== -->
+<pre class="r"><code>library(rvest)
+url &lt;- &quot;http://www.ajnr.org/content/30/7/1402.full&quot;
+page &lt;- read_html(url)
+# First find all the urls
+table_urls &lt;- page %&gt;% 
+  html_nodes(&quot;.table-inline li:nth-child(1)&quot;) %&gt;%
+  html_attr(&quot;href&quot;) %&gt;%
+  xml2::url_absolute(url)
+table_urls</code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-output-begin eyJkYXRhIjoiWzFdIFwiaHR0cDovL3d3dy5ham5yLm9yZy9jb250ZW50LzMwLzcvTkFcIiBcImh0dHA6Ly93d3cuYWpuci5vcmcvY29udGVudC8zMC83L05BXCJcblszXSBcImh0dHA6Ly93d3cuYWpuci5vcmcvY29udGVudC8zMC83L05BXCIgXCJodHRwOi8vd3d3LmFqbnIub3JnL2NvbnRlbnQvMzAvNy9OQVwiXG4ifQ== -->
+<pre><code>[1] &quot;http://www.ajnr.org/content/30/7/NA&quot; &quot;http://www.ajnr.org/content/30/7/NA&quot;
+[3] &quot;http://www.ajnr.org/content/30/7/NA&quot; &quot;http://www.ajnr.org/content/30/7/NA&quot;</code></pre>
+<!-- rnb-output-end -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuIyBUaGVuIGxvb3Agb3ZlciB0aGUgdXJscywgZG93bmxvYWRpbmcgJiBleHRyYWN0aW5nIHRoZSB0YWJsZVxuIyBsYXBwbHkodGFibGVfdXJscywgLiAlPiUgXG4jICAgICAgICAgICAgcmVhZF9odG1sKCkgJT4lIFxuIyAgICAgICAgICAgIGh0bWxfdGFibGUoKSlcbmBgYCJ9 -->
+<pre class="r"><code># Then loop over the urls, downloading &amp; extracting the table
+# lapply(table_urls, . %&gt;% 
+#            read_html() %&gt;% 
+#            html_table())</code></pre>
 <!-- rnb-source-end -->
 <!-- rnb-chunk-end -->
 <!-- rnb-text-begin -->
 <!-- rnb-text-end -->
 <!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuIyB3cml0ZSB0byBhIHRleHQgZmlsZSB3aXRoIGEgYmFyIHNlcGFyYXRlZCBzeW5vbnltc1xud3JpdGUudGFibGUoY3VzdG9tX3N5bm9ueW1zLCBmaWxlID0gXCIuLi9pbnN0L3N5bm9ueW1zLnR4dFwiLCBzZXAgPSBcInxcIixcbiAgICAgICAgICAgIHF1b3RlID0gRkFMU0UsIHJvdy5uYW1lcyA9IEZBTFNFLCBjb2wubmFtZXMgPSBGQUxTRSlcbmBgYCJ9 -->
-<pre class="r"><code># write to a text file with a bar separated synonyms
-write.table(custom_synonyms, file = &quot;../inst/synonyms.txt&quot;, sep = &quot;|&quot;,
-            quote = FALSE, row.names = FALSE, col.names = FALSE)</code></pre>
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxubWFpbl91cmwgPC0gXCJodHRwOi8vd3d3LmFqbnIub3JnL2NvbnRlbnQvMzAvNy8xNDAyL1wiXG51cmxzIDwtIHBhc3RlKG1haW5fdXJsLCBjKFwiVDEuZXhwYW5zaW9uXCIsIFwiVDIuZXhwYW5zaW9uXCIsIFwiVDMuZXhwYW5zaW9uXCIsIFwiVDQuZXhwYW5zaW9uXCIpLCBcIi5odG1sXCIsIHNlcCA9IFwiXCIpXG51cmxzIFxuYGBgIn0= -->
+<pre class="r"><code>main_url &lt;- &quot;http://www.ajnr.org/content/30/7/1402/&quot;
+urls &lt;- paste(main_url, c(&quot;T1.expansion&quot;, &quot;T2.expansion&quot;, &quot;T3.expansion&quot;, &quot;T4.expansion&quot;), &quot;.html&quot;, sep = &quot;&quot;)
+urls </code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-output-begin eyJkYXRhIjoiWzFdIFwiaHR0cDovL3d3dy5ham5yLm9yZy9jb250ZW50LzMwLzcvMTQwMi9UMS5leHBhbnNpb24uaHRtbFwiXG5bMl0gXCJodHRwOi8vd3d3LmFqbnIub3JnL2NvbnRlbnQvMzAvNy8xNDAyL1QyLmV4cGFuc2lvbi5odG1sXCJcblszXSBcImh0dHA6Ly93d3cuYWpuci5vcmcvY29udGVudC8zMC83LzE0MDIvVDMuZXhwYW5zaW9uLmh0bWxcIlxuWzRdIFwiaHR0cDovL3d3dy5ham5yLm9yZy9jb250ZW50LzMwLzcvMTQwMi9UNC5leHBhbnNpb24uaHRtbFwiXG4ifQ== -->
+<pre><code>[1] &quot;http://www.ajnr.org/content/30/7/1402/T1.expansion.html&quot;
+[2] &quot;http://www.ajnr.org/content/30/7/1402/T2.expansion.html&quot;
+[3] &quot;http://www.ajnr.org/content/30/7/1402/T3.expansion.html&quot;
+[4] &quot;http://www.ajnr.org/content/30/7/1402/T4.expansion.html&quot;</code></pre>
+<!-- rnb-output-end -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxudGFibGVzIDwtIGxpc3QoKVxuZm9yKGkgaW4gc2VxX2Fsb25nKHVybHMpKVxue1xuICB0b3RhbCA8LSByZWFkSFRNTFRhYmxlKHVybHNbaV0pXG4gIG4ucm93cyA8LSB1bmxpc3QobGFwcGx5KHRvdGFsLCBmdW5jdGlvbih0KSBkaW0odClbMV0pKVxuICB0YWJsZXNbW2ldXSA8LSBhcy5kYXRhLmZyYW1lKHRvdGFsW1t3aGljaC5tYXgobi5yb3dzKV1dKVxufVxuYGBgIn0= -->
+<pre class="r"><code>tables &lt;- list()
+for(i in seq_along(urls))
+{
+  total &lt;- readHTMLTable(urls[i])
+  n.rows &lt;- unlist(lapply(total, function(t) dim(t)[1]))
+  tables[[i]] &lt;- as.data.frame(total[[which.max(n.rows)]])
+}</code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-output-begin eyJkYXRhIjoiRXJyb3I6IGZhaWxlZCB0byBsb2FkIEhUVFAgcmVzb3VyY2VcbiJ9 -->
+<pre><code>Error: failed to load HTTP resource</code></pre>
+<!-- rnb-output-end -->
+<!-- rnb-chunk-end -->
+<!-- rnb-text-begin -->
+<!-- rnb-text-end -->
+<!-- rnb-chunk-begin -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxucmVhZEhUTUxUYWJsZSh1cmxzWzFdKVxuYGBgIn0= -->
+<pre class="r"><code>readHTMLTable(urls[1])</code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-output-begin eyJkYXRhIjoiRXJyb3I6IGZhaWxlZCB0byBsb2FkIEhUVFAgcmVzb3VyY2VcbiJ9 -->
+<pre><code>Error: failed to load HTTP resource</code></pre>
+<!-- rnb-output-end -->
+<!-- rnb-chunk-end -->
+<!-- rnb-text-begin -->
+<!-- rnb-text-end -->
+<!-- rnb-chunk-begin -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxubGlicmFyeShydmVzdClcbmxpYnJhcnkoWE1MKVxubGlicmFyeShodHRyKVxudXJsIDwtIFwiaHR0cDovL2VuLndpa2lwZWRpYS5vcmcvd2lraS9MaXN0X29mX1RoZV9TaW1wc29uc19lcGlzb2Rlc1wiXG5kb2MgPC0gY29udGVudChHRVQodXJsKSlcbmdldEhyZWZzIDwtIGZ1bmN0aW9uKG5vZGUsIGVuY29kaW5nKSB7ICBcbiAgeCA8LSB4bWxDaGlsZHJlbihub2RlKSRhIFxuICBpZiAoIWlzLm51bGwoeCkpIHBhc3RlMChcImh0dHA6Ly9cIiwgcGFyc2VVUkkodXJsKSRzZXJ2ZXIsIHhtbEdldEF0dHIoeCwgXCJocmVmXCIpLCBcIiB8IFwiLCB4bWxWYWx1ZSh4KSApIGVsc2UgeG1sVmFsdWUoeG1sQ2hpbGRyZW4obm9kZSkkdGV4dCkgXG59XG50YWIgPC0gcmVhZEhUTUxUYWJsZShkb2MsIHdoaWNoID0gMywgZWxGdW4gPSBnZXRIcmVmcylcbmBgYCJ9 -->
+<pre class="r"><code>library(rvest)
+library(XML)
+library(httr)
+url &lt;- &quot;http://en.wikipedia.org/wiki/List_of_The_Simpsons_episodes&quot;
+doc &lt;- content(GET(url))
+getHrefs &lt;- function(node, encoding) {  
+  x &lt;- xmlChildren(node)$a 
+  if (!is.null(x)) paste0(&quot;http://&quot;, parseURI(url)$server, xmlGetAttr(x, &quot;href&quot;), &quot; | &quot;, xmlValue(x) ) else xmlValue(xmlChildren(node)$text) 
+}
+tab &lt;- readHTMLTable(doc, which = 3, elFun = getHrefs)</code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-output-begin eyJkYXRhIjoiRXJyb3IgaW4gKGZ1bmN0aW9uIChjbGFzc2VzLCBmZGVmLCBtdGFibGUpICA6IFxuICB1bmFibGUgdG8gZmluZCBhbiBpbmhlcml0ZWQgbWV0aG9kIGZvciBmdW5jdGlvbiDigJhyZWFkSFRNTFRhYmxl4oCZIGZvciBzaWduYXR1cmUg4oCYXCJ4bWxfZG9jdW1lbnRcIuKAmVxuIn0= -->
+<pre><code>Error in (function (classes, fdef, mtable)  : 
+  unable to find an inherited method for function ‘readHTMLTable’ for signature ‘&quot;xml_document&quot;’</code></pre>
+<!-- rnb-output-end -->
+<!-- rnb-chunk-end -->
+<!-- rnb-text-begin -->
+</div>
+<div id="with-error" class="section level2">
+<h2>with error</h2>
+<!-- rnb-text-end -->
+<!-- rnb-chunk-begin -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxubGlicmFyeShydmVzdClcbmxpYnJhcnkoWE1MKVxuXG5wZyA8LSBodG1sUGFyc2UoXCJodHRwOi8vd3d3LmJ2bC5jb20ucGUvaW5jbHVkZXMvZW1wcmVzYXNfdG9kYXMuZGF0XCIpXG5wZyAlPiUgXG4gICAgaHRtbF9ub2RlcyhcImFcIikgJT4lIFxuICAgIGh0bWxfYXR0cihcImhyZWZcIilcbmBgYCJ9 -->
+<pre class="r"><code>library(rvest)
+library(XML)
+
+pg &lt;- htmlParse(&quot;http://www.bvl.com.pe/includes/empresas_todas.dat&quot;)
+pg %&gt;% 
+    html_nodes(&quot;a&quot;) %&gt;% 
+    html_attr(&quot;href&quot;)</code></pre>
 <!-- rnb-source-end -->
 <!-- rnb-chunk-end -->
 <!-- rnb-text-begin -->
 <!-- rnb-text-end -->
 <!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxudGRtIDwtIFRlcm1Eb2N1bWVudE1hdHJpeCh2ZG9jcylcbmBgYCJ9 -->
-<pre class="r"><code>tdm &lt;- TermDocumentMatrix(vdocs)</code></pre>
-<!-- rnb-source-end -->
-<!-- rnb-chunk-end -->
-<!-- rnb-text-begin -->
-<div id="find-one-of-the-synonyms-that-will-be-replaced" class="section level3">
-<h3>Find one of the synonyms that will be replaced</h3>
-<!-- rnb-text-end -->
-<!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxucGF0dGVybiA8LSBjdXN0b21fc3lub255bXMkWDFbMV1cbnYxIDwtIGdyZXAocGF0dGVybiwgbm5fcGFwZXJzJHRpdGxlX2RhdGEpXG52MVxuZ3JlcChwYXR0ZXJuLCBubl9wYXBlcnMkdGl0bGVfZGF0YSwgdmFsdWUgPSBUUlVFKVxuYGBgIn0= -->
-<pre class="r"><code>pattern &lt;- custom_synonyms$X1[1]
-v1 &lt;- grep(pattern, nn_papers$title_data)
-v1
-grep(pattern, nn_papers$title_data, value = TRUE)</code></pre>
-<!-- rnb-source-end -->
-<!-- rnb-chunk-end -->
-<!-- rnb-text-begin -->
-<!-- rnb-text-end -->
-<!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxucGF0dGVybiA8LSBzaFF1b3RlKGN1c3RvbV9zeW5vbnltcyRYMVsyXSlcbnBhdHRlcm5cbnYyIDwtIGdyZXAocGF0dGVybiwgbm5fcGFwZXJzJHRpdGxlX2RhdGEpXG52MlxuZ3JlcChwYXR0ZXJuLCBubl9wYXBlcnMkdGl0bGVfZGF0YSwgdmFsdWUgPSBUUlVFKVxuYGBgIn0= -->
-<pre class="r"><code>pattern &lt;- shQuote(custom_synonyms$X1[2])
-pattern
-v2 &lt;- grep(pattern, nn_papers$title_data)
-v2
-grep(pattern, nn_papers$title_data, value = TRUE)</code></pre>
-<!-- rnb-source-end -->
-<!-- rnb-chunk-end -->
-<!-- rnb-text-begin -->
-<!-- rnb-text-end -->
-<!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuXG5jb3JwdXNfcmFuZ2UgPC0gZnVuY3Rpb24oY29ycCwgdmVjKSB7XG4gICAgY3VtZGYgPC0gZGF0YS5mcmFtZSgpXG4gICAgZm9yIChpIGluIHZlYykge1xuICAgICAgICAjIGNhdChpLCBjb3JwW1tpXV0kY29udGVudCwgXCJcXG5cIilcbiAgICAgICAgZGYgPC0gZGF0YS5mcmFtZShjb3JwLm51bSA9IGksIGNvcnAuY29udGVudCA9IGNvcnBbW2ldXSRjb250ZW50KVxuICAgICAgICBjdW1kZiA8LSByYmluZChjdW1kZiwgZGYpXG4gICAgfVxuICAgIGN1bWRmXG59XG5gYGAifQ== -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuXG5saW5rcyA8LSBmdW5jdGlvbihVUkwpIFxue1xuICAgIGdldExpbmtzIDwtIGZ1bmN0aW9uKCkge1xuICAgICAgICBsaW5rcyA8LSBjaGFyYWN0ZXIoKVxuICAgICAgICBsaXN0KGEgPSBmdW5jdGlvbihub2RlLCAuLi4pIHtcbiAgICAgICAgICAgICAgICBsaW5rcyA8PC0gYyhsaW5rcywgeG1sR2V0QXR0cihub2RlLCBcImhyZWZcIikpXG4gICAgICAgICAgICAgICAgbm9kZVxuICAgICAgICAgICAgIH0sXG4gICAgICAgICAgICAgbGlua3MgPSBmdW5jdGlvbigpIGxpbmtzKVxuICAgICAgICB9XG4gICAgaDEgPC0gZ2V0TGlua3MoKVxuICAgIGh0bWxUcmVlUGFyc2UoVVJMLCBoYW5kbGVycyA9IGgxKVxuICAgIGgxJGxpbmtzKClcbn1cblxubGlua3MoXCJodHRwczovL3d3dy5idmwuY29tLnBlL2xpc3RhZG8tZGUtZW1wcmVzYXNcIilcbmBgYCJ9 -->
 <pre class="r"><code>
-corpus_range &lt;- function(corp, vec) {
-    cumdf &lt;- data.frame()
-    for (i in vec) {
-        # cat(i, corp[[i]]$content, &quot;\n&quot;)
-        df &lt;- data.frame(corp.num = i, corp.content = corp[[i]]$content)
-        cumdf &lt;- rbind(cumdf, df)
-    }
-    cumdf
-}</code></pre>
+links &lt;- function(URL) 
+{
+    getLinks &lt;- function() {
+        links &lt;- character()
+        list(a = function(node, ...) {
+                links &lt;&lt;- c(links, xmlGetAttr(node, &quot;href&quot;))
+                node
+             },
+             links = function() links)
+        }
+    h1 &lt;- getLinks()
+    htmlTreeParse(URL, handlers = h1)
+    h1$links()
+}
+
+links(&quot;https://www.bvl.com.pe/listado-de-empresas&quot;)</code></pre>
 <!-- rnb-source-end -->
 <!-- rnb-chunk-end -->
 <!-- rnb-text-begin -->
 <!-- rnb-text-end -->
 <!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxudmVjIDwtIGMoMjU1LCAgMzU1LCAgMzg3LCAgNDcyKVxudmVjIDwtIHYxXG54IDwtIHZkb2NzX3Byb2NcbmZvciAoaSBpbiB2ZWMpIHtcbiAgICBjYXQoaSwgeFtbaV1dJGNvbnRlbnQsIFwiXFxuXCIpXG4gICAgXG59XG5gYGAifQ== -->
-<pre class="r"><code>vec &lt;- c(255,  355,  387,  472)
-vec &lt;- v1
-x &lt;- vdocs_proc
-for (i in vec) {
-    cat(i, x[[i]]$content, &quot;\n&quot;)
-    
-}</code></pre>
-<!-- rnb-source-end -->
-<!-- rnb-chunk-end -->
-<!-- rnb-text-begin -->
-</div>
-</div>
-<div id="find-all-synonyms-tat-will-be-replaced" class="section level2">
-<h2>Find ALL synonyms tat will be replaced</h2>
-<!-- rnb-text-end -->
-<!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxucGF0dGVybiA8LSBjdXN0b21fc3lub255bXMkWDFbMV1cbnYxIDwtIGdyZXAocGF0dGVybiwgbm5fcGFwZXJzJHRpdGxlX2RhdGEpXG52MVxuZ3JlcChwYXR0ZXJuLCBubl9wYXBlcnMkdGl0bGVfZGF0YSwgdmFsdWUgPSBUUlVFKVxuYGBgIn0= -->
-<pre class="r"><code>pattern &lt;- custom_synonyms$X1[1]
-v1 &lt;- grep(pattern, nn_papers$title_data)
-v1
-grep(pattern, nn_papers$title_data, value = TRUE)</code></pre>
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuIyBPcHRpb24gMVxubGlicmFyeShSQ3VybClcbmdldEhUTUxMaW5rcygnaHR0cHM6Ly93d3cuYnZsLmNvbS5wZS9saXN0YWRvLWRlLWVtcHJlc2FzLycpXG5cblxuYGBgIn0= -->
+<pre class="r"><code># Option 1
+library(RCurl)
+getHTMLLinks('https://www.bvl.com.pe/listado-de-empresas/')
+</code></pre>
 <!-- rnb-source-end -->
 <!-- rnb-chunk-end -->
 <!-- rnb-text-begin -->
 <!-- rnb-text-end -->
 <!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuY29ycHVzX3JhbmdlKHZkb2NzX3Byb2MsIHZjdW0pXG5gYGAifQ== -->
-<pre class="r"><code>corpus_range(vdocs_proc, vcum)</code></pre>
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuIyBPcHRpb24gMlxubGlicmFyeShydmVzdClcbmxpYnJhcnkocGlwZVIpICMgJT4+JSB3aWxsIGJlIGZhc3RlciB0aGFuICU+JVxuaHRtbChcImh0dHA6Ly93d3cuYnZsLmNvbS5wZS9pbmNsdWRlcy9lbXByZXNhc190b2Rhcy5kYXRcIiklPj4lIGh0bWxfbm9kZXMoXCJhXCIpICU+PiUgaHRtbF9hdHRyKFwiaHJlZlwiKVxuYGBgIn0= -->
+<pre class="r"><code># Option 2
+library(rvest)
+library(pipeR) # %&gt;&gt;% will be faster than %&gt;%
+html(&quot;http://www.bvl.com.pe/includes/empresas_todas.dat&quot;)%&gt;&gt;% html_nodes(&quot;a&quot;) %&gt;&gt;% html_attr(&quot;href&quot;)</code></pre>
 <!-- rnb-source-end -->
 <!-- rnb-chunk-end -->
-<!-- rnb-text-begin -->
-<!-- rnb-text-end -->
 </div>
 
-<div id="rmd-source-code">LS0tDQp0aXRsZTogIlIgTm90ZWJvb2siDQpvdXRwdXQ6IGh0bWxfbm90ZWJvb2sNCi0tLQ0KDQojIyBjcmVhdGUgY29ycHVzDQoNCmBgYHtyfQ0KbGlicmFyeShwZXRyb09uZSkNCmxpYnJhcnkoInRtIikNCg0KcDEgPC0gb25lcGV0cm9fcGFnZV90b19kYXRhZnJhbWUoIjEwMDBfY29uZmVyZW5jZS5odG1sIikNCnAyIDwtIG9uZXBldHJvX3BhZ2VfdG9fZGF0YWZyYW1lKCIyMDAwX2NvbmZlcmVuY2UuaHRtbCIpDQpwMyA8LSBvbmVwZXRyb19wYWdlX3RvX2RhdGFmcmFtZSgiMzAwMF9jb25mZXJlbmNlLmh0bWwiKQ0KDQpubl9wYXBlcnMgPC0gcmJpbmQocDEsIHAyLCBwMykNCg0KIyBjcmVhdGUgY29ycHVzDQp2ZG9jc1N5biA8LSBWQ29ycHVzKFZlY3RvclNvdXJjZShubl9wYXBlcnMkdGl0bGVfZGF0YSkpDQp2ZG9jc1N5biA8LSB0bV9tYXAodmRvY3NTeW4sIGNvbnRlbnRfdHJhbnNmb3JtZXIodG9sb3dlcikpDQpgYGANCg0KDQojIyBTeW5vbnltcyByZXBsYWNlbWVudCBiZWZvcmUNCg0KYGBge3J9DQojIGFkZCBhIHNwYWNlIGFmdGVyICJuZXQiDQoNCmN1c3RvbV9zeW5vbnltcyA8LSAiDQoyRHwyLUQNCjNEfDMtRA0KNER8NC1EDQphbGdvcml0aG1zfGFsZ29yaXRobQ0KYmlnIGRhdGF8YmlnLWRhdGENCmJvdHRvbS1ob2xlfGJvdHRvbWhvbGUNCmNhc2VkIGhvbGV8Y2FzZWQtaG9sZQ0KZGF0YSBkcml2ZW58ZGF0YS1kcml2ZW4NCmRlZXAtd2F0ZXJ8ZGVlcHdhdGVyDQpkZWVwIHdhdGVyfGRlZXB3YXRlcg0KZmVlZGZvcndhcmR8ZmVlZC1mb3J3YXJkDQpmcmFjdHVyZXwgZnJhY2sNCmZyYWN0dXJpbmd8IGZyYWNrDQpmcmFjdHVyZXN8IGZyYWNrDQpmcmFjdHVyZWR8IGZyYWNrDQpmcmFja3N8ZnJhY2sNCmZyYWNrZHxmcmFjaw0KbW9kZWxsaW5nfG1vZGVsaW5nDQptdWx0aSBwaGFzZXxtdWx0aXBoYXNlDQptdWx0aS1waGFzZXxtdWx0aXBoYXNlDQpuZXVyYWwgbmV0IHxuZXVyYWwgbmV0d29yayAgIA0KbmV1cmFsIG5ldHN8bmV1cmFsIG5ldHdvcmsNCm5ldXJhbC1uZXR3b3JrfG5ldXJhbCBuZXR3b3JrDQpuZXVyYWwgbmV0d29ya3N8bmV1cmFsIG5ldHdvcmsNCnByZXNzdXJlc3xwcmVzc3VyZQ0KcmVhbCB0aW1lfHJlYWwtdGltZQ0KcmVzZXJ2b2lyc3xyZXNlcnZvaXINCnN5c3RlbXN8c3lzdGVtDQp0aW1lIGxhcHNlfHRpbWUtbGFwc2UNCnVuZGVyYmFsYW5jZWQgZHJpbGxpbmd8VUJEDQp1bmRlcmJhbGFuY2UgZHJpbGxpbmd8VUJEDQp0d28gcGhhc2V8dHdvLXBoYXNlDQp3ZWxsLWhlYWR8d2VsbGhlYWQNCiINCg0KIyByZWFkIHRleHQgdGFibGUgYW5kIHNwbGl0IHJvd3MgYXQgY2FycmlhZ2UgcmV0dXJuDQpjdXN0b21fc3lub255bXMgPC0gcmVhZC50YWJsZSh0ZXh0ID0gY3VzdG9tX3N5bm9ueW1zLCBoZWFkZXIgPSBGQUxTRSwgDQogICAgICAgICAgICAgICAgICAgICAgICAgICAgICBzZXAgPSAiXG4iLCBzdHJpbmdzQXNGYWN0b3JzID0gRkFMU0UpDQoNCiMgc3BsaXQgc3RyaW5nIGF0IG9uZSBjb2x1bW4gYnkgdGhlIGRlbGltaXRlciAifCINCmN1c3RvbV9zeW5vbnltcyA8LSBkYXRhLmZyYW1lKGRvLmNhbGwoJ3JiaW5kJywgDQogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIHN0cnNwbGl0KGN1c3RvbV9zeW5vbnltcyRWMSwgc3BsaXQgPSAifCIsIA0KICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBmaXhlZCA9IFRSVUUpKSwgc3RyaW5nc0FzRmFjdG9ycyA9IEZBTFNFKQ0KDQpjdXN0b21fc3lub255bXMNCmBgYA0KDQojIyBSZXBsYWNlIG9yaWdpbmFsIGJ5IHN5bm9ueW0NCg0KYGBge3J9DQojIGVuaGFuY2VkIHJlcGxhY2VCeSBpbmNsdWRpbmcgdGhlIGRhdGFmcmFtZSB0byB1c2UgYXMgYSByZXBsYWNlbWVudA0KcmVwbGFjZUJ5IDwtIGZ1bmN0aW9uKHgsIGRmKSB7DQogICAgZm9yIChrIGluIHNlcV9sZW4obnJvdyhkZikpKSB7DQogICAgICAgIHggPC0gZ3N1YihkZiRYMVtba11dLCBkZiRYMltba11dLCB4LCBmaXhlZCA9IFRSVUUpICANCiAgICB9DQogICAgeA0KfSAgICANCg0KdmRvY3NfcHJvYyA8LSB0bV9tYXAodmRvY3NTeW4sIGNvbnRlbnRfdHJhbnNmb3JtZXIoZnVuY3Rpb24oeCkgcmVwbGFjZUJ5KHgsIGN1c3RvbV9zeW5vbnltcykpKQ0KYGBgDQoNCg0KIyMgSG93IG1hbnkgaGF2ZSBiZWVuIHJlcGxhY2VkDQpgYGB7cn0NCnZjdW0gPC0gYygpDQpmb3IgKGl4IGluIDE6bnJvdyhjdXN0b21fc3lub255bXMpKSB7DQogICAgcGF0dGVybiA8LSBjdXN0b21fc3lub255bXMkWDFbaXhdDQogICAgDQogICAgdiA8LSBncmVwKHBhdHRlcm4sIG5uX3BhcGVycyR0aXRsZV9kYXRhKQ0KICAgIGNhdChwYXR0ZXJuLCBsZW5ndGgodiksICJcbiIpDQogICAgdmN1bSA8LSBjKHZjdW0sIHYpDQp9DQojIHZjdW0NCmNvcnB1c19yYW5nZSh2ZG9jc19wcm9jLCB2Y3VtKQ0KYGBgDQoNCmBgYHtyfQ0KY29ycHVzX3JhbmdlKHZkb2NzX3Byb2MsIHZjdW0pDQpgYGANCg0KDQoNCg0KDQpgYGB7cn0NCnNhdmUoY3VzdG9tX3N5bm9ueW1zLCBmaWxlID0gIi4uL2RhdGEvc3lub255bXMucmRhIikNCmBgYA0KDQpgYGB7cn0NCiMgd3JpdGUgdG8gYSB0ZXh0IGZpbGUgd2l0aCBhIGJhciBzZXBhcmF0ZWQgc3lub255bXMNCndyaXRlLnRhYmxlKGN1c3RvbV9zeW5vbnltcywgZmlsZSA9ICIuLi9pbnN0L3N5bm9ueW1zLnR4dCIsIHNlcCA9ICJ8IiwNCiAgICAgICAgICAgIHF1b3RlID0gRkFMU0UsIHJvdy5uYW1lcyA9IEZBTFNFLCBjb2wubmFtZXMgPSBGQUxTRSkNCmBgYA0KDQoNCg0KYGBge3J9DQp0ZG0gPC0gVGVybURvY3VtZW50TWF0cml4KHZkb2NzKQ0KYGBgDQoNCiMjIyBGaW5kIG9uZSBvZiB0aGUgc3lub255bXMgdGhhdCB3aWxsIGJlIHJlcGxhY2VkDQoNCmBgYHtyfQ0KcGF0dGVybiA8LSBjdXN0b21fc3lub255bXMkWDFbMV0NCnYxIDwtIGdyZXAocGF0dGVybiwgbm5fcGFwZXJzJHRpdGxlX2RhdGEpDQp2MQ0KZ3JlcChwYXR0ZXJuLCBubl9wYXBlcnMkdGl0bGVfZGF0YSwgdmFsdWUgPSBUUlVFKQ0KYGBgDQoNCmBgYHtyfQ0KcGF0dGVybiA8LSBzaFF1b3RlKGN1c3RvbV9zeW5vbnltcyRYMVsyXSkNCnBhdHRlcm4NCnYyIDwtIGdyZXAocGF0dGVybiwgbm5fcGFwZXJzJHRpdGxlX2RhdGEpDQp2Mg0KZ3JlcChwYXR0ZXJuLCBubl9wYXBlcnMkdGl0bGVfZGF0YSwgdmFsdWUgPSBUUlVFKQ0KYGBgDQoNCg0KDQoNCg0KDQpgYGB7cn0NCg0KY29ycHVzX3JhbmdlIDwtIGZ1bmN0aW9uKGNvcnAsIHZlYykgew0KICAgIGN1bWRmIDwtIGRhdGEuZnJhbWUoKQ0KICAgIGZvciAoaSBpbiB2ZWMpIHsNCiAgICAgICAgIyBjYXQoaSwgY29ycFtbaV1dJGNvbnRlbnQsICJcbiIpDQogICAgICAgIGRmIDwtIGRhdGEuZnJhbWUoY29ycC5udW0gPSBpLCBjb3JwLmNvbnRlbnQgPSBjb3JwW1tpXV0kY29udGVudCkNCiAgICAgICAgY3VtZGYgPC0gcmJpbmQoY3VtZGYsIGRmKQ0KICAgIH0NCiAgICBjdW1kZg0KfQ0KYGBgDQoNCg0KYGBge3J9DQp2ZWMgPC0gYygyNTUsICAzNTUsICAzODcsICA0NzIpDQp2ZWMgPC0gdjENCnggPC0gdmRvY3NfcHJvYw0KZm9yIChpIGluIHZlYykgew0KICAgIGNhdChpLCB4W1tpXV0kY29udGVudCwgIlxuIikNCiAgICANCn0NCmBgYA0KDQojIyBGaW5kIEFMTCBzeW5vbnltcyB0YXQgd2lsbCBiZSByZXBsYWNlZA0KDQpgYGB7cn0NCnBhdHRlcm4gPC0gY3VzdG9tX3N5bm9ueW1zJFgxWzFdDQp2MSA8LSBncmVwKHBhdHRlcm4sIG5uX3BhcGVycyR0aXRsZV9kYXRhKQ0KdjENCmdyZXAocGF0dGVybiwgbm5fcGFwZXJzJHRpdGxlX2RhdGEsIHZhbHVlID0gVFJVRSkNCmBgYA0KDQoNCg0KDQpgYGB7cn0NCmNvcnB1c19yYW5nZSh2ZG9jc19wcm9jLCB2Y3VtKQ0KYGBgDQoNCg==</div>
+<div id="rmd-source-code">LS0tDQp0aXRsZTogIlIgTm90ZWJvb2siDQpvdXRwdXQ6IGh0bWxfbm90ZWJvb2sNCi0tLQ0KDQpodHRwczovL3N0YWNrb3ZlcmZsb3cuY29tL2EvMzY3MjM1MjAvNTI3MDg3Mw0KDQpgYGB7cn0NCmxpYnJhcnkoeG1sMikNCmxpYnJhcnkocnZlc3QpDQoNClVSTCA8LSAiaHR0cDovL3N0YWNrb3ZlcmZsb3cuY29tL3F1ZXN0aW9ucy8zNzQ2MjU2L2V4dHJhY3QtbGlua3MtZnJvbS13ZWJwYWdlLXVzaW5nLXIiDQoNCnBnIDwtIHJlYWRfaHRtbChVUkwpDQoNCmhlYWQoaHRtbF9hdHRyKGh0bWxfbm9kZXMocGcsICJhIiksICJocmVmIikpDQpgYGANCg0KDQoNCg0KDQpodHRwczovL3N0YWNrb3ZlcmZsb3cuY29tL2EvMzUyNDczMDQvNTI3MDg3Mw0KDQpgYGB7cn0NCmxpYnJhcnkocnZlc3QpDQoNCnBhZ2U9cmVhZF9odG1sKCJodHRwOi8vd3d3LnllbHAuY29tL3NlYXJjaD9maW5kX2xvYz1OZXcrWW9yaywrTlksK1VTQSIpDQpwYWdlICU+JSBodG1sX25vZGVzKCIuYml6LW5hbWUiKSAlPiUgaHRtbF9hdHRyKCdocmVmJykNCmBgYA0KDQojIyBVc2luZyBSIHRvIHNjcmFwZSB0aGUgbGluayBhZGRyZXNzIG9mIGEgZG93bmxvYWRhYmxlIGZpbGUgZnJvbSBhIHdlYiBwYWdlPw0KaHR0cHM6Ly9zdGFja292ZXJmbG93LmNvbS9xdWVzdGlvbnMvMzE1MTcxMjEvdXNpbmctci10by1zY3JhcGUtdGhlLWxpbmstYWRkcmVzcy1vZi1hLWRvd25sb2FkYWJsZS1maWxlLWZyb20tYS13ZWItcGFnZQ0KDQpgYGB7cn0NCmxpYnJhcnkocnZlc3QpDQpyZWFsdGltZS5wYWdlIDwtICJodHRwOi8vd3d3LmFjbGVkZGF0YS5jb20vZGF0YS9yZWFsdGltZS1kYXRhLyINCnJlYWx0aW1lLmh0bWwgPC0gcmVhZF9odG1sKHJlYWx0aW1lLnBhZ2UpDQoNCnJlYWx0aW1lLmh0bWwgJT4lIA0KICAgIGh0bWxfbm9kZSh4cGF0aCA9ICIvaHRtbC9ib2R5L2Rpdi9kaXYvZGl2L2RpdlsxXS9kaXYvYXJ0aWNsZS9kaXYvdWxbMV0vbGlbMl0vYSIpICU+JSANCiAgICBodG1sX2F0dHIoImhyZWYiKQ0KYGBgDQoNCg0KYGBge3J9DQoNCmBgYA0KDQpodHRwczovL3N0YWNrb3ZlcmZsb3cuY29tL2EvMzE1MjUxMDQvNTI3MDg3Mw0KDQpgYGB7cn0NCmxpYnJhcnkocnZlc3QpDQpsaWJyYXJ5KHN0cmluZ3IpDQoNCnBhZ2UgPC0gcmVhZF9odG1sKCJodHRwOi8vd3d3LmFjbGVkZGF0YS5jb20vZGF0YS9yZWFsdGltZS1kYXRhLyIpDQoNCnBhZ2UgJT4lDQogIGh0bWxfbm9kZXMoImEiKSAlPiUgICAgICAgICMgZmluZCBhbGwgbGlua3MNCiAgaHRtbF9hdHRyKCJocmVmIikgJT4lICAgICAgIyBnZXQgdGhlIHVybA0KICBzdHJfc3Vic2V0KCJcXC54bHN4IikgJT4lICAjIGZpbmQgdGhvc2UgdGhhdCBlbmQgaW4geGxzeA0KICAuW1sxXV0gICAgICAgICAgICAgICAgICAgICAjIGxvb2sgYXQgdGhlIGZpcnN0IG9uZQ0KYGBgDQoNCg0KYGBge3J9DQpsaWJyYXJ5KHJ2ZXN0KQ0KDQp4IDwtICJodHRwczovL2VuLndpa2lwZWRpYS5vcmcvd2lraS9BY2FkZW15X0F3YXJkX2Zvcl9CZXN0X1BpY3R1cmUiICU+JSANCiAgcmVhZF9odG1sKCkgJT4lIA0KICBodG1sX25vZGVzKCIjbXctY29udGVudC10ZXh0IHRhYmxlOm50aC1jaGlsZCg1NSkiKQ0KDQpodG1sX3RhYmxlKHgpDQpgYGANCg0KDQpgYGB7cn0NCnRyYWNlKHJ2ZXN0Ojo6aHRtbF90YWJsZS54bWxfbm9kZSwgcXVvdGUoeyANCiAgdmFsdWVzICAgICAgPC0gbGFwcGx5KGxhcHBseShjZWxscywgaHRtbF9ub2RlLCAiYSIpLCBodG1sX2F0dHIsIG5hbWUgPSAiaHJlZiIpDQogIHZhbHVlc1tbMV1dIDwtIGh0bWxfdGV4dChjZWxsc1tbMV1dKQ0KfSksIGF0ID0gMTQpDQpgYGANCmh0bWxfdGFibGUgZXNzZW50aWFsbHkgZXh0cmFjdHMgdGhlIGNlbGxzIG9mIHRoZSBodG1sIHRhYmxlIGFuZCBydW5zIGh0bWxfdGV4dCBvbiB0aGVtLiBBbGwgd2UgbmVlZCB0byBkbyBpcyByZXBsYWNlIHRoYXQgYnkgZXh0cmFjdGluZyB0aGUgPGE+IHRhZyBmcm9tIGVhY2ggY2VsbCBhbmQgcnVubmluZyBodG1sX2F0dHIoLiwgImhyZWYiKSBpbnN0ZWFkLg0KDQpgYGB7cn0NCmh0bWxfdGFibGUoeCkNCmBgYA0KDQoNCmBgYHtyfQ0KbGlicmFyeShydmVzdCkNCg0KdXJsIDwtICJodHRwOi8vd3d3LmFqbnIub3JnL2NvbnRlbnQvMzAvNy8xNDAyLmZ1bGwiDQpwYWdlIDwtIHJlYWRfaHRtbCh1cmwpDQoNCiMgRmlyc3QgZmluZCBhbGwgdGhlIHVybHMNCnRhYmxlX3VybHMgPC0gcGFnZSAlPiUgDQogIGh0bWxfbm9kZXMoIi50YWJsZS1pbmxpbmUgbGk6bnRoLWNoaWxkKDEpIGEiKSAlPiUNCiAgaHRtbF9hdHRyKCJocmVmIikgJT4lDQogIHhtbDI6OnVybF9hYnNvbHV0ZSh1cmwpDQoNCnRhYmxlX3VybHMNCiMgVGhlbiBsb29wIG92ZXIgdGhlIHVybHMsIGRvd25sb2FkaW5nICYgZXh0cmFjdGluZyB0aGUgdGFibGUNCiMgbGFwcGx5KHRhYmxlX3VybHMsIC4gJT4lIA0KIyAgICAgICAgICAgIHJlYWRfaHRtbCgpICU+JSANCiMgICAgICAgICAgICBodG1sX3RhYmxlKCkpDQpgYGANCg0KDQpgYGB7cn0NCm1haW5fdXJsIDwtICJodHRwOi8vd3d3LmFqbnIub3JnL2NvbnRlbnQvMzAvNy8xNDAyLyINCnVybHMgPC0gcGFzdGUobWFpbl91cmwsIGMoIlQxLmV4cGFuc2lvbiIsICJUMi5leHBhbnNpb24iLCAiVDMuZXhwYW5zaW9uIiwgIlQ0LmV4cGFuc2lvbiIpLCAiLmh0bWwiLCBzZXAgPSAiIikNCg0KdXJscyANCnRhYmxlcyA8LSBsaXN0KCkNCmZvcihpIGluIHNlcV9hbG9uZyh1cmxzKSkNCnsNCiAgdG90YWwgPC0gcmVhZEhUTUxUYWJsZSh1cmxzW2ldKQ0KICBuLnJvd3MgPC0gdW5saXN0KGxhcHBseSh0b3RhbCwgZnVuY3Rpb24odCkgZGltKHQpWzFdKSkNCiAgdGFibGVzW1tpXV0gPC0gYXMuZGF0YS5mcmFtZSh0b3RhbFtbd2hpY2gubWF4KG4ucm93cyldXSkNCn0NCnRhYmxlcw0KYGBgDQoNCmBgYHtyfQ0KcmVhZEhUTUxUYWJsZSh1cmxzWzFdKQ0KYGBgDQoNCg0KYGBge3J9DQpsaWJyYXJ5KHJ2ZXN0KQ0KbGlicmFyeShYTUwpDQpsaWJyYXJ5KGh0dHIpDQoNCnVybCA8LSAiaHR0cDovL2VuLndpa2lwZWRpYS5vcmcvd2lraS9MaXN0X29mX1RoZV9TaW1wc29uc19lcGlzb2RlcyINCmRvYyA8LSBjb250ZW50KEdFVCh1cmwpKQ0KDQpnZXRIcmVmcyA8LSBmdW5jdGlvbihub2RlLCBlbmNvZGluZykgeyAgDQogIHggPC0geG1sQ2hpbGRyZW4obm9kZSkkYSANCiAgaWYgKCFpcy5udWxsKHgpKSBwYXN0ZTAoImh0dHA6Ly8iLCBwYXJzZVVSSSh1cmwpJHNlcnZlciwgeG1sR2V0QXR0cih4LCAiaHJlZiIpLCAiIHwgIiwgeG1sVmFsdWUoeCkgKSBlbHNlIHhtbFZhbHVlKHhtbENoaWxkcmVuKG5vZGUpJHRleHQpIA0KfQ0KDQp0YWIgPC0gcmVhZEhUTUxUYWJsZShkb2MsIHdoaWNoID0gMywgZWxGdW4gPSBnZXRIcmVmcykNCmhlYWQodGFiWywgMTo0XSkNCmBgYA0KDQoNCg0KIyMgd2l0aCBlcnJvcg0KDQoNCmBgYHtyfQ0KbGlicmFyeShydmVzdCkNCmxpYnJhcnkoWE1MKQ0KDQpwZyA8LSBodG1sUGFyc2UoImh0dHA6Ly93d3cuYnZsLmNvbS5wZS9pbmNsdWRlcy9lbXByZXNhc190b2Rhcy5kYXQiKQ0KcGcgJT4lIA0KICAgIGh0bWxfbm9kZXMoImEiKSAlPiUgDQogICAgaHRtbF9hdHRyKCJocmVmIikNCmBgYA0KDQoNCmBgYHtyfQ0KDQpsaW5rcyA8LSBmdW5jdGlvbihVUkwpIA0Kew0KICAgIGdldExpbmtzIDwtIGZ1bmN0aW9uKCkgew0KICAgICAgICBsaW5rcyA8LSBjaGFyYWN0ZXIoKQ0KICAgICAgICBsaXN0KGEgPSBmdW5jdGlvbihub2RlLCAuLi4pIHsNCiAgICAgICAgICAgICAgICBsaW5rcyA8PC0gYyhsaW5rcywgeG1sR2V0QXR0cihub2RlLCAiaHJlZiIpKQ0KICAgICAgICAgICAgICAgIG5vZGUNCiAgICAgICAgICAgICB9LA0KICAgICAgICAgICAgIGxpbmtzID0gZnVuY3Rpb24oKSBsaW5rcykNCiAgICAgICAgfQ0KICAgIGgxIDwtIGdldExpbmtzKCkNCiAgICBodG1sVHJlZVBhcnNlKFVSTCwgaGFuZGxlcnMgPSBoMSkNCiAgICBoMSRsaW5rcygpDQp9DQoNCmxpbmtzKCJodHRwczovL3d3dy5idmwuY29tLnBlL2xpc3RhZG8tZGUtZW1wcmVzYXMiKQ0KYGBgDQoNCg0KDQpgYGB7cn0NCiMgT3B0aW9uIDENCmxpYnJhcnkoUkN1cmwpDQpnZXRIVE1MTGlua3MoJ2h0dHBzOi8vd3d3LmJ2bC5jb20ucGUvbGlzdGFkby1kZS1lbXByZXNhcy8nKQ0KDQoNCmBgYA0KDQpgYGB7cn0NCiMgT3B0aW9uIDINCmxpYnJhcnkocnZlc3QpDQpsaWJyYXJ5KHBpcGVSKSAjICU+PiUgd2lsbCBiZSBmYXN0ZXIgdGhhbiAlPiUNCmh0bWwoImh0dHA6Ly93d3cuYnZsLmNvbS5wZS9pbmNsdWRlcy9lbXByZXNhc190b2Rhcy5kYXQiKSU+PiUgaHRtbF9ub2RlcygiYSIpICU+PiUgaHRtbF9hdHRyKCJocmVmIikNCmBgYA0K</div>
 
 
 

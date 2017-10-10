@@ -5,6 +5,7 @@ output: html_notebook
 
 
 ```{r}
+library(petroOne)
 # nanodarcy. exact phrase.
 
 my_url <- make_search_url(query = "nanodarcy", 

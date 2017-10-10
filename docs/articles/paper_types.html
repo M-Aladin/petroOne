@@ -47,6 +47,9 @@
 <li>
       <a href="../articles/paper_types.html">Document types for Papers</a>
     </li>
+    <li>
+      <a href="../articles/thousands_to_dataframe.html">Thousands of Papers to Dataframe</a>
+    </li>
   </ul>
 </li>
 <li>
@@ -74,210 +77,183 @@
     
     
 <div class="contents">
-<p>Vignettes are long form documentation commonly included in packages. Because they are part of the distribution of the package, they need to be as compact as possible. The <code>html_vignette</code> output type provides a custom style sheet (and tweaks some options) to ensure that the resulting html is as small as possible. The <code>html_vignette</code> format:</p>
+<p>When a query is returned by OnePetro inside the web page with the results also comes the <code>dc_type</code> or document type for all the papers that returned from that search.</p>
+<p>The type of papers are:</p>
 <ul>
-<li>Never uses retina figures</li>
-<li>Has a smaller default figure size</li>
-<li>Uses a custom CSS stylesheet instead of the default Twitter Bootstrap style</li>
+<li>Conference paper</li>
+<li>Journal paper</li>
+<li>General</li>
+<li>Media<br>
+</li>
+<li>Presentation</li>
+<li>Other</li>
 </ul>
-<div id="vignette-info" class="section level2">
+<p>If we want to know what type of papers are available for a particular search we follow these steps:</p>
+<div id="create-a-query" class="section level2">
 <h2 class="hasAnchor">
-<a href="#vignette-info" class="anchor"></a>Vignette Info</h2>
-<p>Note the various macros within the <code>vignette</code> section of the metadata block above. These are required in order to instruct R how to build the vignette. Note that you should change the <code>title</code> field and the <code>\VignetteIndexEntry</code> to match the title of your vignette.</p>
+<a href="#create-a-query" class="anchor"></a>Create a query</h2>
+<p>Our search is for the exact words “well test”. How many papers return from that search?</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(petroOne)
+
+my_url &lt;-<span class="st"> </span><span class="kw"><a href="../reference/make_search_url.html">make_search_url</a></span>(<span class="dt">query =</span> <span class="st">"well test"</span>, 
+                          <span class="dt">how =</span> <span class="st">"all"</span>)          <span class="co"># exact match</span>
+
+<span class="kw"><a href="../reference/get_papers_count.html">get_papers_count</a></span>(my_url)</code></pre></div>
+<pre><code>## [1] 12066</code></pre>
 </div>
-<div id="styles" class="section level2">
+<div id="find-the-type-of-papers-available" class="section level2">
 <h2 class="hasAnchor">
-<a href="#styles" class="anchor"></a>Styles</h2>
-<p>The <code>html_vignette</code> template includes a basic CSS theme. To override this theme you can specify your own CSS in the document metadata as follows:</p>
-<pre><code>output: 
-  rmarkdown::html_vignette:
-    css: mystyles.css</code></pre>
+<a href="#find-the-type-of-papers-available" class="anchor"></a>Find the type of papers available</h2>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">result &lt;-<span class="st"> </span><span class="kw"><a href="../reference/read_onepetro.html">read_onepetro</a></span>(my_url)
+sdc &lt;-<span class="st"> </span><span class="kw"><a href="../reference/summary_by_doctype.html">summary_by_doctype</a></span>(result)
+sdc</code></pre></div>
+<pre><code>## # A tibble: 7 x 2
+##               name value
+##              &lt;chr&gt; &lt;dbl&gt;
+## 1          Chapter     8
+## 2 Conference paper  9298
+## 3          General   193
+## 4    Journal paper  2529
+## 5            Media     5
+## 6            Other     8
+## 7     Presentation    25</code></pre>
+<p>We see that the most numerous category is <strong>conference</strong> papers followed by <strong>journal</strong>. The total number of papers is about 12066</p>
 </div>
-<div id="figures" class="section level2">
+<div id="variable-type-of-documents" class="section level2">
 <h2 class="hasAnchor">
-<a href="#figures" class="anchor"></a>Figures</h2>
-<p>The figure sizes have been customised so that you can easily put two images side-by-side.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">plot</span>(<span class="dv">1</span>:<span class="dv">10</span>)
-<span class="kw">plot</span>(<span class="dv">10</span>:<span class="dv">1</span>)</code></pre></div>
-<p><img src="paper_types_files/figure-html/unnamed-chunk-1-1.png" width="672"><img src="paper_types_files/figure-html/unnamed-chunk-1-2.png" width="672"></p>
-<p>You can enable figure captions by <code>fig_caption: yes</code> in YAML:</p>
-<pre><code>output:
-  rmarkdown::html_vignette:
-    fig_caption: yes</code></pre>
-<p>Then you can use the chunk option <code>fig.cap = "Your figure caption."</code> in <strong>knitr</strong>.</p>
+<a href="#variable-type-of-documents" class="anchor"></a>Variable type of documents</h2>
+<p>Depending of the words we are searching, the document types that return from the search may not be the same in all cases. For instance, in this case, we don’t get the type for <code>Other</code> or <code>Chapter</code>.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(petroOne)
+
+my_url &lt;-<span class="st"> </span><span class="kw"><a href="../reference/make_search_url.html">make_search_url</a></span>(<span class="dt">query =</span> <span class="st">"smart completion"</span>, 
+                          <span class="dt">how =</span> <span class="st">"all"</span>)          <span class="co"># exact match</span>
+
+result &lt;-<span class="st"> </span><span class="kw"><a href="../reference/read_onepetro.html">read_onepetro</a></span>(my_url)
+sdc    &lt;-<span class="st"> </span><span class="kw"><a href="../reference/summary_by_doctype.html">summary_by_doctype</a></span>(result)
+sdc</code></pre></div>
+<pre><code>## # A tibble: 5 x 2
+##               name value
+##              &lt;chr&gt; &lt;dbl&gt;
+## 1 Conference paper   356
+## 2          General     1
+## 3    Journal paper    36
+## 4            Media     1
+## 5     Presentation     3</code></pre>
 </div>
-<div id="more-examples" class="section level2">
+<div id="get-a-list-of-papers-for-specific-type-" class="section level2">
 <h2 class="hasAnchor">
-<a href="#more-examples" class="anchor"></a>More Examples</h2>
-<p>You can write math expressions, e.g. <span class="math inline">\(Y = X\beta + \epsilon\)</span>, footnotes<a href="#fn1" class="footnoteRef" id="fnref1"><sup>1</sup></a>, and tables, e.g. using <code><a href="http://www.rdocumentation.org/packages/knitr/topics/kable">knitr::kable()</a></code>.</p>
-<table class="table">
-<thead><tr class="header">
-<th></th>
-<th align="right">mpg</th>
-<th align="right">cyl</th>
-<th align="right">disp</th>
-<th align="right">hp</th>
-<th align="right">drat</th>
-<th align="right">wt</th>
-<th align="right">qsec</th>
-<th align="right">vs</th>
-<th align="right">am</th>
-<th align="right">gear</th>
-<th align="right">carb</th>
-</tr></thead>
-<tbody>
-<tr class="odd">
-<td>Mazda RX4</td>
-<td align="right">21.0</td>
-<td align="right">6</td>
-<td align="right">160.0</td>
-<td align="right">110</td>
-<td align="right">3.90</td>
-<td align="right">2.620</td>
-<td align="right">16.46</td>
-<td align="right">0</td>
-<td align="right">1</td>
-<td align="right">4</td>
-<td align="right">4</td>
-</tr>
-<tr class="even">
-<td>Mazda RX4 Wag</td>
-<td align="right">21.0</td>
-<td align="right">6</td>
-<td align="right">160.0</td>
-<td align="right">110</td>
-<td align="right">3.90</td>
-<td align="right">2.875</td>
-<td align="right">17.02</td>
-<td align="right">0</td>
-<td align="right">1</td>
-<td align="right">4</td>
-<td align="right">4</td>
-</tr>
-<tr class="odd">
-<td>Datsun 710</td>
-<td align="right">22.8</td>
-<td align="right">4</td>
-<td align="right">108.0</td>
-<td align="right">93</td>
-<td align="right">3.85</td>
-<td align="right">2.320</td>
-<td align="right">18.61</td>
-<td align="right">1</td>
-<td align="right">1</td>
-<td align="right">4</td>
-<td align="right">1</td>
-</tr>
-<tr class="even">
-<td>Hornet 4 Drive</td>
-<td align="right">21.4</td>
-<td align="right">6</td>
-<td align="right">258.0</td>
-<td align="right">110</td>
-<td align="right">3.08</td>
-<td align="right">3.215</td>
-<td align="right">19.44</td>
-<td align="right">1</td>
-<td align="right">0</td>
-<td align="right">3</td>
-<td align="right">1</td>
-</tr>
-<tr class="odd">
-<td>Hornet Sportabout</td>
-<td align="right">18.7</td>
-<td align="right">8</td>
-<td align="right">360.0</td>
-<td align="right">175</td>
-<td align="right">3.15</td>
-<td align="right">3.440</td>
-<td align="right">17.02</td>
-<td align="right">0</td>
-<td align="right">0</td>
-<td align="right">3</td>
-<td align="right">2</td>
-</tr>
-<tr class="even">
-<td>Valiant</td>
-<td align="right">18.1</td>
-<td align="right">6</td>
-<td align="right">225.0</td>
-<td align="right">105</td>
-<td align="right">2.76</td>
-<td align="right">3.460</td>
-<td align="right">20.22</td>
-<td align="right">1</td>
-<td align="right">0</td>
-<td align="right">3</td>
-<td align="right">1</td>
-</tr>
-<tr class="odd">
-<td>Duster 360</td>
-<td align="right">14.3</td>
-<td align="right">8</td>
-<td align="right">360.0</td>
-<td align="right">245</td>
-<td align="right">3.21</td>
-<td align="right">3.570</td>
-<td align="right">15.84</td>
-<td align="right">0</td>
-<td align="right">0</td>
-<td align="right">3</td>
-<td align="right">4</td>
-</tr>
-<tr class="even">
-<td>Merc 240D</td>
-<td align="right">24.4</td>
-<td align="right">4</td>
-<td align="right">146.7</td>
-<td align="right">62</td>
-<td align="right">3.69</td>
-<td align="right">3.190</td>
-<td align="right">20.00</td>
-<td align="right">1</td>
-<td align="right">0</td>
-<td align="right">4</td>
-<td align="right">2</td>
-</tr>
-<tr class="odd">
-<td>Merc 230</td>
-<td align="right">22.8</td>
-<td align="right">4</td>
-<td align="right">140.8</td>
-<td align="right">95</td>
-<td align="right">3.92</td>
-<td align="right">3.150</td>
-<td align="right">22.90</td>
-<td align="right">1</td>
-<td align="right">0</td>
-<td align="right">4</td>
-<td align="right">2</td>
-</tr>
-<tr class="even">
-<td>Merc 280</td>
-<td align="right">19.2</td>
-<td align="right">6</td>
-<td align="right">167.6</td>
-<td align="right">123</td>
-<td align="right">3.92</td>
-<td align="right">3.440</td>
-<td align="right">18.30</td>
-<td align="right">1</td>
-<td align="right">0</td>
-<td align="right">4</td>
-<td align="right">4</td>
-</tr>
-</tbody>
-</table>
-<p>Also a quote using <code>&gt;</code>:</p>
-<blockquote>
-<p>“He who gives up [code] safety for [code] speed deserves neither.” (<a href="https://twitter.com/hadleywickham/status/504368538874703872">via</a>)</p>
-</blockquote>
+<a href="#get-a-list-of-papers-for-specific-type-" class="anchor"></a>Get a list of papers for specific type.</h2>
+<div id="all-types-for-deepwater" class="section level3">
+<h3 class="hasAnchor">
+<a href="#all-types-for-deepwater" class="anchor"></a>All types for <em>deepwater</em>
+</h3>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(petroOne)
+
+my_url &lt;-<span class="st"> </span><span class="kw"><a href="../reference/make_search_url.html">make_search_url</a></span>(<span class="dt">query =</span> <span class="st">"deepwater"</span>)
+
+result &lt;-<span class="st"> </span><span class="kw"><a href="../reference/read_onepetro.html">read_onepetro</a></span>(my_url)
+sdc    &lt;-<span class="st"> </span><span class="kw"><a href="../reference/summary_by_doctype.html">summary_by_doctype</a></span>(result)
+sdc</code></pre></div>
+<pre><code>## # A tibble: 7 x 2
+##               name value
+##              &lt;chr&gt; &lt;dbl&gt;
+## 1          Chapter     3
+## 2 Conference paper 13204
+## 3          General    44
+## 4    Journal paper  2429
+## 5            Media    66
+## 6            Other    12
+## 7     Presentation   405</code></pre>
 </div>
-<div class="footnotes">
-<hr>
-<ol>
-<li id="fn1"><p>A footnote here.<a href="#fnref1">↩</a></p></li>
-</ol>
+<div id="chapter-papers-for-deepwater" class="section level3">
+<h3 class="hasAnchor">
+<a href="#chapter-papers-for-deepwater" class="anchor"></a><em>Chapter</em> papers for <em>deepwater</em>
+</h3>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">my_url &lt;-<span class="st"> </span><span class="kw"><a href="../reference/make_search_url.html">make_search_url</a></span>(<span class="dt">query =</span> <span class="st">"deepwater"</span>, 
+                          <span class="dt">dc_type =</span> <span class="st">"chapter"</span>)
+
+<span class="kw"><a href="../reference/onepetro_page_to_dataframe.html">onepetro_page_to_dataframe</a></span>(my_url)</code></pre></div>
+<pre><code>## # A tibble: 3 x 6
+##                                                          title_data
+##                                                               &lt;chr&gt;
+## 1                         Offshore Operations (1987 PEH Chapter 18)
+## 2 Development Plan for Oil and Gas Reservoirs (1987 PEH Chapter 36)
+## 3               Properties of Produced Waters (1987 PEH Chapter 24)
+## # ... with 5 more variables: paper_id &lt;chr&gt;, source &lt;chr&gt;, type &lt;chr&gt;,
+## #   year &lt;chr&gt;, author1_data &lt;chr&gt;</code></pre>
+</div>
+<div id="journal-papers-for-deepwater" class="section level3">
+<h3 class="hasAnchor">
+<a href="#journal-papers-for-deepwater" class="anchor"></a><em>Journal</em> papers for <em>deepwater</em>
+</h3>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">my_url &lt;-<span class="st"> </span><span class="kw"><a href="../reference/make_search_url.html">make_search_url</a></span>(<span class="dt">query =</span> <span class="st">"deepwater"</span>, 
+                          <span class="dt">dc_type =</span> <span class="st">"journal-paper"</span>)
+
+<span class="kw"><a href="../reference/onepetro_page_to_dataframe.html">onepetro_page_to_dataframe</a></span>(my_url)</code></pre></div>
+<pre><code>## # A tibble: 10 x 6
+##                                   title_data                 paper_id
+##                                        &lt;chr&gt;                    &lt;chr&gt;
+##  1                        Deepwater Projects           0516-0058-JPT 
+##  2                      Deepwater Operations            0113-022-TWA 
+##  3                            Deepwater Fans                15776-PA 
+##  4           Deepwater Drilling Riser System                13479-PA 
+##  5      Technology Focus: Deepwater Projects           0517-0049-JPT 
+##  6 Evaluating Deepwater Development Concepts                28679-PA 
+##  7                Deepwater-Riser Technology           0499-0046-JPT 
+##  8        Advancing Deepwater Kick Detection           0516-0059-JPT 
+##  9               Achieving Deepwater Success           0513-0018-JPT 
+## 10                Deepwater Production Riser                12533-PA 
+## # ... with 4 more variables: source &lt;chr&gt;, type &lt;chr&gt;, year &lt;chr&gt;,
+## #   author1_data &lt;chr&gt;</code></pre>
+</div>
+<div id="general-papers-for-deepwater" class="section level3">
+<h3 class="hasAnchor">
+<a href="#general-papers-for-deepwater" class="anchor"></a><em>General</em> papers for <em>deepwater</em>
+</h3>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">my_url &lt;-<span class="st"> </span><span class="kw"><a href="../reference/make_search_url.html">make_search_url</a></span>(<span class="dt">query =</span> <span class="st">"deepwater"</span>, 
+                          <span class="dt">dc_type =</span> <span class="st">"general"</span>)
+
+<span class="kw"><a href="../reference/onepetro_page_to_dataframe.html">onepetro_page_to_dataframe</a></span>(my_url)</code></pre></div>
+<pre><code>## # A tibble: 10 x 6
+##                                                                     title_data
+##                                                                          &lt;chr&gt;
+##  1                                 Stability Of Deepwater Jacket Before Piling
+##  2                          Risers: A Key Challenge for Deepwater Developments
+##  3 Fluid Selection for Deepwater Completions - New Frontiers Bring New Fluid R
+##  4                                                 The Economics of Deep Water
+##  5                                                  Data Visualization Centers
+##  6                      Critical Application Cementing - Redefining the Issues
+##  7        Lessons Learned From Integrated Analysis of GOM Drilling Performance
+##  8            Wellbore Stability Issues in Shales or Hydrate Bearing Sediments
+##  9                     The Offshore Industry - Middle-aged, but Still Learning
+## 10                                                Gas Hydrates: Friend or Foe?
+## # ... with 5 more variables: paper_id &lt;chr&gt;, source &lt;chr&gt;, type &lt;chr&gt;,
+## #   year &lt;chr&gt;, author1_data &lt;chr&gt;</code></pre>
+</div>
+<div id="presentation-papers-for-deepwater" class="section level3">
+<h3 class="hasAnchor">
+<a href="#presentation-papers-for-deepwater" class="anchor"></a><em>Presentation</em> papers for <em>deepwater</em>
+</h3>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">my_url &lt;-<span class="st"> </span><span class="kw"><a href="../reference/make_search_url.html">make_search_url</a></span>(<span class="dt">query =</span> <span class="st">"deepwater"</span>, 
+                          <span class="dt">dc_type =</span> <span class="st">"presentation"</span>)
+
+<span class="kw"><a href="../reference/onepetro_page_to_dataframe.html">onepetro_page_to_dataframe</a></span>(my_url)</code></pre></div>
+<pre><code>## # A tibble: 10 x 6
+##                                                                     title_data
+##                                                                          &lt;chr&gt;
+##  1                  Video:                  Advancing Deepwater Kick Detection
+##  2                      Video:                  Deepwater Development Strategy
+##  3                  Video:                  Key Aspects of Deepwater Appraisal
+##  4    Video:                  Dual Reaming Reduces Vibration in Deepwater Well
+##  5            Video:                  A Roadmap to Frontier Deepwater Drilling
+##  6 Video:                  Sustainable Deepwater Development Through Innovatio
+##  7   Video:                  More Improvements to Deepwater Subsea Measurement
+##  8 Video:                  Financing Deepwater Development - Speaker - Dan Pic
+##  9   Video:                  Summarizing the Deepwater Horizon/Macondo Reports
+## 10    Video:                  New Deepwater Construction Equipment Update 2014
+## # ... with 5 more variables: paper_id &lt;chr&gt;, source &lt;chr&gt;, type &lt;chr&gt;,
+## #   year &lt;chr&gt;, author1_data &lt;chr&gt;</code></pre>
+</div>
 </div>
 </div>
   </div>
@@ -287,10 +263,10 @@
       <h2 class="hasAnchor">
 <a href="#tocnav" class="anchor"></a>Contents</h2>
       <ul class="nav nav-pills nav-stacked">
-<li><a href="#vignette-info">Vignette Info</a></li>
-      <li><a href="#styles">Styles</a></li>
-      <li><a href="#figures">Figures</a></li>
-      <li><a href="#more-examples">More Examples</a></li>
+<li><a href="#create-a-query">Create a query</a></li>
+      <li><a href="#find-the-type-of-papers-available">Find the type of papers available</a></li>
+      <li><a href="#variable-type-of-documents">Variable type of documents</a></li>
+      <li><a href="#get-a-list-of-papers-for-specific-type-">Get a list of papers for specific type.</a></li>
       </ul>
 </div>
       </div>
