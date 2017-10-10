@@ -56,13 +56,13 @@ onepetro_page_to_dataframe(my_url)
 #>  1                          Deconvolution Using Neural Networks
 #>  2                     Neural Network Stacking Velocity Picking
 #>  3                     Drill-Bit Diagnosis With Neural Networks
-#>  4      Artificial Intelligence I Neural Networks In Geophysics
-#>  5         Inversion of Seismic Waveforms Using Neural Networks
-#>  6             Neural Networks And Paper Seismic Interpretation
-#>  7                    First Break Picking Using Neural Networks
-#>  8     Conductive fracture identification using neural networks
-#>  9 Reservoir Characterization Using Feedforward Neural Networks
-#> 10          Seismic Attribute Calibration Using Neural Networks
+#>  4  Seismic Principal Components Analysis Using Neural Networks
+#>  5             Neural Networks And Paper Seismic Interpretation
+#>  6                    First Break Picking Using Neural Networks
+#>  7      Artificial Intelligence I Neural Networks In Geophysics
+#>  8         Inversion of Seismic Waveforms Using Neural Networks
+#>  9                    Neural Networks In the Petroleum Industry
+#> 10 Reservoir Characterization Using Feedforward Neural Networks
 #> # ... with 5 more variables: paper_id <chr>, source <chr>, type <chr>,
 #> #   year <chr>, author1_data <chr>
 ```
@@ -86,18 +86,18 @@ get_papers_count(my_url)
 # 2687
 onepetro_page_to_dataframe(my_url)
 #> # A tibble: 1,000 x 6
-#>                                                  title_data
-#>                                                       <chr>
-#>  1                                  Neural Networks And AVO
-#>  2                      Deconvolution Using Neural Networks
-#>  3                 Neural Network Stacking Velocity Picking
-#>  4 Predicting Wax Formation Using Artificial Neural Network
-#>  5    Estimation of Welding Distortion Using Neural Network
-#>  6  Artificial Intelligence I Neural Networks In Geophysics
-#>  7     Inversion of Seismic Waveforms Using Neural Networks
-#>  8         Neural Networks And Paper Seismic Interpretation
-#>  9 Dynamic Neural Network Calibration of Quartz Transducers
-#> 10                First Break Picking Using Neural Networks
+#>                                                         title_data
+#>                                                              <chr>
+#>  1                             Deconvolution Using Neural Networks
+#>  2                                         Neural Networks And AVO
+#>  3                        Neural Network Stacking Velocity Picking
+#>  4        Predicting Wax Formation Using Artificial Neural Network
+#>  5     Seismic Principal Components Analysis Using Neural Networks
+#>  6                Neural Networks And Paper Seismic Interpretation
+#>  7        Dynamic Neural Network Calibration of Quartz Transducers
+#>  8           Estimation of Welding Distortion Using Neural Network
+#>  9 Minimum-variance Deconvolution Using Artificial Neural Networks
+#> 10                       First Break Picking Using Neural Networks
 #> # ... with 990 more rows, and 5 more variables: paper_id <chr>,
 #> #   source <chr>, type <chr>, year <chr>, author1_data <chr>
 ```
@@ -123,12 +123,12 @@ onepetro_page_to_dataframe(my_url)
 #>  1                Artificial Neural Networks Identify Restimulation Candidates
 #>  2                                    Drill-Bit Diagnosis With Neural Networks
 #>  3                   Implicit Approximation of Neural Network and Applications
-#>  4                 Neural Networks for Predictive Control of Drilling Dynamics
-#>  5             Application of Artificial Neural Network to Pump Card Diagnosis
-#>  6        Application of Artificial Neural Networks to Downhole Fluid Analysis
+#>  4             Application of Artificial Neural Network to Pump Card Diagnosis
+#>  5        Application of Artificial Neural Networks to Downhole Fluid Analysis
+#>  6           Pseudodensity Log Generation by Use of Artificial Neural Networks
 #>  7                Neural Network Approach Predicts U.S. Natural Gas Production
-#>  8                      Neural Network: What It Can Do for Petroleum Engineers
-#>  9 Treating Uncertainties in Reservoir-Performance Prediction With Neural Netw
+#>  8          An Artificial Neural Network Based Relative Permeability Predictor
+#>  9                 Neural Networks for Predictive Control of Drilling Dynamics
 #> 10 Characterize Submarine Channel Reservoirs: A Neural- Network-Based Approach
 #> # ... with 294 more rows, and 5 more variables: paper_id <chr>,
 #> #   source <chr>, type <chr>, year <chr>, author1_data <chr>
@@ -170,109 +170,6 @@ summary_by_doctype(result)
 ```
 
 We see that most numerous papers are from conferences. We will proceed to gran the paper titles of those.
-
-### 3. Retrieve the most numerous paper by type
-
-``` r
-# folder where we will save the results
-outdir <- system.file("out", package = "petroOne")
-```
-
-#### 3.1 Collect first 1000 rows out of 2687
-
-``` r
-# we use "conference-paper" only because other document types have
-# different dataframe structure
-
-my_url_1 <- make_search_url(query = "neural network", 
-                          how = "all", 
-                          dc_type = "conference-paper",
-                          start = 0,
-                          rows  = 1000)
-
-get_papers_count(my_url_1)
-#> [1] 2687
-
-page_1 <- read_onepetro(my_url_1)
-htm_1 <- paste(outdir, "1000_conference.html", sep = "/")
-xml2::write_html(page_1, file = htm_1)
-onepetro_page_to_dataframe(htm_1)
-#> # A tibble: 1,000 x 6
-#>                                                  title_data
-#>                                                       <chr>
-#>  1                                  Neural Networks And AVO
-#>  2                      Deconvolution Using Neural Networks
-#>  3                 Neural Network Stacking Velocity Picking
-#>  4 Predicting Wax Formation Using Artificial Neural Network
-#>  5    Estimation of Welding Distortion Using Neural Network
-#>  6  Artificial Intelligence I Neural Networks In Geophysics
-#>  7     Inversion of Seismic Waveforms Using Neural Networks
-#>  8         Neural Networks And Paper Seismic Interpretation
-#>  9 Dynamic Neural Network Calibration of Quartz Transducers
-#> 10                First Break Picking Using Neural Networks
-#> # ... with 990 more rows, and 5 more variables: paper_id <chr>,
-#> #   source <chr>, type <chr>, year <chr>, author1_data <chr>
-```
-
-#### 3.2 Collect second set of 1000 rows
-
-``` r
-my_url_2 <- make_search_url(query = "neural network", 
-                          how = "all", 
-                          dc_type = "conference-paper",
-                          start = 1000,
-                          rows  = 1000)
-
-page_2 <- read_onepetro(my_url_2)
-htm_2 <- paste(outdir, "2000_conference.html", sep = "/")
-xml2::write_html(page_2, file = htm_2)
-onepetro_page_to_dataframe(htm_2)
-#> # A tibble: 1,000 x 6
-#>                                                                     title_data
-#>                                                                          <chr>
-#>  1 Reducing Uncertainty in Characterization Of Vaca Mureta Shale with Post-Sta
-#>  2 Understanding the Distribution Pattern of Prospective Reservoir Facies: A S
-#>  3 Estimation of Rock Mechanical Parameters Using Artificial Intelligence Tool
-#>  4 A Neuro-Fuzzy Approach for Prediction of Poisson's Ratio and Young's Modulu
-#>  5 Practical Implementation of Knowledge-Based Approaches for SAGD Production 
-#>  6 Optimizing the Performance of ANFIS using the Genetic Algorithm to Estimate
-#>  7 Multi-Scale Characterization of Pore Structure in Carbonate Formations: App
-#>  8 "Indirect Estimation of Fluid Transport and Rock Mechanical Properties from
-#>  9 A Model For Predicting Corrosion Rates In Oil Wells Containing Carbon Dioxi
-#> 10 Integration and Data Analysis of Conventional Core Data with NMR and CT Dat
-#> # ... with 990 more rows, and 5 more variables: paper_id <chr>,
-#> #   source <chr>, type <chr>, year <chr>, author1_data <chr>
-```
-
-#### 3.3 Collect remaining set of 1000 rows
-
-``` r
-my_url_3 <- make_search_url(query = "neural network", 
-                          how = "all", 
-                          dc_type = "conference-paper",
-                          start = 2000,
-                          rows  = 1000)
-
-page_3 <- read_onepetro(my_url_3)
-htm_3 <- paste(outdir, "3000_conference.html", sep = "/")
-xml2::write_html(page_3, file = htm_3)
-onepetro_page_to_dataframe(htm_3)
-#> # A tibble: 687 x 6
-#>                                                                     title_data
-#>                                                                          <chr>
-#>  1          The Role Of Ocean Engineers In Japanese Ocean Measurement Research
-#>  2 Data-Driven Brittleness Index Prediction From Elemental Spectroscopy and Pe
-#>  3 A New Technique to Determine Porosity and Deep Resistivity from Old Gamma R
-#>  4                                           Advanced Streaming Data Cleansing
-#>  5 Cyclic Behavior of Laterally Loaded Piles in Soils With Variable Properties
-#>  6 An Improved And Optimized Positioning Method Of Microseismic Source In Mini
-#>  7                  Field Evaluation Of A Hydrate Inhibition Monitoring System
-#>  8            Multiphase Flow Metering: Current Status and Future Developments
-#>  9 Analysis of Influencing Factors of Water Traffic Accidents Severity Based o
-#> 10                  A Novel Model for Permeability Prediction in Uncored Wells
-#> # ... with 677 more rows, and 5 more variables: paper_id <chr>,
-#> #   source <chr>, type <chr>, year <chr>, author1_data <chr>
-```
 
 Summaries
 ---------
@@ -395,7 +292,7 @@ summary_by_dates(result)
 #> # A tibble: 103 x 2
 #>          name value
 #>         <chr> <dbl>
-#>  1 Since 2017  3543
+#>  1 Since 2017  3542
 #>  2 Since 2016  8690
 #>  3 Since 2015 14264
 #>  4 Since 2014 19543
